@@ -1,0 +1,13 @@
+.search-hero {
+  width: 60%;
+  padding-bottom: 50px;
+  margin: 50px auto;
+}
+
+.form-control {
+  box-shadow: 2px 2px 5px #ccc !important;
+}
+
+.form-control::placeholder  {
+  font-family: FontAwesome;
+}

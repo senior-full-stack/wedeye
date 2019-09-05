@@ -1,0 +1,14 @@
+@import "../../../styles.scss";
+
+.dashboard-navbar {
+  color: $fg-color;
+  background-color: $bg-color;
+}
+
+.navbar-expand {
+  justify-content: flex-end !important;
+}
+
+.nav-clicked {
+  background-color: $over-color !important;
+}

@@ -1,0 +1,21 @@
+@import "../../../styles.scss";
+
+.card {
+  box-shadow: 2px 2px 5px #ccc !important;
+}
+
+.login-navbar {
+  height: 56px;
+  background-color: $bg-color;
+}
+
+.login-title {
+  margin-bottom: .7em !important;
+  font-size: 2.5em;
+  font-weight: 600;
+  text-shadow: 2px 2px 5px #ccc !important;
+}
+
+.form-submit {
+  margin-top: 30px;
+}

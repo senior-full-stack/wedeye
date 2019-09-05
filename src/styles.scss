@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+
+$fg-color: #fff;
+$bg-color: #ff6699;
+$over-color: #ff568e;
+
+button, a {
+  color: $fg-color !important;
+  border-radius: 5px;
+  background-color: $bg-color !important;
+}
+
+button:hover, a:hover {
+  cursor: pointer;
+  background-color: $over-color !important;
+}
+
+.app-title {
+  flex: 1;
+  color: $fg-color;
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.align-right {
+  text-align: right;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

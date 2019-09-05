@@ -1,0 +1,26 @@
+<!-- nav -->
+<nav class="navbar navbar-expand dashboard-navbar">
+  <span class="app-title">WeddingTriangle</span>
+  <div class="navbar-nav">
+      <a class="nav-item nav-link" routerLink="/admin/dashboard/user">
+        <i class="fa fa-users" aria-hidden="true"></i> Users
+      </a>
+      <a class="nav-item nav-link" routerLink="/admin/dashboard/vendor">
+        <i class="fa fa-ravelry" aria-hidden="true"></i> Vendor
+      </a>
+      <a class="nav-item nav-link" routerLink="/admin/dashboard/blog">
+        <i class="fa fa-picture-o" aria-hidden="true"></i> Blog
+      </a>
+      <a class="nav-item nav-link" routerLink="/admin/dashboard/report">
+        <i class="fa fa-bar-chart" aria-hidden="true"></i> Report
+      </a>
+      <span class="nav-item nav-link">|</span>
+      <a class="nav-item nav-link" (click)="logout()">
+        <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
+      </a>
+  </div>
+</nav>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
