@@ -27,11 +27,11 @@
       <td>{{i + 1}}</td>
       <td>{{user.name}}</td>
       <td>{{user.email}}</td>
-      <td>{{user.password}}</td>
+      <td>{{user.password | slice:7:17}} ...</td>
       <td>{{user.phone}}</td>
       <td>{{user.address}}</td>
       <td>{{user.type}}</td>
-      <td>
+      <td class="td-action">
         <a class="table-action" (click)="openEditUserDlg(i)"><i class="fa fa-edit"></i></a>
         <a class="table-action" (click)="openConfirmDlg(i)"><i class="fa fa-trash-o"></i></a>
       </td>

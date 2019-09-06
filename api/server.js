@@ -24,10 +24,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 User.find({}, (err, users) => {
   if (users.length == 0) {
     const admin = {
-      email: 'admin',
-      password: 'admin',
-      name: 'admin',
-      type: 'admin'
+      "address": "admin",
+      "email": "admin",
+      "name": "admin",
+      "password": "admin",
+      "phone": "000",
+      "type": "admin"
     }
     User.create(admin, (err, user) => {
     });

@@ -43,6 +43,11 @@
 
   .table-action:nth-last-child(odd) {
     margin-left: 10px;
+    background-color: green !important;
+  }
+
+  .td-action {
+    min-width: 100px !important;
   }
 }
 
@@ -52,5 +57,5 @@ h2 {
 }
 
 .add-user {
-  margin-bottom: 20px;
+  margin: 10px 0px 20px;
 }

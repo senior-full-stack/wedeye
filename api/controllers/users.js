@@ -6,7 +6,8 @@ module.exports = {
 	index: (req, res) => {
     User.find({}, (err, users) => {
       // remove first user in user array because first user is admin account
-      res.json(users.shift());
+      users.shift();
+      res.json(users);
 		})
   },
 
@@ -20,7 +21,7 @@ module.exports = {
 	},
 
 	// create a new user
-	create: (req, res) => {
+  create: (req, res) => {
 		User.create(req.body, (err, user) => {
 			if(err) return res.json({success: false, code: err.code})
 			// once user is created, generate a token to "log in":

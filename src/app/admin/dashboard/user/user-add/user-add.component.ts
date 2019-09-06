@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, NgForm, FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UserService } from '@app/services';
+import { User } from '@app/models';
 
 @Component({
   selector: 'app-user-add',
@@ -15,6 +17,7 @@ export class UserAddComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private userService: UserService,
     public dialogRef: MatDialogRef<UserAddComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
 
@@ -26,14 +29,15 @@ export class UserAddComponent implements OnInit {
       password: ['', Validators.required],
       name: ['', Validators.required],
       address: [''],
-      phone: ['']
+      phone: [''],
+      type: new FormControl('vendor'),
     });
   }
 
   // convenience getter for easy access to form fields
   get f(): FormGroup['controls'] { return this.loginForm.controls; }
 
-  addUser() {
+  addUser(userForm: NgForm) {
     this.submitted = true;
 
     // stop here if form is invalid
@@ -41,11 +45,13 @@ export class UserAddComponent implements OnInit {
         return;
     }
 
-    this.dialogRef.close();
-
     this.loading = true;
 
+    this.userService.create(userForm.value).subscribe(res => {
+      console.log(res);
 
+      this.dialogRef.close();
+    });
   }
 
 }

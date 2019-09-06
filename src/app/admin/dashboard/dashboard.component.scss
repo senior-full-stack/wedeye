@@ -24,7 +24,12 @@
       font-size: 1.3em;
     }
   }
+}
 
+.dashboard-container {
+  display: block;
+  max-height: calc(100vh - 60px);
+  overflow: auto;
 }
 
 .nav-pressed {

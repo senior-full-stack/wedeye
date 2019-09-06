@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { UserAddComponent } from '../user-add/user-add.component';
 import { UserEditComponent } from '../user-edit/user-edit.component';
 import { ConfirmDlgComponent } from '@app/helpers/confirm-dlg/confirm-dlg.component';
+import { UserService } from '@app/services';
 
 @Component({
   selector: 'app-user-get',
@@ -14,17 +15,18 @@ import { ConfirmDlgComponent } from '@app/helpers/confirm-dlg/confirm-dlg.compon
 export class UserGetComponent implements OnInit {
 
   searchText: string;
-  users = [
-    { name: 'Mr. Nice', email: 'mrnice@gamil.com', password: 'password1', phone: '123', address: 'address1', type: 'vendor' },
-    { name: 'Narco', email: 'narco@gamil.com', password: 'password2', phone: '1232323', address: 'address2', type: 'client' },
-    { name: 'Jackie', email: 'narco@gamil.com', password: 'password2', phone: '1232323', address: 'address2', type: 'client' }
-  ];
+  users: any = [];
 
   constructor(
     private addUserDlg: MatDialog,
-    private cdr: ChangeDetectorRef) { }
+    private cdr: ChangeDetectorRef,
+    private userService: UserService) { }
 
   ngOnInit() {
+    this.userService.users().subscribe(users => {
+      this.users = users;
+      this.cdr.markForCheck();
+    });
   }
 
   openAddUserDlg() {
