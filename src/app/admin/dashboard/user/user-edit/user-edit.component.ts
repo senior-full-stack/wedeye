@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, NgForm, FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UserService } from '@app/services';
 
 @Component({
   selector: 'app-user-edit',
@@ -14,6 +15,7 @@ export class UserEditComponent implements OnInit {
   error = '';
 
   constructor(
+    private userService: UserService,
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<UserEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -22,18 +24,20 @@ export class UserEditComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-      name: ['', Validators.required],
-      address: [''],
-      phone: ['']
+      id: [this.data.id],
+      email: [this.data.email, Validators.required],
+      password: [this.data.password, Validators.required],
+      name: [this.data.name, Validators.required],
+      address: [this.data.address],
+      phone: [this.data.phone],
+      type: new FormControl(this.data.type),
     });
   }
 
   // convenience getter for easy access to form fields
   get f(): FormGroup['controls'] { return this.loginForm.controls; }
 
-  updateUser() {
+  updateUser(userForm: NgForm) {
     this.submitted = true;
 
     // stop here if form is invalid
@@ -45,7 +49,8 @@ export class UserEditComponent implements OnInit {
 
     this.loading = true;
 
-
+    this.userService.update(userForm.value).subscribe((res: any) => {
+      this.dialogRef.close(res.success);
+    });
   }
-
 }

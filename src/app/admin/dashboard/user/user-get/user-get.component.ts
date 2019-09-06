@@ -23,6 +23,10 @@ export class UserGetComponent implements OnInit {
     private userService: UserService) { }
 
   ngOnInit() {
+    this.getUsersFromServer();
+  }
+
+  getUsersFromServer() {
     this.userService.users().subscribe(users => {
       this.users = users;
       this.cdr.markForCheck();
@@ -33,35 +37,44 @@ export class UserGetComponent implements OnInit {
     const dialogRef = this.addUserDlg.open(UserAddComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Add User Dlg: ${result}`);
+      if (result) {
+        this.getUsersFromServer();
+      }
     });
   }
 
   openEditUserDlg(index: number) {
     const dialogRef = this.addUserDlg.open(UserEditComponent, {
       data: {
+        id: this.users[index]._id,
         name: this.users[index].name,
         email: this.users[index].email,
         password: this.users[index].password,
         phone: this.users[index].phone,
-        address: this.users[index].address
+        address: this.users[index].address,
+        type: this.users[index].type
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Update User Dlg: ${result}`);
+      if (result) {
+        this.getUsersFromServer();
+      }
     });
   }
 
   public openConfirmDlg(index: number) {
     const dialogRef = this.addUserDlg.open(ConfirmDlgComponent, {
       data: {
+        id: this.users[index]._id,
         name: this.users[index].name
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Delete User Dlg: ${result}`);
+      if (result) {
+        this.getUsersFromServer();
+      }
     });
   }
 

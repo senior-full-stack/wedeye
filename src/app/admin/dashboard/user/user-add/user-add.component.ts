@@ -2,7 +2,6 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, NgForm, FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserService } from '@app/services';
-import { User } from '@app/models';
 
 @Component({
   selector: 'app-user-add',
@@ -47,10 +46,8 @@ export class UserAddComponent implements OnInit {
 
     this.loading = true;
 
-    this.userService.create(userForm.value).subscribe(res => {
-      console.log(res);
-
-      this.dialogRef.close();
+    this.userService.create(userForm.value).subscribe((res: any) => {
+      this.dialogRef.close(res.success);
     });
   }
 

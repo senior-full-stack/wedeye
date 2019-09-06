@@ -1,6 +1,6 @@
 const
 	jwt = require('jsonwebtoken'),
-  { JWT_SECRET } = process.env,
+  { JWT_SECRET, EXPIRE_IN } = process.env,
   httpStatus = require("http-status"),
   util = require("./util")
 
@@ -8,8 +8,13 @@ const
 function signToken(user) {
 	// toObject() returns a basic js object with only the info from the db
 	const userData = user.toObject()
-	delete userData.password
-	return jwt.sign(userData, JWT_SECRET)
+  delete userData.password
+
+  const jwtConfig = {
+    expiresIn: EXPIRE_IN
+  };
+
+	return jwt.sign(userData, JWT_SECRET, jwtConfig)
 }
 
 // function for verifying tokens
