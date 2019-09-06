@@ -6,6 +6,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 
+import { MatDialogModule } from '@angular/material/dialog';
+
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -14,11 +16,13 @@ import { DashboardModule } from './admin/dashboard/dashboard.module';
 
 import { JwtInterceptor, ErrorInterceptor } from '@app/helpers';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ConfirmDlgComponent } from './helpers/confirm-dlg/confirm-dlg.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    ConfirmDlgComponent
   ],
   imports: [
     BrowserModule,
@@ -26,6 +30,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     HttpClientModule,
     DashboardModule,
+    MatDialogModule,
     SlimLoadingBarModule,
     BrowserAnimationsModule,
     NgbModule
@@ -33,6 +38,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  ],
+  entryComponents: [
+    ConfirmDlgComponent
   ],
   bootstrap: [AppComponent]
 })

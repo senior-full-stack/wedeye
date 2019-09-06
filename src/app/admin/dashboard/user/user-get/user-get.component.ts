@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { UserAddComponent } from '../user-add/user-add.component';
 import { UserEditComponent } from '../user-edit/user-edit.component';
+import { ConfirmDlgComponent } from '@app/helpers/confirm-dlg/confirm-dlg.component';
 
 @Component({
   selector: 'app-user-get',
@@ -46,12 +47,20 @@ export class UserGetComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Add User Dlg: ${result}`);
+      console.log(`Update User Dlg: ${result}`);
     });
   }
 
-  public openConfirmDlg(id: string) {
+  public openConfirmDlg(index: number) {
+    const dialogRef = this.addUserDlg.open(ConfirmDlgComponent, {
+      data: {
+        name: this.users[index].name
+      }
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Delete User Dlg: ${result}`);
+    });
   }
 
 }

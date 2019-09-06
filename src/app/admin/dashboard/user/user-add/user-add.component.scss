@@ -11,6 +11,10 @@
 }
 
 .mat-dialog-actions {
+  button {
+    width: 75px;
+  }
+
   button:nth-last-child(odd) {
     margin-left: 10px;
   }

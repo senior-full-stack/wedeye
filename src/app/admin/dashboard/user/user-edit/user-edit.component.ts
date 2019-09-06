@@ -24,7 +24,7 @@ export class UserEditComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.required],
       password: ['', Validators.required],
-      name: [''],
+      name: ['', Validators.required],
       address: [''],
       phone: ['']
     });
