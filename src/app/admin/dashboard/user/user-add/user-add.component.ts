@@ -3,11 +3,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-user-edit',
-  templateUrl: './user-edit.component.html',
-  styleUrls: ['./user-edit.component.scss']
+  selector: 'app-user-add',
+  templateUrl: './user-add.component.html',
+  styleUrls: ['./user-add.component.scss']
 })
-export class UserEditComponent implements OnInit {
+export class UserAddComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
   submitted = false;
@@ -15,7 +15,7 @@ export class UserEditComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    public dialogRef: MatDialogRef<UserEditComponent>,
+    public dialogRef: MatDialogRef<UserAddComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
 
   }
@@ -33,7 +33,7 @@ export class UserEditComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f(): FormGroup['controls'] { return this.loginForm.controls; }
 
-  updateUser() {
+  addUser() {
     this.submitted = true;
 
     // stop here if form is invalid

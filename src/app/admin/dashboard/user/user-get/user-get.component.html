@@ -1,32 +1,41 @@
-<div>
-  <div class="col-md-6 offset-md-3 mt-5 search-hero">
+<div class="search-user">
+  <div class="col-md-6 offset-md-3 mt-5">
     <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
-      placeholder="&#61442;  Start searching for a user by name or email or password or phone or address or type">
+      placeholder="&#61442;  Start searching for a user by name or email or password ...">
   </div>
-  <div class="table-responsive">
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th>No</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Password</th>
-        <th>Phone</th>
-        <th>Address</th>
-        <th>Type</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let user of users | filter:searchText ; let i = index">
-        <td>{{i + 1}}</td>
-        <td>{{user.name}}</td>
-        <td>{{user.email}}</td>
-        <td>{{user.password}}</td>
-        <td>{{user.phone}}</td>
-        <td>{{user.address}}</td>
-        <td>{{user.type}}</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+</div>
+<h2>View users and edit or delete all users</h2>
+<div class="add-user align-right">
+  <button class="btn" (click)="openAddUserDlg()"><i class="fa fa-user-plus"></i> Add User</button>
+</div>
+<div class="table-responsive">
+  <table class="table table-striped table-hover table-borderless">
+    <thead>
+    <tr>
+      <th>No</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Password</th>
+      <th>Phone</th>
+      <th>Address</th>
+      <th>Type</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of users | filter:searchText ; let i = index">
+      <td>{{i + 1}}</td>
+      <td>{{user.name}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.password}}</td>
+      <td>{{user.phone}}</td>
+      <td>{{user.address}}</td>
+      <td>{{user.type}}</td>
+      <td>
+        <a class="table-action" (click)="openEditUserDlg(i)"><i class="fa fa-edit"></i></a>
+        <a class="table-action" (click)="openConfirmDlg(i)"><i class="fa fa-trash-o"></i></a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>

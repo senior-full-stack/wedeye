@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // search module
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
@@ -15,11 +17,13 @@ import { VendorGetComponent } from './vendor/vendor-get/vendor-get.component';
 import { VendorEditComponent } from './vendor/vendor-edit/vendor-edit.component';
 import { VendorAddComponent } from './vendor/vendor-add/vendor-add.component';
 import { ReportGetComponent } from './report/report-get/report-get.component';
+import { UserAddComponent } from './user/user-add/user-add.component';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
+    UserAddComponent,
     UserGetComponent,
     UserEditComponent,
     BlogAddComponent,
@@ -33,8 +37,13 @@ import { ReportGetComponent } from './report/report-get/report-get.component';
   imports: [
     CommonModule,
     FormsModule,
+    MatDialogModule,
+    ReactiveFormsModule,
     DashboardRoutingModule,
     Ng2SearchPipeModule
+  ],
+  entryComponents: [
+    UserAddComponent
   ]
 })
 export class DashboardModule { }

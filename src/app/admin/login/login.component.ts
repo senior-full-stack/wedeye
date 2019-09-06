@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from '@app/services';
@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit {
 
   constructor(
       private formBuilder: FormBuilder,
-      private route: ActivatedRoute,
       private router: Router,
       private authenticationService: AuthService) {
       // redirect to home if already logged in
@@ -29,10 +28,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.loginForm = this.formBuilder.group({
-          email: ['', Validators.required],
-          password: ['', Validators.required]
-      });
+    this.loginForm = this.formBuilder.group({
+        email: ['', Validators.required],
+        password: ['', Validators.required]
+    });
   }
 
   // convenience getter for easy access to form fields
