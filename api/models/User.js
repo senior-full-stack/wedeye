@@ -6,7 +6,8 @@ const
 		email: { type: String, required: true, unique: true, },
     password: { type: String, required: true, },
     address: { type: String, },
-    phone: { type: Number}
+    phone: { type: String },
+    type: { type: String }
 	})
 
 // adds a method to a user document object to create a hashed password

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-user-get',
   templateUrl: './user-get.component.html',
-  styleUrls: ['./user-get.component.scss']
+  styleUrls: ['./user-get.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserGetComponent implements OnInit {
 

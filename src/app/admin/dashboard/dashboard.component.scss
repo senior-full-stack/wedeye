@@ -3,12 +3,41 @@
 .dashboard-navbar {
   color: $fg-color;
   background-color: $bg-color;
+
+  .navbar-collapse {
+    flex-grow: unset !important;
+
+    .nav-item {
+      a {
+        padding: 5px 10px !important;
+      }
+    }
+  }
+
+  .navbar-expand {
+    justify-content: flex-end !important;
+  }
+
+  .navbar-toggler {
+    span {
+      font-size: 1.3em;
+    }
+  }
+
 }
 
-.navbar-expand {
-  justify-content: flex-end !important;
+.nav-pressed {
+  background-color: $pressed-color !important;
 }
 
-.nav-clicked {
-  background-color: $over-color !important;
+.nav-normal {
+  background-color: $bg-color !important;
+}
+
+.show {
+  display: inline;
+}
+
+.hidden {
+  display: none;
 }

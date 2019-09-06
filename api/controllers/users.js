@@ -4,8 +4,9 @@ const signToken = require('../serverAuth.js').signToken
 module.exports = {
 	// list all users
 	index: (req, res) => {
-		User.find({}, (err, users) => {
-			res.json(users)
+    User.find({}, (err, users) => {
+      // remove first user in user array because first user is admin account
+      res.json(users.shift());
 		})
   },
 

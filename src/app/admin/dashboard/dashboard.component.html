@@ -1,26 +1,49 @@
 <!-- nav -->
-<nav class="navbar navbar-expand dashboard-navbar">
-  <span class="app-title">WeddingTriangle</span>
-  <div class="navbar-nav">
-      <a class="nav-item nav-link" routerLink="/admin/dashboard/user">
-        <i class="fa fa-users" aria-hidden="true"></i> Users
-      </a>
-      <a class="nav-item nav-link" routerLink="/admin/dashboard/vendor">
-        <i class="fa fa-ravelry" aria-hidden="true"></i> Vendor
-      </a>
-      <a class="nav-item nav-link" routerLink="/admin/dashboard/blog">
-        <i class="fa fa-picture-o" aria-hidden="true"></i> Blog
-      </a>
-      <a class="nav-item nav-link" routerLink="/admin/dashboard/report">
-        <i class="fa fa-bar-chart" aria-hidden="true"></i> Report
-      </a>
-      <span class="nav-item nav-link">|</span>
-      <a class="nav-item nav-link" (click)="logout()">
-        <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
-      </a>
+<nav class="navbar navbar-expand-md dashboard-navbar">
+
+  <span class="app-title">WedEye</span>
+
+  <!-- Collapse button -->
+  <button class="navbar-toggler" type="button" (click)="openNavbar()">
+    <span class="fa fa-bars"></span>
+  </button>
+
+  <!-- Collapsible content -->
+  <div class="collapse navbar-collapse" [ngClass]="isExpanded?'show':'hidden'">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" (click)="linkUrl('user')"
+          [ngClass]="getCurrentUrl()=='user'?'nav-pressed':'nav-normal'">
+          <i class="fa fa-users" aria-hidden="true"></i> Users
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="linkUrl('vendor')"
+          [ngClass]="getCurrentUrl()=='vendor'?'nav-pressed':'nav-normal'">
+          <i class="fa fa-ravelry" aria-hidden="true"></i> Vendor
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="linkUrl('blog')"
+          [ngClass]="getCurrentUrl()=='blog'?'nav-pressed':'nav-normal'">
+          <i class="fa fa-picture-o" aria-hidden="true"></i> Blog
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="linkUrl('report')"
+          [ngClass]="getCurrentUrl()=='report'?'nav-pressed':'nav-normal'">
+          <i class="fa fa-bar-chart" aria-hidden="true"></i> Report
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="logout()">
+          <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
+        </a>
+      </li>
+    </ul>
   </div>
 </nav>
 
-<div class="container">
+<div (click)="isExpanded=false">
   <router-outlet></router-outlet>
 </div>
