@@ -1,14 +1,20 @@
 @import "../../../styles.scss";
 
 .dashboard-navbar {
-  height: 60px;
+  width: 100%;
+  height: 80px;
+  position: fixed;
   color: $fg-color;
   background-color: $bg-color;
+  z-index: 100;
 
   .navbar-collapse {
+    background-color: $bg-color;
     flex-grow: unset !important;
 
     .nav-item {
+      margin: 0px 5px;
+
       a {
         padding: 5px 10px !important;
       }
@@ -24,12 +30,6 @@
       font-size: 1.3em;
     }
   }
-}
-
-.dashboard-container {
-  display: block;
-  max-height: calc(100vh - 60px);
-  overflow: auto;
 }
 
 .nav-pressed {

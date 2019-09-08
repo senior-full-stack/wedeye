@@ -10,22 +10,6 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="type">Type</label>
-      <!-- Material inline 1 -->
-      <div>
-        <div class="form-check form-check-inline">
-          <input type="radio" class="form-check-input" value="vendor" formControlName="type">
-          <label class="form-check-label" for="materialInline1">Vendor</label>
-        </div>
-
-        <!-- Material inline 2 -->
-        <div class="form-check form-check-inline">
-          <input type="radio" class="form-check-input" value="client" formControlName="type">
-          <label class="form-check-label" for="materialInline2">Client</label>
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
       <label for="email">Email</label>
       <input type="email" formControlName="email" class="form-control"
           [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="Email"/>
@@ -42,6 +26,32 @@
       </div>
     </div>
     <div class="form-group">
+      <label for="type">Type</label>
+      <!-- Material inline 1 -->
+      <div>
+        <div class="form-check form-check-inline">
+          <input type="radio" class="form-check-input" value="vendor" formControlName="type">
+          <label class="form-check-label" for="materialInline1">Vendor</label>
+        </div>
+
+        <!-- Material inline 2 -->
+        <div class="form-check form-check-inline">
+          <input type="radio" class="form-check-input" value="customer" formControlName="type">
+          <label class="form-check-label" for="materialInline2">Customer</label>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="userForm.value.type=='customer'" class="form-group">
+      <label for="relation">Relation</label>
+      <input type="text" formControlName="relation" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.relation.errors }" placeholder="Bride or Groom or Other"/>
+    </div>
+    <div class="form-group">
+      <label>Wedding Date</label>
+      <input type="datetime-local" formControlName="weddingDate" min="1000-01-01"
+              max="3000-12-31" class="form-control">
+    </div>
+    <div class="form-group">
       <label for="phone">Phone</label>
       <input type="text" formControlName="phone" class="form-control"
           [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" placeholder="Phone" />
@@ -50,6 +60,17 @@
       <label for="address">Address</label>
       <textarea formControlName="address" class="form-control"
           [ngClass]="{ 'is-invalid': submitted && f.address.errors }" placeholder="Address"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="status">Status</label>
+      <select formControlName="status" class="form-control">
+        <option value="1">Active</option>
+        <option value="2">Inactive</option>
+        <option value="3">Suspended</option>
+        <option value="4">On Hold</option>
+        <option value="5">Payment Done</option>
+        <option value="6">Featured Account</option>
+      </select>
     </div>
     <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
   </form>

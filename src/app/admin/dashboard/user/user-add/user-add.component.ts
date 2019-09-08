@@ -24,12 +24,15 @@ export class UserAddComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
+      name: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', Validators.required],
-      name: ['', Validators.required],
+      type: new FormControl('vendor'),
+      relation: [''],
+      weddingDate: new FormControl(''),
       address: [''],
       phone: [''],
-      type: new FormControl('vendor'),
+      status: new FormControl('1')
     });
   }
 

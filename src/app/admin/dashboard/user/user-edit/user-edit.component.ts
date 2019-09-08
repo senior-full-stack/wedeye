@@ -25,12 +25,15 @@ export class UserEditComponent implements OnInit {
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       id: [this.data.id],
+      name: [this.data.name, Validators.required],
       email: [this.data.email, Validators.required],
       password: [this.data.password, Validators.required],
-      name: [this.data.name, Validators.required],
+      type: new FormControl(this.data.type),
+      relation: [this.data.relation],
+      weddingDate: new FormControl(this.data.weddingDate.replace(' ', 'T')),
       address: [this.data.address],
       phone: [this.data.phone],
-      type: new FormControl(this.data.type),
+      status: new FormControl(this.data.status)
     });
   }
 
@@ -44,8 +47,6 @@ export class UserEditComponent implements OnInit {
     if (this.loginForm.invalid) {
         return;
     }
-
-    this.dialogRef.close();
 
     this.loading = true;
 

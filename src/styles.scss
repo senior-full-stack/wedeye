@@ -1,17 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 
 $fg-color: #fff;
-$bg-color: #ff6699;
-$over-color: #ff568e;
-$pressed-color: #ff2c72;
+$bg-color: #19b5bc;
+$over-color: #16a3aa;
+$pressed-color: #138c92;
 
-button, a {
+button:hover, a:hover {
+  cursor: pointer;
+}
+
+.nav-link, button {
   color: $fg-color !important;
   border-radius: 5px;
   background-color: $bg-color !important;
 }
 
-button:hover, a:hover {
+.nav-link:hover {
   cursor: pointer;
   background-color: $over-color !important;
 }
@@ -35,5 +39,20 @@ button:hover, a:hover {
   text-align: right;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* width
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle
+::-webkit-scrollbar-thumb {
+  background: #19b4bc7a;
+  border-radius: 10px;
+}
+*/

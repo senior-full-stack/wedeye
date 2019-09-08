@@ -1,7 +1,23 @@
 <div class="search-user">
-  <div class="col-md-6 offset-md-3 mt-5">
+  <h2 class="align-center">Start searching for a user by name or email ...</h2>
+  <div class="input-group col-md-6 offset-md-3">
     <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
-      placeholder="&#61442;  Start searching for a user by name or email or password ...">
+      placeholder="&#61442;  Enter Keywords">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">Filter</button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" (click)="filterUsers('0')">All</a>
+        <a class="dropdown-item" (click)="filterUsers('1')">Active</a>
+        <a class="dropdown-item" (click)="filterUsers('2')">Inactive</a>
+        <a class="dropdown-item" (click)="filterUsers('3')">Suspended</a>
+        <a class="dropdown-item" (click)="filterUsers('4')">On Hold</a>
+        <a class="dropdown-item" (click)="filterUsers('5')">Payment Done</a>
+        <a class="dropdown-item" (click)="filterUsers('6')">Featured Account</a>
+        <div role="separator" class="dropdown-divider"></div>
+        <a class="dropdown-item" (click)="filterUsers('7')">Users created in last 30 days</a>
+      </div>
+    </div>
   </div>
 </div>
 <h2>View users and edit or delete all users</h2>
@@ -13,24 +29,47 @@
     <thead>
     <tr>
       <th>No</th>
+      <th>Profile</th>
       <th>Name</th>
       <th>Email</th>
       <th>Password</th>
+      <th>Type</th>
+      <th>Relation</th>
       <th>Phone</th>
       <th>Address</th>
-      <th>Type</th>
+      <th>Wedding-Date</th>
+      <th>Created-Date</th>
+      <th>Status</th>
       <th>Action</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let user of users | filter:searchText ; let i = index">
       <td>{{i + 1}}</td>
+      <td>
+        <div class="profile">
+          <img *ngIf="user.profileurl" [src]="user.profileUrl">
+        </div>
+      </td>
       <td>{{user.name}}</td>
       <td>{{user.email}}</td>
-      <td>{{user.password | slice:7:17}} ...</td>
-      <td>{{user.phone}}</td>
-      <td>{{user.address}}</td>
+      <td><div class="text-ellipsis">{{user.password}}</div></td>
       <td>{{user.type}}</td>
+      <td>{{user.relation}}</td>
+      <td>{{user.phone}}</td>
+      <td><div class="text-ellipsis">{{user.address}}</div></td>
+      <td>{{user.weddingDate}}</td>
+      <td>{{user.createdDate}}</td>
+      <td>
+        <select [(ngModel)]="user.status">
+          <option value="1">Active</option>
+          <option value="2">Inactive</option>
+          <option value="3">Suspended</option>
+          <option value="4">On Hold</option>
+          <option value="5">Payment Done</option>
+          <option value="6">Featured Account</option>
+        </select>
+      </td>
       <td class="td-action">
         <a class="table-action" (click)="openEditUserDlg(i)"><i class="fa fa-edit"></i></a>
         <a class="table-action" (click)="openConfirmDlg(i)"><i class="fa fa-trash-o"></i></a>
