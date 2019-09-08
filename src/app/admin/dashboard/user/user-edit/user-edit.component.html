@@ -47,7 +47,7 @@
       <input type="text" formControlName="relation" class="form-control"
           [ngClass]="{ 'is-invalid': submitted && f.relation.errors }" placeholder="Bride or Groom or Other"/>
     </div>
-    <div class="form-group">
+    <div *ngIf="userForm.value.type=='customer'" class="form-group">
       <label>Wedding Date</label>
       <input type="datetime-local" formControlName="weddingDate" min="1000-01-01"
               max="3000-12-31" class="form-control">

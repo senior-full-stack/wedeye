@@ -9,6 +9,8 @@ import { UserEditComponent } from '../user-edit/user-edit.component';
 import { ConfirmDlgComponent } from '@app/helpers/confirm-dlg/confirm-dlg.component';
 import { UserService } from '@app/services';
 
+import { environment } from '@environments/environment';
+
 @Component({
   selector: 'app-user-get',
   templateUrl: './user-get.component.html',
@@ -21,6 +23,7 @@ export class UserGetComponent implements OnInit {
   localUsers: any = [];
   searchText: string;
   filterStatus = '0';
+  baseUrl = environment.adminApiUrl;
 
   constructor(
     private toast: ToastrService,
@@ -33,6 +36,8 @@ export class UserGetComponent implements OnInit {
   }
 
   getUsersFromServer() {
+    console.log(this.userService);
+
     this.userService.users().subscribe(users => {
       this.users = users;
       this.localUsers = users;
@@ -87,6 +92,10 @@ export class UserGetComponent implements OnInit {
         this.getUsersFromServer();
       }
     });
+  }
+
+  confirmUrl(url: string) {
+    return url.replace(/.png/, '');
   }
 
   filterUsers(type: string) {

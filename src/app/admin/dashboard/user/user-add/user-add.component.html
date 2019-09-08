@@ -1,6 +1,28 @@
+<mat-progress-bar
+  *ngIf="uploadingProgress" mode="determinate" [value]="uploadingProgress"></mat-progress-bar>
 <h1 mat-dialog-title>Add User</h1>
 <mat-dialog-content class="mat-typography">
+  <div class="user-profile">
+    <i *ngIf="!croppedImage" class="fa fa-user-circle"></i>
+    <img *ngIf="croppedImage" [src]="croppedImage" />
+    <input type="file" (change)="fileChangeEvent($event)">
+    <button *ngIf="readyToUpload" class="btn" (click)="uploadProfile()">Apply</button>
+  </div>
+  <div *ngIf="uploadingProgress==0">
+    <image-cropper
+      [imageChangedEvent]="imageChangedEvent"
+      [maintainAspectRatio]="true"
+      [aspectRatio]="1"
+      [resizeToWidth]="128"
+      format="png"
+      (imageCropped)="imageCropped($event)"
+      (imageLoaded)="imageLoaded()"
+      (cropperReady)="cropperReady()"
+      (loadImageFailed)="loadImageFailed()">
+    </image-cropper>
+  </div>
   <form #userForm="ngForm" [formGroup]="loginForm">
+    <input type="hidden" formControlName="profileUrl">
     <div class="form-group">
       <label for="name">Name</label>
       <input type="text" formControlName="name" class="form-control"
@@ -46,7 +68,7 @@
       <input type="text" formControlName="relation" class="form-control"
           [ngClass]="{ 'is-invalid': submitted && f.relation.errors }" placeholder="Bride or Groom or Other"/>
     </div>
-    <div class="form-group">
+    <div *ngIf="userForm.value.type=='customer'" class="form-group">
       <label>Wedding Date</label>
       <input type="datetime-local" formControlName="weddingDate" min="1000-01-01"
               max="3000-12-31" class="form-control">

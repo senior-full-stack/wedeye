@@ -20,7 +20,7 @@
     </div>
   </div>
 </div>
-<h2>View users and edit or delete all users</h2>
+<h1>View users and edit or delete all users</h1>
 <div class="add-user align-right">
   <button class="btn" (click)="openAddUserDlg()"><i class="fa fa-user-plus"></i> Add User</button>
 </div>
@@ -47,9 +47,8 @@
     <tr *ngFor="let user of users | filter:searchText ; let i = index">
       <td>{{i + 1}}</td>
       <td>
-        <div class="profile">
-          <img *ngIf="user.profileurl" [src]="user.profileUrl">
-        </div>
+        <img *ngIf="user.profileUrl" class="user-image" [src]="baseUrl + '/' + confirmUrl(user.profileUrl)">
+        <i *ngIf="!user.profileUrl" class="fa fa-user-circle user-image-default"></i>
       </td>
       <td>{{user.name}}</td>
       <td>{{user.email}}</td>

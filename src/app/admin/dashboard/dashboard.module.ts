@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatDialogModule, MatProgressBarModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // search module
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-
-import { MatDialogModule } from '@angular/material';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
@@ -40,7 +40,9 @@ import { UserAddComponent } from './user/user-add/user-add.component';
     MatDialogModule,
     ReactiveFormsModule,
     DashboardRoutingModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    ImageCropperModule,
+    MatProgressBarModule
   ],
   entryComponents: [
     UserAddComponent

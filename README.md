@@ -1,7 +1,3 @@
-# disable CORS policy
-- linux
-Run google-chrome  --user-data-dir=/tmp --disable-web-security
-
 # WeddingTriangle
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.2.

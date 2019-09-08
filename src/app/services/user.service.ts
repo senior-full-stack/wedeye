@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpRequest } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 import { environment } from '@environments/environment';
@@ -12,11 +12,11 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   users() {
-    return this.http.get(`${environment.adminApiUrl}/users`);
+    return this.http.get(`${environment.adminApiUrl}/api/users`);
   }
 
   create(user: any) {
-    return this.http.post(`${environment.adminApiUrl}/users`, user)
+    return this.http.post(`${environment.adminApiUrl}/api/users`, user)
       .pipe(map(res => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('currentUser', JSON.stringify(res));
@@ -25,10 +25,22 @@ export class UserService {
   }
 
   update(user: any) {
-    return this.http.patch(`${environment.adminApiUrl}/users/${user._id}`, user);
+    return this.http.patch(`${environment.adminApiUrl}/api/users/${user._id}`, user);
   }
 
   deleteById(id: string) {
-    return this.http.delete(`${environment.adminApiUrl}/users/${id}`);
+    return this.http.delete(`${environment.adminApiUrl}/api/users/${id}`);
+  }
+
+  uploadUserImage(file: any) {
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+
+    const req = new HttpRequest('POST', `${environment.adminApiUrl}/api/upload`, formData, {
+      reportProgress: true
+    });
+
+    // send the http-request and subscribe for progress-updates
+    return this.http.request(req);
   }
 }

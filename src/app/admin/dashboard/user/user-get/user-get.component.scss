@@ -3,7 +3,7 @@
 
 .search-user {
   margin: 0px !important;
-  padding: 120px 0px !important;
+  padding: 200px 0px 100px !important;
   position: relative;
 
   h2 {
@@ -57,6 +57,25 @@
       background-color: aliceblue;
     }
 
+    td {
+      font-size: 1.2rem;
+      vertical-align: middle !important;
+
+      .user-image {
+        height: 32px;
+        border-radius: 50%;
+      }
+
+      .user-image-default {
+        color: gray;
+        font-size: 2rem;
+      }
+    }
+
+    i {
+      font-size: 1.3rem;
+    }
+
     .table-action {
       display: inline-block;
       width: 32px;
@@ -80,7 +99,7 @@
   }
 }
 
-h2 {
+h1 {
   margin: 40px 20px 0px;
   text-shadow: 2px 2px 5px #ccc !important;
 }
