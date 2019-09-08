@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
 import 'moment/locale/pt-br';
 
@@ -16,11 +17,13 @@ import { UserService } from '@app/services';
 })
 export class UserGetComponent implements OnInit {
 
-  searchText: string;
   users: any = [];
   localUsers: any = [];
+  searchText: string;
+  filterStatus = '0';
 
   constructor(
+    private toast: ToastrService,
     private addUserDlg: MatDialog,
     private cdr: ChangeDetectorRef,
     private userService: UserService) { }
@@ -87,6 +90,8 @@ export class UserGetComponent implements OnInit {
   }
 
   filterUsers(type: string) {
+    this.filterStatus = type;
+
     if (type !== '0' && type !== '7') {
       this.users = this.localUsers.filter(user => user.status === type);
     } else if (type === '0') {
@@ -96,8 +101,21 @@ export class UserGetComponent implements OnInit {
         const createdDate = moment(user.createdDate);
         const now = moment();
         const diff = now.diff(createdDate, 'days');
-        alert(diff);
+
+        if (Math.abs(diff) < 31) {
+          return user;
+        }
       });
     }
+  }
+
+  changeStatus(user: any) {
+    this.userService.update(user).subscribe((res: any) => {
+      if (res.success) {
+        this.toast.success('The operation was successful.', 'Done');
+      } else {
+        this.toast.info('Operation failed.', 'Failed');
+      }
+    });
   }
 }

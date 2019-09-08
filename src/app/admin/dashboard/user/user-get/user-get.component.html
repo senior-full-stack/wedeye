@@ -5,17 +5,17 @@
       placeholder="&#61442;  Enter Keywords">
     <div class="input-group-append">
       <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">Filter</button>
+          aria-haspopup="true" aria-expanded="false">Filters</button>
       <div class="dropdown-menu">
-        <a class="dropdown-item" (click)="filterUsers('0')">All</a>
-        <a class="dropdown-item" (click)="filterUsers('1')">Active</a>
-        <a class="dropdown-item" (click)="filterUsers('2')">Inactive</a>
-        <a class="dropdown-item" (click)="filterUsers('3')">Suspended</a>
-        <a class="dropdown-item" (click)="filterUsers('4')">On Hold</a>
-        <a class="dropdown-item" (click)="filterUsers('5')">Payment Done</a>
-        <a class="dropdown-item" (click)="filterUsers('6')">Featured Account</a>
+        <a class="dropdown-item" [ngClass]="filterStatus=='0'?'active':'normal'" (click)="filterUsers('0')">All</a>
+        <a class="dropdown-item" [ngClass]="filterStatus=='1'?'active':'normal'" (click)="filterUsers('1')">Active</a>
+        <a class="dropdown-item" [ngClass]="filterStatus=='2'?'active':'normal'" (click)="filterUsers('2')">Inactive</a>
+        <a class="dropdown-item" [ngClass]="filterStatus=='3'?'active':'normal'" (click)="filterUsers('3')">Suspended</a>
+        <a class="dropdown-item" [ngClass]="filterStatus=='4'?'active':'normal'" (click)="filterUsers('4')">On Hold</a>
+        <a class="dropdown-item" [ngClass]="filterStatus=='5'?'active':'normal'" (click)="filterUsers('5')">Payment Done</a>
+        <a class="dropdown-item" [ngClass]="filterStatus=='6'?'active':'normal'" (click)="filterUsers('6')">Featured Account</a>
         <div role="separator" class="dropdown-divider"></div>
-        <a class="dropdown-item" (click)="filterUsers('7')">Users created in last 30 days</a>
+        <a class="dropdown-item" [ngClass]="filterStatus=='7'?'active':'normal'" (click)="filterUsers('7')">Users created in last 30 days</a>
       </div>
     </div>
   </div>
@@ -61,7 +61,7 @@
       <td>{{user.weddingDate}}</td>
       <td>{{user.createdDate}}</td>
       <td>
-        <select [(ngModel)]="user.status">
+        <select [(ngModel)]="user.status" (change)="changeStatus(user)">
           <option value="1">Active</option>
           <option value="2">Inactive</option>
           <option value="3">Suspended</option>

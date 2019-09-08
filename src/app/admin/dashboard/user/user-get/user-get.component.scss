@@ -13,6 +13,16 @@
     margin-bottom: 40px;
     text-shadow: 2px 2px 5px #000 !important;
   }
+
+  .normal {
+    color: #000;
+    background-color: unset;
+  }
+
+  .active {
+    color: #fff;
+    background-color: $pressed-color;
+  }
 }
 
 .search-user::after {
@@ -40,7 +50,7 @@
 
 .table-responsive {
   width: unset !important;
-  margin: 0px 10px;
+  margin: 0px 20px;
 
   .table {
     thead {
@@ -71,10 +81,10 @@
 }
 
 h2 {
-  margin: 40px 10px 0px;
+  margin: 40px 20px 0px;
   text-shadow: 2px 2px 5px #ccc !important;
 }
 
 .add-user {
-  margin: 10px 10px 20px;
+  margin: 10px 20px 20px;
 }

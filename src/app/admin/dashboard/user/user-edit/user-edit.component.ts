@@ -24,7 +24,7 @@ export class UserEditComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      id: [this.data.id],
+      _id: [this.data.id],
       name: [this.data.name, Validators.required],
       email: [this.data.email, Validators.required],
       password: [this.data.password, Validators.required],

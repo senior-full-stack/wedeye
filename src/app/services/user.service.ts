@@ -25,7 +25,7 @@ export class UserService {
   }
 
   update(user: any) {
-    return this.http.patch(`${environment.adminApiUrl}/users/${user.id}`, user);
+    return this.http.patch(`${environment.adminApiUrl}/users/${user._id}`, user);
   }
 
   deleteById(id: string) {
