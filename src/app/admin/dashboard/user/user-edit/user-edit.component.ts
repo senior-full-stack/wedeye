@@ -40,17 +40,17 @@ export class UserEditComponent implements OnInit {
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       _id: [this.data.id],
-      profileUrl: [this.data.profileUrl],
+      profileUrl: [this.data.profileUrl ? this.data.profileUrl : ''],
       name: [this.data.name, Validators.required],
       email: [this.data.email, Validators.required],
       password: [this.data.password, Validators.required],
       confirmPassword: [this.data.password, Validators.required],
       type: new FormControl(this.data.type),
-      relation: [this.data.relation],
-      weddingDate: new FormControl(this.data.weddingDate.replace(' ', 'T')),
-      address: [this.data.address],
-      phone: [this.data.phone],
-      status: new FormControl(this.data.status)
+      relation: [this.data.relation ? this.data.relation : ''],
+      weddingDate: new FormControl(this.data.weddingDate ? this.data.weddingDate.replace(' ', 'T') : ''),
+      address: [this.data.address ? this.data.address : ''],
+      phone: [this.data.phone ? this.data.phone : ''],
+      status: new FormControl(this.data.status ? this.data.status : '')
     });
   }
 

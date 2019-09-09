@@ -57,7 +57,7 @@
         <div *ngIf="f.confirmPassword.errors.matchValueError">Confirm Password & Password must be same.</div>
       </div>
     </div>
-    <div class="form-group">
+    <div *ngIf="data.type!=='admin'" class="form-group">
       <label for="type">Type</label>
       <!-- Material inline 1 -->
       <div>
@@ -80,7 +80,7 @@
     </div>
     <div *ngIf="userForm.value.type=='customer'" class="form-group">
       <label>Wedding Date</label>
-      <input type="datetime-local" formControlName="weddingDate" min="1000-01-01"
+      <input type="date" formControlName="weddingDate" min="1000-01-01"
               max="3000-12-31" class="form-control">
     </div>
     <div class="form-group">
@@ -93,7 +93,7 @@
       <textarea formControlName="address" class="form-control"
           [ngClass]="{ 'is-invalid': submitted && f.address.errors }" placeholder="enter your address"></textarea>
     </div>
-    <div class="form-group">
+    <div *ngIf="data.type!=='admin'" class="form-group">
       <label for="status">Status</label>
       <select formControlName="status" class="form-control">
         <option value="1">Active</option>

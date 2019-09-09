@@ -6,7 +6,7 @@ module.exports = {
 	index: (req, res) => {
     User.find({}, (err, users) => {
       // remove first user in user array because first user is admin account
-      users.shift();
+      // users.shift();
       res.json(users);
 		})
   },
@@ -32,7 +32,6 @@ module.exports = {
 
 	// update an existing user
   update: (req, res) => {
-    console.log(req.params);
 		User.findById(req.params.id, (err, user) => {
 			Object.assign(user, req.body)
 			user.save((err, updatedUser) => {

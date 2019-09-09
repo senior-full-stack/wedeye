@@ -79,7 +79,7 @@
     </div>
     <div *ngIf="userForm.value.type=='customer'" class="form-group">
       <label>Wedding Date</label>
-      <input type="datetime-local" formControlName="weddingDate" min="1000-01-01"
+      <input type="date" formControlName="weddingDate" min="1000-01-01"
               max="3000-12-31" class="form-control">
     </div>
     <div class="form-group">
