@@ -36,8 +36,6 @@ export class UserGetComponent implements OnInit {
   }
 
   getUsersFromServer() {
-    console.log(this.userService);
-
     this.userService.users().subscribe(users => {
       this.users = users;
       this.localUsers = users;

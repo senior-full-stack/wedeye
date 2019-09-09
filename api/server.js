@@ -37,6 +37,7 @@ User.find({}, (err, users) => {
 
 var corsOptions = {
   origin: '*',
+  'Allow-Control-Allow-Origin': '*',
   optionsSuccessStatus: 200,
 }
 // disable cors policy
