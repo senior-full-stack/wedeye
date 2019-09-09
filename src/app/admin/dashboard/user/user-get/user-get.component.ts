@@ -59,6 +59,7 @@ export class UserGetComponent implements OnInit {
     const dialogRef = this.addUserDlg.open(UserEditComponent, {
       data: {
         id: this.users[index]._id,
+        profileUrl: this.users[index].profileUrl,
         name: this.users[index].name,
         email: this.users[index].email,
         password: this.users[index].password,
