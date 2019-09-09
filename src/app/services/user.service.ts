@@ -19,7 +19,7 @@ export class UserService {
     return this.http.post(`${environment.adminApiUrl}/api/users`, user)
       .pipe(map(res => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
-        localStorage.setItem('currentUser', JSON.stringify(res));
+        sessionStorage.setItem('currentUser', JSON.stringify(res));
         return res;
   }));
   }

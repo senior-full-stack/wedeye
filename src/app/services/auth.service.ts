@@ -1,5 +1,5 @@
 ﻿﻿﻿import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -24,24 +24,22 @@ export class AuthService {
   }
 
   getCurrentUser() {
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(sessionStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
   login(email: string, password: string) {
-    const headers = new HttpHeaders();
-
     return this.http.post(`${environment.adminApiUrl}/api/users/auth`,
         JSON.stringify({email, password }))
       .pipe(map(user => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
-        localStorage.setItem('currentUser', JSON.stringify(user));
+        sessionStorage.setItem('currentUser', JSON.stringify(user));
         return user;
       }));
   }
 
   logout() {
       // remove user from local storage to log user out
-      localStorage.removeItem('currentUser');
+      sessionStorage.removeItem('currentUser');
   }
 }
