@@ -21,12 +21,12 @@
       (loadImageFailed)="loadImageFailed()">
     </image-cropper>
   </div>
-  <form #userForm="ngForm" [formGroup]="loginForm">
+  <form #userForm="ngForm" [formGroup]="loginForm" [matchValue]="['password', 'confirmPassword']">
     <input type="hidden" formControlName="profileUrl">
     <div class="form-group">
       <label for="name">Name</label>
       <input type="text" formControlName="name" class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="Name"/>
+          [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="enter your name"/>
       <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
         <div *ngIf="f.name.errors.required">Name is required</div>
       </div>
@@ -34,7 +34,7 @@
     <div class="form-group">
       <label for="email">Email</label>
       <input type="email" formControlName="email" class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="Email"/>
+          [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="enter your email"/>
       <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
         <div *ngIf="f.email.errors.required">Email is required</div>
       </div>
@@ -42,9 +42,18 @@
     <div class="form-group">
       <label for="password">Password</label>
       <input type="password" formControlName="password" class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="Password" />
+          [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="enter your password" />
       <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
         <div *ngIf="f.password.errors.required">Password is required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" formControlName="confirmPassword" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" placeholder="enter your confirm password" />
+      <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+        <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
+        <div *ngIf="f.confirmPassword.errors.matchValueError">Confirm Password & Password must be same.</div>
       </div>
     </div>
     <div class="form-group">
@@ -66,7 +75,7 @@
     <div *ngIf="userForm.value.type=='customer'" class="form-group">
       <label for="relation">Relation</label>
       <input type="text" formControlName="relation" class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.relation.errors }" placeholder="Bride or Groom or Other"/>
+          [ngClass]="{ 'is-invalid': submitted && f.relation.errors }" placeholder="enter bride or groom or other"/>
     </div>
     <div *ngIf="userForm.value.type=='customer'" class="form-group">
       <label>Wedding Date</label>
@@ -76,12 +85,12 @@
     <div class="form-group">
       <label for="phone">Phone</label>
       <input type="text" formControlName="phone" class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" placeholder="Phone" />
+          [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" placeholder="enter your phone" />
     </div>
     <div class="form-group">
       <label for="address">Address</label>
       <textarea formControlName="address" class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.address.errors }" placeholder="Address"></textarea>
+          [ngClass]="{ 'is-invalid': submitted && f.address.errors }" placeholder="enter your address"></textarea>
     </div>
     <div class="form-group">
       <label for="status">Status</label>
@@ -94,7 +103,6 @@
         <option value="6">Featured Account</option>
       </select>
     </div>
-    <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

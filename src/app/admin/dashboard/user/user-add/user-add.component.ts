@@ -40,6 +40,7 @@ export class UserAddComponent implements OnInit {
       name: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
       type: new FormControl('vendor'),
       relation: [''],
       weddingDate: new FormControl(''),

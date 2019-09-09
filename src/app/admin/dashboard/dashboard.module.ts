@@ -18,6 +18,7 @@ import { VendorEditComponent } from './vendor/vendor-edit/vendor-edit.component'
 import { VendorAddComponent } from './vendor/vendor-add/vendor-add.component';
 import { ReportGetComponent } from './report/report-get/report-get.component';
 import { UserAddComponent } from './user/user-add/user-add.component';
+import { MatchValueDirective } from '../../directives/match-value.directive';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { UserAddComponent } from './user/user-add/user-add.component';
     VendorEditComponent,
     VendorAddComponent,
     ReportGetComponent,
+    MatchValueDirective
   ],
   imports: [
     CommonModule,
