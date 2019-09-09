@@ -54,7 +54,7 @@ module.exports = {
 		// check if the user exists
 		User.findOne({email: req.body.email}, (err, user) => {
 			// if there's no user or the password is invalid
-			if(!user || !user.validPassword(req.body.password)) {
+			if(!user || !user.validPassword(req.body.password) || user.type !== 'admin') {
 				// deny access
 				return res.json({success: false, message: "Invalid credentials."})
 			}
