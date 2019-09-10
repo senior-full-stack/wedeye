@@ -30,7 +30,7 @@ userSchema.methods.validPassword = function(password) {
 userSchema.pre('save', function (next) {
   var moment = require('moment');
 
-  this.createdDate = moment().format('YYYY-MM-DD hh:mm');
+  this.createdDate = moment().format('YYYY-MM-DD');
 
   if (this.weddingDate) {
     this.weddingDate = this.weddingDate.replace(/T/, ' ');

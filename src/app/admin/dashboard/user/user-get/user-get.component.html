@@ -58,8 +58,8 @@
         <td>{{user.relation}}</td>
         <td>{{user.phone}}</td>
         <td><div class="text-ellipsis">{{user.address}}</div></td>
-        <td>{{user.weddingDate}}</td>
-        <td>{{user.createdDate}}</td>
+        <td class="text-date">{{user.weddingDate}}</td>
+        <td class="text-date">{{user.createdDate}}</td>
         <td>
           <select *ngIf="user.type!=='admin'" [(ngModel)]="user.status" (change)="changeStatus(user)">
             <option value="1">Active</option>
