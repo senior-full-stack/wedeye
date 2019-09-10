@@ -43,7 +43,7 @@ var corsOptions = {
 // disable cors policy
 app.use(cors(corsOptions))
 // set a public directory for downloading files
-app.use(express.static(`${__dirname}/uploads`));
+app.use('/uploads', express.static(`${__dirname}/uploads`));
 
 app.use(logger('dev'))
 app.use(bodyParser.json())
