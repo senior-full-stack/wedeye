@@ -21,7 +21,10 @@ const
 
 vendorSchema.pre('save', function (next) {
     var moment = require('moment');
-    this.createdDate = moment().format('YYYY-MM-DD');
+    
+    if (!this.createdDate) {
+        this.createdDate = moment().format('YYYY-MM-DD');
+    }
 
     next()
 })

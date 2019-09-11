@@ -30,7 +30,9 @@ userSchema.methods.validPassword = function(password) {
 userSchema.pre('save', function (next) {
   var moment = require('moment');
 
-  this.createdDate = moment().format('YYYY-MM-DD');
+  if (!this.createdDate) {
+    this.createdDate = moment().format('YYYY-MM-DD');
+  }  
 
 	if(this.isModified('password')) {
 		this.password = this.generateHash(this.password)

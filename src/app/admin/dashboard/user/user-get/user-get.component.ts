@@ -107,7 +107,7 @@ export class UserGetComponent implements OnInit {
         relation: this.users[index].relation,
         phone: this.users[index].phone,
         address: this.users[index].address,
-        weddingDate: moment(this.users[index].weddingDate).format('YYYY-MM-DD'),
+        weddingDate: this.users[index].weddingDate ? moment(this.users[index].weddingDate).format('YYYY-MM-DD') : '',
         status: this.users[index].status
       }
     });

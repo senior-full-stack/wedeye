@@ -63,7 +63,7 @@ module.exports = {
 					// return pager object and current page of items
 					return res.json({ pager, pageOfItems });
 				}
-			)
+			).sort('-createdDate')
 		} else {
 			User.find({}, (err, result) => {
 				if(err) return res.json({success: false, code: err.code})
@@ -99,7 +99,7 @@ module.exports = {
 
 				// return pager object and current page of items
 				return res.json({ pager, pageOfItems });
-			})
+			}).sort('-createdDate')
 		}
 	},
 

@@ -67,7 +67,7 @@ module.exports = {
 					// return pager object and current page of items
 					return res.json({ pager, pageOfItems });
 				}
-			)
+			).sort('-createdDate')
 		} else {
 			Vendor.find({}, (err, result) => {
 				vendors = result;
@@ -107,7 +107,7 @@ module.exports = {
 
 				// return pager object and current page of items
 				return res.json({pager, pageOfItems });
-			})
+			}).sort('-createdDate')
 		}
 	},
 
