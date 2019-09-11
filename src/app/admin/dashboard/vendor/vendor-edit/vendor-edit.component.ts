@@ -7,6 +7,8 @@ import { Subject } from 'rxjs';
 import { VendorService } from '@app/services';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 
+import { environment } from '@environments/environment';
+
 @Component({
   selector: 'app-vendor-edit',
   templateUrl: './vendor-edit.component.html',
@@ -26,8 +28,8 @@ export class VendorEditComponent implements OnInit {
   imageChangedEvent: any;
   croppedImage: any;
   vendorCategories = [];
-  serviceCategories = [];
-  policyCategories = [];
+
+  baseUrl = environment.adminApiUrl;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,6 +41,7 @@ export class VendorEditComponent implements OnInit {
 
   ngOnInit() {
     this.editForm = this.formBuilder.group({
+      _id: [this.data.id],
       profileUrl: [this.data.profileUrl ? this.data.profileUrl : ''],
       title: [this.data.title, Validators.required],
       category: new FormControl(this.data.category),
@@ -60,7 +63,7 @@ export class VendorEditComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f(): FormGroup['controls'] { return this.editForm.controls; }
 
-  addVendor(vendorForm: NgForm) {
+  editVendor(vendorForm: NgForm) {
     this.submitted = true;
 
     // stop here if form is invalid
@@ -70,7 +73,7 @@ export class VendorEditComponent implements OnInit {
 
     this.loading = true;
 
-    this.vendorService.create(vendorForm.value).subscribe((res: any) => {
+    this.vendorService.update(vendorForm.value).subscribe((res: any) => {
       this.dialogRef.close(res.success);
     });
   }
@@ -109,6 +112,10 @@ export class VendorEditComponent implements OnInit {
         this.uploadingProgress = pro;
       });
     }
+  }
+
+  confirmUrl(url: string) {
+    return url.replace(/.png/, '');
   }
 
   fileChangeEvent(event: any): void {

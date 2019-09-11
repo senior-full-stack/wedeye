@@ -4,8 +4,9 @@
     <h1 mat-dialog-title>Edit Vendor</h1>
     <mat-dialog-content class="mat-typography">
       <div class="user-profile">
-        <i *ngIf="!croppedImage" class="fa fa-ravelry"></i>
+        <i *ngIf="!croppedImage && !f.profileUrl.value" class="fa fa-ravelry"></i>
         <img *ngIf="croppedImage" [src]="croppedImage" />
+        <img *ngIf="f.profileUrl.value && !croppedImage" [src]="baseUrl + '/' + confirmUrl(f.profileUrl.value)" />
         <input type="file" (change)="fileChangeEvent($event)">
         <button *ngIf="readyToUpload" class="btn" (click)="uploadProfile()">Apply</button>
       </div>
@@ -22,7 +23,7 @@
           (loadImageFailed)="loadImageFailed()">
         </image-cropper>
       </div>
-      <form #vendorForm="ngForm" [formGroup]="editForm" [matchValue]="['password', 'confirmPassword']">
+      <form #vendorForm="ngForm" [formGroup]="editForm">
         <input type="hidden" formControlName="profileUrl">
         <div class="form-group">
           <label for="name">Title</label>

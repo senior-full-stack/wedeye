@@ -22,7 +22,7 @@
           (loadImageFailed)="loadImageFailed()">
         </image-cropper>
       </div>
-      <form #vendorForm="ngForm" [formGroup]="addForm" [matchValue]="['password', 'confirmPassword']">
+      <form #vendorForm="ngForm" [formGroup]="addForm">
         <input type="hidden" formControlName="profileUrl">
         <div class="form-group">
           <label for="name">Title</label>
