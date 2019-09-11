@@ -40,6 +40,8 @@ var corsOptions = {
   'Allow-Control-Allow-Origin': '*',
   optionsSuccessStatus: 200,
 };
+
+app.disable('etag');
 // disable cors policy
 app.use(cors(corsOptions));
 // set a public directory for downloading files
