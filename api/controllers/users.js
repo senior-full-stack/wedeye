@@ -23,7 +23,7 @@ module.exports = {
 	// search by name, email, type, phone, address
 	search: (req, res) => {
 		var users = [];
-		var pageSize = 10;
+		var pageSize = 8;
 		var page = req.params.page;
 		var status = req.body.status;
 		var searchText = req.body.searchText;
@@ -63,7 +63,7 @@ module.exports = {
 					}
 	
 					// get pager object for specified page
-					const pager = paginate(users.length, page, pageSize);
+					const pager = paginate(users.length, page, pageSize, 4);
 					// get page of items from items array
 					pageOfItems = users.slice(pager.startIndex, pager.endIndex + 1)
 	
@@ -98,7 +98,7 @@ module.exports = {
 				}
 
 				// get pager object for specified page
-				const pager = paginate(users.length, page, pageSize);
+				const pager = paginate(users.length, page, pageSize, 4);
 				// get page of items from items array
 				pageOfItems = users.slice(pager.startIndex, pager.endIndex + 1)
 

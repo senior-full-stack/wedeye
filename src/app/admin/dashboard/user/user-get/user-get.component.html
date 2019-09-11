@@ -47,7 +47,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let user of users ; let i = index">
-        <td>{{i + (currentPage-1)*10 + 1}}</td>
+        <td>{{i + (currentPage-1)*8 + 1}}</td>
         <td>
           <img *ngIf="user.profileUrl" class="user-image" [src]="baseUrl + '/' + confirmUrl(user.profileUrl)">
           <i *ngIf="!user.profileUrl" class="fa fa-user-circle user-image-default"></i>
@@ -80,7 +80,7 @@
     </table>
   </div>
   <div class="table-pagination align-center">
-    <div *ngIf="pager && pager.pages && pager.pages.length" class="btn-group" role="group" aria-label="...">
+    <div *ngIf="pager && pager.pages && pager.pages.length" class="btn-group flex-wrap" role="group" aria-label="...">
       <button [ngClass]="{disabled:pager.currentPage === 1}"  
         class="btn btn-info btn-pagination-first" (click)="search(1, -1)">First</button>
       <button [ngClass]="{disabled:pager.currentPage === 1}" (click)="prevPage()" 
