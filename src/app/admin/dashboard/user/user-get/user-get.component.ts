@@ -21,7 +21,6 @@ export class UserGetComponent implements OnInit {
 
   pager: any;
   users: any = [];
-  localUsers: any = [];
 
   currentPage = 1;
   status = 0;

@@ -1,18 +1,9 @@
 const User = require('../models/User.js'),
 	signToken = require('../serverAuth.js').signToken,
 	paginate = require('jw-paginate'),
-	moment = require('moment')
+	moment = require('moment');
 
 module.exports = {
-	// list all users
-	index: (req, res) => {
-		User.find({}, (err, users) => {
-			// remove first user in user array because first user is admin account
-			// users.shift();
-			res.json(users);
-		})
-  	},
-
 	// get one user
 	show: (req, res) => {
 		User.findById(req.params.id, (err, user) => {
@@ -122,7 +113,7 @@ module.exports = {
   	update: (req, res) => {
 		User.findById(req.params.id, (err, user) => {
 			Object.assign(user, req.body)
-			user.save((err, updatedUser) => {
+			user.save((err, user) => {
 				res.json({success: true, message: "User updated.", user})
 			})
 		})

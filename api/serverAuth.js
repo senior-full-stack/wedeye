@@ -7,8 +7,11 @@ const
 // function for creating tokens
 function signToken(user) {
 	// toObject() returns a basic js object with only the info from the db
-	const userData = user.toObject()
-  delete userData.password
+  const userData = user.toObject()
+  
+  if (userData.password) {
+    delete userData.password
+  }
 
   const jwtConfig = {
     expiresIn: EXPIRE_IN

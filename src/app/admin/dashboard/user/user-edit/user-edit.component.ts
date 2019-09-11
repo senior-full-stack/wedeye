@@ -14,7 +14,7 @@ import { environment } from '@environments/environment';
   styleUrls: ['./user-edit.component.scss']
 })
 export class UserEditComponent implements OnInit {
-  loginForm: FormGroup;
+  editForm: FormGroup;
   loading = false;
   submitted = false;
   error = '';
@@ -38,7 +38,7 @@ export class UserEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
+    this.editForm = this.formBuilder.group({
       _id: [this.data.id],
       profileUrl: [this.data.profileUrl ? this.data.profileUrl : ''],
       name: [this.data.name, Validators.required],
@@ -55,13 +55,13 @@ export class UserEditComponent implements OnInit {
   }
 
   // convenience getter for easy access to form fields
-  get f(): FormGroup['controls'] { return this.loginForm.controls; }
+  get f(): FormGroup['controls'] { return this.editForm.controls; }
 
   updateUser(userForm: NgForm) {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.loginForm.invalid) {
+    if (this.editForm.invalid) {
         return;
     }
 
@@ -83,7 +83,7 @@ export class UserEditComponent implements OnInit {
           res = event.body;
           if (res.success) {
 
-            this.loginForm.get('profileUrl').setValue(res.path);
+            this.editForm.get('profileUrl').setValue(res.path);
           }
         }
 

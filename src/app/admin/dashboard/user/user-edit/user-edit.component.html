@@ -23,7 +23,7 @@
         (loadImageFailed)="loadImageFailed()">
       </image-cropper>
     </div>
-    <form #userForm="ngForm" [formGroup]="loginForm" [matchValue]="['password', 'confirmPassword']">
+    <form #userForm="ngForm" [formGroup]="editForm" [matchValue]="['password', 'confirmPassword']">
       <input type="hidden" formControlName="profileUrl">
       <div class="form-group">
         <label for="name">Name</label>

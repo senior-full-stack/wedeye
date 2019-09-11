@@ -14,7 +14,7 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 })
 export class UserAddComponent implements OnInit {
 
-  loginForm: FormGroup;
+  addForm: FormGroup;
 
   loading = false;
   submitted = false;
@@ -35,7 +35,7 @@ export class UserAddComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
+    this.addForm = this.formBuilder.group({
       profileUrl: [''],
       name: ['', Validators.required],
       email: ['', Validators.required],
@@ -51,13 +51,13 @@ export class UserAddComponent implements OnInit {
   }
 
   // convenience getter for easy access to form fields
-  get f(): FormGroup['controls'] { return this.loginForm.controls; }
+  get f(): FormGroup['controls'] { return this.addForm.controls; }
 
   addUser(userForm: NgForm) {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.loginForm.invalid) {
+    if (this.addForm.invalid) {
         return;
     }
 
@@ -79,7 +79,7 @@ export class UserAddComponent implements OnInit {
           res = event.body;
           if (res.success) {
 
-            this.loginForm.get('profileUrl').setValue(res.path);
+            this.addForm.get('profileUrl').setValue(res.path);
           }
         }
 
