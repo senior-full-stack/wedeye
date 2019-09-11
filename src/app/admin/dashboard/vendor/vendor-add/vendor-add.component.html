@@ -1,1 +1,95 @@
-<p>vendor-add works!</p>
+<div class="dashboard-add">
+    <mat-progress-bar
+    *ngIf="uploadingProgress" mode="determinate" [value]="uploadingProgress"></mat-progress-bar>
+    <h1 mat-dialog-title>Add Vendor</h1>
+    <mat-dialog-content class="mat-typography">
+      <div class="user-profile">
+        <i *ngIf="!croppedImage" class="fa fa-ravelry"></i>
+        <img *ngIf="croppedImage" [src]="croppedImage" />
+        <input type="file" (change)="fileChangeEvent($event)">
+        <button *ngIf="readyToUpload" class="btn" (click)="uploadProfile()">Apply</button>
+      </div>
+      <div *ngIf="uploadingProgress==0">
+        <image-cropper
+          [imageChangedEvent]="imageChangedEvent"
+          [maintainAspectRatio]="true"
+          [aspectRatio]="1"
+          [resizeToWidth]="128"
+          format="png"
+          (imageCropped)="imageCropped($event)"
+          (imageLoaded)="imageLoaded()"
+          (cropperReady)="cropperReady()"
+          (loadImageFailed)="loadImageFailed()">
+        </image-cropper>
+      </div>
+      <form #vendorForm="ngForm" [formGroup]="addForm" [matchValue]="['password', 'confirmPassword']">
+        <input type="hidden" formControlName="profileUrl">
+        <div class="form-group">
+          <label for="name">Title</label>
+          <input type="text" formControlName="title" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.title.errors }" placeholder="enter your title"/>
+          <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+            <div *ngIf="f.title.errors.required">Title is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select formControlName="category" class="form-control">
+            <option *ngFor="let vendorCategory of vendorCategories ; let i = index" [value]="vendorCategory.shortTitle">{{vendorCategory.shortTitle}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="text">Location</label>
+          <input type="text" formControlName="location" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.location.errors }" placeholder="enter your location"/>
+        </div>
+        <div *ngIf="f.category.value=='venues'" class="form-group">
+          <label for="text">Capacity</label>
+          <input type="text" formControlName="capacity" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.capacity.errors }" placeholder="enter your capacity"/>
+        </div>
+        <div class="form-group">
+          <label for="text">Introduction</label>
+          <textarea type="text" formControlName="introduction" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.introduction.errors }" placeholder="enter your introduction"></textarea>
+        </div>
+        <div *ngIf="f.category.value=='photographers' || f.category.value=='makeup artists' ||
+            f.category.value=='mehndi artists' || f.category.value=='bridal designers' || f.category.value=='invitations'" class="form-group">
+          <label for="text">Working Since</label>
+          <input type="text" formControlName="workingSince" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.workingSince.errors }" placeholder="enter your working since"/>
+        </div>
+        <div *ngIf="f.category.value=='bridal designers'" class="form-group">
+          <label for="text">Store Type</label>
+          <input type="text" formControlName="storeType" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.storeType.errors }" placeholder="enter your store type"/>
+        </div>
+        <div *ngIf="f.category.value=='venues'" class="form-group">
+          <label for="text">Property Type</label>
+          <input type="text" formControlName="propertyType" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.propertyType.errors }" placeholder="enter your property type"/>
+        </div>
+        <div *ngIf="f.category.value=='venues'" class="form-group">
+          <label for="text">Parking Facility</label>
+          <input type="text" formControlName="parkingFacility" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.parkingFacility.errors }" placeholder="enter your parking facility"/>
+        </div>
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select formControlName="status" class="form-control">
+            <option value="1">Active</option>
+            <option value="2">Inactive</option>
+            <option value="3">Suspended</option>
+            <option value="4">On Hold</option>
+            <option value="5">Payment Done</option>
+            <option value="6">Featured Account</option>
+          </select>
+        </div>
+      </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button class="btn" mat-dialog-close>Cancel</button>
+      <button class="btn" (click)="addVendor(vendorForm)">Save</button>
+    </mat-dialog-actions>
+</div>
+  

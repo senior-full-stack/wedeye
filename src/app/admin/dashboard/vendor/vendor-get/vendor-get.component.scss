@@ -1,0 +1,11 @@
+@import "../../dashboard.component.scss";
+
+.search-user::after {
+    background-image: url('/assets/images/bashboard-banner2.jpg') !important;
+    opacity: .7;
+}
+
+.user-image {
+    border-radius: unset !important;
+}
+

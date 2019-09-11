@@ -56,7 +56,7 @@ app.use('/api/vendors', vendorsRoutes);
 // upload a file
 app.post('/api/upload', multipartMiddleware, (req, res) => {
   const file = req.files.file;
-  res.json({
+  return res.json({
     success: true,
     path: `${file.path.replace(/uploads\//,'') + file.type.replace(/[a-z]*\//g, '.')}`
   });

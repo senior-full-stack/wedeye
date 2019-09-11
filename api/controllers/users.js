@@ -33,7 +33,7 @@ module.exports = {
 					var pageOfItems = [];
 	
 					// filter users by the value of status
-					if (status !== 0 && status !== 7) {
+					if (status > 0 && status < 7) {
 						const items = users;
 	
 						users = items.filter(item => parseInt(item.status) === status)

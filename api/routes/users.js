@@ -1,11 +1,9 @@
 const
 	express = require('express'),
 	usersRouter = new express.Router(),
-	usersCtrl = require('../controllers/users.js')
+	usersCtrl = require('../controllers/users.js');
 
-usersRouter.route('/')
-	.get(usersCtrl.index)
-	.post(usersCtrl.create)
+usersRouter.post('/', usersCtrl.create)
 
 usersRouter.post('/auth', usersCtrl.authenticate)
 

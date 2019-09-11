@@ -10,8 +10,8 @@ const
     address: { type: String, },
     phone: { type: String },
     type: { type: String },
-    weddingDate: { type: String },
-    createdDate: { type: String },
+    weddingDate: { type: Date },
+    createdDate: { type: Date },
     status: { type: String }
 	})
 
@@ -31,10 +31,6 @@ userSchema.pre('save', function (next) {
   var moment = require('moment');
 
   this.createdDate = moment().format('YYYY-MM-DD');
-
-  if (this.weddingDate) {
-    this.weddingDate = this.weddingDate.replace(/T/, ' ');
-  }
 
 	if(this.isModified('password')) {
 		this.password = this.generateHash(this.password)
