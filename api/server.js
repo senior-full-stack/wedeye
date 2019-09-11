@@ -2,7 +2,6 @@ const
 	dotenv = require('dotenv').load(),
 	express = require('express'),
   app = express(),
-  path = require('path'),
   cors = require('cors'),
   PORT = process.env.PORT,
   logger = require('morgan'),

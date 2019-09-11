@@ -11,8 +11,8 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  users() {
-    return this.http.get(`${environment.adminApiUrl}/api/users`);
+  users(searchText: string, page: number, status: number) {
+    return this.http.post(`${environment.adminApiUrl}/api/users/search/${page}`, {searchText, status});
   }
 
   create(user: any) {

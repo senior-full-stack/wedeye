@@ -1,22 +1,23 @@
 <div class="dashboard-content">
   <div class="search-user">
-    <h2 class="align-center">Start searching for a user by name or email ...</h2>
+    <h2 class="align-center">Start searching for users by name or email or type, etc</h2>
     <div class="input-group col-md-6 offset-md-3">
-      <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
-        placeholder="&#61442;  Enter Keywords">
+      <input class="form-control" type="text" name="search" [(ngModel)]="searchText" (keydown)="searchEvent($event)"
+        (focusout)="search(-1,-1)" autocomplete="off"
+        placeholder="&#61442;  enter keywords">
       <div class="input-group-append">
         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">Filters</button>
         <div class="dropdown-menu">
-          <a class="dropdown-item" [ngClass]="filterStatus=='0'?'active':'normal'" (click)="filterUsers('0')">All</a>
-          <a class="dropdown-item" [ngClass]="filterStatus=='1'?'active':'normal'" (click)="filterUsers('1')">Active</a>
-          <a class="dropdown-item" [ngClass]="filterStatus=='2'?'active':'normal'" (click)="filterUsers('2')">Inactive</a>
-          <a class="dropdown-item" [ngClass]="filterStatus=='3'?'active':'normal'" (click)="filterUsers('3')">Suspended</a>
-          <a class="dropdown-item" [ngClass]="filterStatus=='4'?'active':'normal'" (click)="filterUsers('4')">On Hold</a>
-          <a class="dropdown-item" [ngClass]="filterStatus=='5'?'active':'normal'" (click)="filterUsers('5')">Payment Done</a>
-          <a class="dropdown-item" [ngClass]="filterStatus=='6'?'active':'normal'" (click)="filterUsers('6')">Featured Account</a>
+          <a class="dropdown-item" [ngClass]="status=='0'?'active':'normal'" (click)="search(-1, 0)">All</a>
+          <a class="dropdown-item" [ngClass]="status=='1'?'active':'normal'" (click)="search(-1, 1)">Active</a>
+          <a class="dropdown-item" [ngClass]="status=='2'?'active':'normal'" (click)="search(-1, 2)">Inactive</a>
+          <a class="dropdown-item" [ngClass]="status=='3'?'active':'normal'" (click)="search(-1, 3)">Suspended</a>
+          <a class="dropdown-item" [ngClass]="status=='4'?'active':'normal'" (click)="search(-1, 4)">On Hold</a>
+          <a class="dropdown-item" [ngClass]="status=='5'?'active':'normal'" (click)="search(-1, 5)">Payment Done</a>
+          <a class="dropdown-item" [ngClass]="status=='6'?'active':'normal'" (click)="search(-1, 6)">Featured Account</a>
           <div role="separator" class="dropdown-divider"></div>
-          <a class="dropdown-item" [ngClass]="filterStatus=='7'?'active':'normal'" (click)="filterUsers('7')">Users created in last 30 days</a>
+          <a class="dropdown-item" [ngClass]="status=='7'?'active':'normal'" (click)="search(-1, 7)">Users created in last 30 days</a>
         </div>
       </div>
     </div>
@@ -45,7 +46,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let user of users | filter:searchText ; let i = index">
+      <tr *ngFor="let user of users ; let i = index">
         <td>{{i + 1}}</td>
         <td>
           <img *ngIf="user.profileUrl" class="user-image" [src]="baseUrl + '/' + confirmUrl(user.profileUrl)">
@@ -58,8 +59,8 @@
         <td>{{user.relation}}</td>
         <td>{{user.phone}}</td>
         <td><div class="text-ellipsis">{{user.address}}</div></td>
-        <td class="text-date">{{user.weddingDate}}</td>
-        <td class="text-date">{{user.createdDate}}</td>
+        <td class="text-date">{{confirmDate(user.weddingDate)}}</td>
+        <td class="text-date">{{confirmDate(user.createdDate)}}</td>
         <td>
           <select *ngIf="user.type!=='admin'" [(ngModel)]="user.status" (change)="changeStatus(user)">
             <option value="1">Active</option>
@@ -77,5 +78,19 @@
       </tr>
       </tbody>
     </table>
-  </div>  
+  </div>
+  <div class="table-pagination align-center">
+    <div *ngIf="pager && pager.pages && pager.pages.length" class="btn-group" role="group" aria-label="...">
+      <button [ngClass]="{disabled:pager.currentPage === 1}"  
+        class="btn btn-info btn-pagination-first" (click)="search(1, -1)">First</button>
+      <button [ngClass]="{disabled:pager.currentPage === 1}" (click)="prevPage()" 
+        class="btn btn-info btn-pagination-previous">Previous</button>
+      <button *ngFor="let page of pager.pages" [ngClass]="{active:currentPage === page}" (click)="search(page, -1)" 
+        class="btn btn-info page-item number-item btn-pagination-page">{{page}}</button>
+      <button [ngClass]="{disabled:pager.currentPage === pager.totalPages}" (click)="nextPage()"
+        class="btn btn-info btn-pagination-previous">Next</button>
+      <button [ngClass]="{disabled:pager.currentPage === pager.totalPages}" (click)="search(pager.totalPages, -1)" 
+        class="btn btn-info btn-pagination-first">Last</button>
+    </div>
+  </div>
 </div>

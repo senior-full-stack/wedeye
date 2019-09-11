@@ -19,10 +19,13 @@ import { environment } from '@environments/environment';
 })
 export class UserGetComponent implements OnInit {
 
+  pager: any;
   users: any = [];
   localUsers: any = [];
+
+  currentPage = 1;
+  status = 0;
   searchText: string;
-  filterStatus = '0';
   baseUrl = environment.adminApiUrl;
 
   constructor(
@@ -32,27 +35,67 @@ export class UserGetComponent implements OnInit {
     private userService: UserService) { }
 
   ngOnInit() {
-    this.getUsersFromServer();
+    this.search(-1, -1);
   }
 
-  getUsersFromServer() {
-    this.userService.users().subscribe(users => {
-      this.users = users;
-      this.localUsers = users;
+  // search users by name, email, type, phone, address
+  search(page: number, status: number) {
+    if (status !== -1) {
+      this.status = status;
+    }
+
+    if (page !== -1) {
+      this.currentPage = page;
+    }
+
+    this.userService.users(this.searchText, this.currentPage, this.status).subscribe((res: any) => {
+      this.pager = res.pager;
+      this.users = res.pageOfItems;
       this.cdr.markForCheck();
     });
   }
 
+  // go to previous page in pagenation
+  prevPage() {
+    this.currentPage--;
+
+    if (this.currentPage < 1) {
+      this.currentPage = 1;
+    }
+
+    this.search(-1, -1);
+  }
+
+  // go to next page in pagenation
+  nextPage() {
+    this.currentPage++;
+
+    if (this.currentPage > this.pager.totalPages) {
+      this.currentPage = this.pager.totalPages;
+    }
+
+    this.search(-1, -1);
+  }
+
+  // event for search when an user press Enter or the search input lose focus
+  searchEvent(event) {
+    if (event.keyCode === 13) {
+      this.search(-1, -1);
+    }
+  }
+
+  // open a dailog to add an user
   openAddUserDlg() {
     const dialogRef = this.addUserDlg.open(UserAddComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.getUsersFromServer();
+        this.search(-1, -1);
       }
     });
   }
 
+  // open a dailog to edit an user
   openEditUserDlg(index: number) {
     const dialogRef = this.addUserDlg.open(UserEditComponent, {
       data: {
@@ -65,19 +108,19 @@ export class UserGetComponent implements OnInit {
         relation: this.users[index].relation,
         phone: this.users[index].phone,
         address: this.users[index].address,
-        weddingDate: this.users[index].weddingDate,
-        createdDate: this.users[index].createdDate,
+        weddingDate: moment(this.users[index].weddingDate).format('YYYY-MM-DD'),
         status: this.users[index].status
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.getUsersFromServer();
+        this.search(-1, -1);
       }
     });
   }
 
+  // open a dailog to delete an user
   openConfirmDlg(index: number) {
     const dialogRef = this.addUserDlg.open(ConfirmDlgComponent, {
       data: {
@@ -88,7 +131,7 @@ export class UserGetComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.getUsersFromServer();
+        this.search(-1, -1);
       }
     });
   }
@@ -97,29 +140,18 @@ export class UserGetComponent implements OnInit {
     return url.replace(/.png/, '');
   }
 
-  filterUsers(type: string) {
-    this.filterStatus = type;
-
-    if (type !== '0' && type !== '7') {
-      this.users = this.localUsers.filter(user => user.status === type);
-    } else if (type === '0') {
-      this.users = this.localUsers;
-    } else {
-      this.users = this.localUsers.filter(user => {
-        const createdDate = moment(user.createdDate);
-        const now = moment();
-        const diff = now.diff(createdDate, 'days');
-
-        if (Math.abs(diff) < 31) {
-          return user;
-        }
-      });
+  confirmDate(date: any) {
+    if (date) {
+      return moment(date).format('YYYY-MM-DD');
     }
   }
 
+  // change status of an user
   changeStatus(user: any) {
     this.userService.update(user).subscribe((res: any) => {
       if (res.success) {
+        this.search(-1, -1);
+
         this.toast.success('The operation was successful.', 'Done');
       } else {
         this.toast.info('Operation failed.', 'Failed');

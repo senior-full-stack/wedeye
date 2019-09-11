@@ -150,6 +150,30 @@
       }
     }
   }
+
+  .table-pagination {
+    margin-top: 50px;
+
+    .btn {
+      background-color: $bg-color !important;
+    }
+
+    .btn-pagination-first {
+      width: 55px;
+    }
+
+    .btn-pagination-previous {
+      width: 85px;
+    }
+
+    .btn-pagination-page {
+      width: 40px;
+    }
+
+    .active {
+      background-color: $pressed-color !important;
+    }
+  }
   
   h1 {
     margin: 40px 20px 0px;
