@@ -7,7 +7,7 @@ module.exports = {
 	// get one user
 	show: (req, res) => {
 		User.findById(req.params.id, (err, user) => {
-			res.json(user)
+			return res.json(user)
 		})
 	},
 
@@ -28,6 +28,8 @@ module.exports = {
 				{"address": { '$regex' : searchText, '$options' : 'i' }},
 				]},
 				(err, result) => {
+					if(err) return res.json({success: false, code: err.code})
+
 					users = result;
 	
 					var pageOfItems = [];
@@ -64,6 +66,8 @@ module.exports = {
 			)
 		} else {
 			User.find({}, (err, result) => {
+				if(err) return res.json({success: false, code: err.code})
+
 				users = result;
 				var pageOfItems = [];
 	

@@ -23,14 +23,16 @@ function signToken(user) {
 // function for verifying tokens
 function verifyToken(req, res, next) {
 	// grab token from either headers, req.body, or query string
-	const token = getTokenFromHeader(req) || req.body.token || req.query.token
+  const token = getTokenFromHeader(req) || req.body.token || req.query.token
 	// if no token present, deny access
-	if(!token) return res.json({success: false, message: "No token provided"})
+	if(!token) return false;
   // otherwise, try to verify token
   jwt.verify(token, JWT_SECRET, (err, decodedData) => {
     // if problem with token verification, deny access
-    if(err) return res.json({success: false, message: "Invalid token."})
+    if(err) return false;
   })
+
+  return true;
 }
 
 function isAuthHeaderInvalid(req) {
@@ -70,20 +72,22 @@ function requiresTokenValidation(url) {
 module.exports = {
   intercept: (req, res, next) => {
     if (requiresTokenValidation(req.url)) {
-      console.log(`intercept( Validate token. )`);
       if (isAuthHeaderInvalid(req)) {
         invalidAuthHeader(res);
         return;
-      }
-      try {
-        verifyToken(req, res, next);
-        next();
-      } catch (err) {
-        console.warn(err);
-        invalidToken(res);
+      } else {
+        try {
+          if (verifyToken(req, res, next)) {
+            next();
+          } else {
+            return res.json({message: 'token invalid'}); 
+          }
+        } catch (err) {
+          console.warn(err);
+          invalidToken(res);
+        }
       }
     } else {
-      // console.log(`intercept( Don't validate token; either auth API endpoint or not an API endpoint. )`);
       next();
     }
   },
