@@ -47,7 +47,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let user of users ; let i = index">
-        <td>{{i + 1}}</td>
+        <td>{{i + (currentPage-1)*10 + 1}}</td>
         <td>
           <img *ngIf="user.profileUrl" class="user-image" [src]="baseUrl + '/' + confirmUrl(user.profileUrl)">
           <i *ngIf="!user.profileUrl" class="fa fa-user-circle user-image-default"></i>

@@ -23,7 +23,7 @@ module.exports = {
 	// search by name, email, type, phone, address
 	search: (req, res) => {
 		var users = [];
-		var pageSize = 2;
+		var pageSize = 10;
 		var page = req.params.page;
 		var status = req.body.status;
 		var searchText = req.body.searchText;
