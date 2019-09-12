@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ElementRef, ViewChild, AfterContentInit } from '@angular/core';
+import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, NgForm, FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
@@ -33,8 +33,10 @@ export class VendorAddComponent implements OnInit {
   vendorCategories = [];
   serviceCategories = [];
   policyCategories = [];
-
   portfolio = [];
+  inputElements = [];
+  fileElements = [];
+  delElements = [];
 
   portfolioHtml = '';
 
@@ -96,38 +98,83 @@ export class VendorAddComponent implements OnInit {
       status: formCtrl.status
     };
 
+    console.log(vendor);
+
     this.vendorService.create(vendor).subscribe((res: any) => {
       this.dialogRef.close(res.success);
     });
+  }
+
+  // get name, file, delete elements for portfolio
+  getElements(container: any) {
+    this.inputElements = container.getElementsByClassName('form-control');
+    this.fileElements = container.getElementsByClassName('custom-file-input');
+    this.delElements = container.getElementsByTagName('a');
   }
 
   // add a portfolio
   addPortfolio() {
     this.portfolio.push(
       {
+        id: this.portfolioIndex,
         name: '',
         urls: []
       }
     );
 
-    const html = `<div class="row" style="margin-top: 10px"><div class="col-md-8">` +
-        `<input type="text" class="form-control"` +
-        `placeholder="enter name for portfolio - ${this.portfolioIndex + 1}"/>` +
-        `</div><div class="col-md-4"><div class="input-group"><div class="custom-file">` +
-        `<input type="file" class="custom-file-input"` +
+    const html = `<div class="row row-${this.portfolioIndex}" style="margin-top: 10px"><div class="col-md-8">` +
+        `<input type="text" class="form-control name&${this.portfolioIndex}"` +
+        `placeholder="enter name for portfolio"/>` +
+        `</div><div class="col-md-3"><div class="input-group"><div class="custom-file">` +
+        `<input type="file" class="custom-file-input file&${this.portfolioIndex}"` +
         `multiple> <label class="custom-file-label">Choose file</label>` +
-        `</div></div></div></div>`;
+        `</div></div></div><div class="col-md-1"><a class="btn btn&${this.portfolioIndex}">` +
+        `<i class="fa fa-minus-circle"></i></a></div></div>`;
 
-    this.pfContainer.nativeElement.insertAdjacentHTML('beforeend', html);
+    const container = this.pfContainer.nativeElement;
+    container.insertAdjacentHTML('beforeend', html);
 
-    const elements = this.pfContainer.nativeElement.getElementsByTagName('input');
-    elements[(this.portfolioIndex * 2)].addEventListener('change', (e) => {
-      this.portfolio[this.portfolioIndex - 1].name = e.target.value;
-    });
+    // get name, file, delete elements for portfolio
+    this.getElements(container);
 
-    elements[(this.portfolioIndex * 2) + 1].addEventListener('change', (e) => {
-      this.uploadPortfolio(e);
-    });
+    for (const element of this.inputElements) {
+      element.addEventListener('change', (e) => {
+        const index = parseInt(element.className.split('&')[1], 10);
+        for (const ele of this.portfolio) {
+          if (ele.id === index) {
+            ele.name = element.value;
+          }
+        }
+      });
+    }
+
+    for (const element of this.fileElements) {
+      element.addEventListener('change', (e) => {
+        const index = parseInt(element.className.split('&')[1], 10);
+        this.uploadPortfolio(e, index);
+      });
+    }
+
+    for (const element of this.delElements) {
+      element.addEventListener('click', (e) => {
+        const index = parseInt(element.className.split('&')[1], 10);
+
+        const dEles = container.getElementsByClassName(`row-${index}`);
+
+        if (dEles.length > 0) {
+          container.getElementsByClassName(`row-${index}`)[0].remove();
+        }
+
+        // get name, file, delete elements for portfolio
+        this.getElements(container);
+
+        for (const ele of this.portfolio) {
+          if (ele.id === index) {
+            this.portfolio.splice(this.portfolio.indexOf(ele), 1);
+          }
+        }
+      });
+    }
 
     this.portfolioIndex++;
   }
@@ -172,7 +219,7 @@ export class VendorAddComponent implements OnInit {
   }
 
   // upload portfolio for past works
-  uploadPortfolio(element: any) {
+  uploadPortfolio(element: any, index: number) {
     this.uploadingProgress = 0;
     const portfolioFiles = element.target.files;
 
@@ -184,7 +231,12 @@ export class VendorAddComponent implements OnInit {
         let res: any;
         res = event.body;
         if (res.success) {
-          this.portfolio[this.portfolioIndex - 1].urls = res.path;
+          for (const ele of this.portfolio) {
+            if (ele.id === index) {
+              ele.urls = res.path;
+              return;
+            }
+          }
         }
       }
 
