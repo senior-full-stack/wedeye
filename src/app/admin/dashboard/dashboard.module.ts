@@ -19,6 +19,7 @@ import { VendorAddComponent } from './vendor/vendor-add/vendor-add.component';
 import { ReportGetComponent } from './report/report-get/report-get.component';
 import { UserAddComponent } from './user/user-add/user-add.component';
 import { MatchValueDirective } from '../../directives/match-value.directive';
+import { SanitizeHtmlPipe } from '@app/pipes/sanitizeHtml';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { MatchValueDirective } from '../../directives/match-value.directive';
     VendorEditComponent,
     VendorAddComponent,
     ReportGetComponent,
-    MatchValueDirective
+    MatchValueDirective,
+    SanitizeHtmlPipe
   ],
   imports: [
     CommonModule,
@@ -48,6 +50,7 @@ import { MatchValueDirective } from '../../directives/match-value.directive';
   ],
   entryComponents: [
     UserAddComponent
-  ]
+  ],
+  providers: [SanitizeHtmlPipe]
 })
 export class DashboardModule { }

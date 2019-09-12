@@ -45,8 +45,6 @@ export class VendorService {
   uploadPortfolio(files: any[]) {
     const formData = new FormData();
 
-    console.log(files);
-
     for (var i = 0; i < files.length; i++) {
       formData.append('files[]', files[i], files[i].name);
     }

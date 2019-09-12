@@ -14,18 +14,20 @@ import { environment } from '@environments/environment';
   styleUrls: ['./user-edit.component.scss']
 })
 export class UserEditComponent implements OnInit {
+
+  error = '';
   editForm: FormGroup;
+
   loading = false;
   submitted = false;
-  error = '';
-
   readyToUpload = false;
-
-  croppedBlob: any;
-  uploadingProgress = 0;
+  uploadedProfile = false;
 
   imageChangedEvent: any;
   croppedImage: any;
+  croppedBlob: any;
+
+  uploadingProgress = 0;
 
   baseUrl = environment.adminApiUrl;
 
@@ -73,6 +75,8 @@ export class UserEditComponent implements OnInit {
   }
 
   uploadProfile() {
+    this.uploadingProgress = 0;
+
     if (this.croppedBlob) {
       // create a new progress-subject for every file
       const progress = new Subject<number>();
@@ -82,7 +86,7 @@ export class UserEditComponent implements OnInit {
           let res: any;
           res = event.body;
           if (res.success) {
-
+            this.uploadedProfile = true;
             this.editForm.get('profileUrl').setValue(res.path);
           }
         }
@@ -116,7 +120,7 @@ export class UserEditComponent implements OnInit {
     this.imageChangedEvent = event;
 
     this.readyToUpload = true;
-    this.uploadingProgress = 0;
+    this.uploadedProfile = false;
   }
 
   imageCropped(event: ImageCroppedEvent) {

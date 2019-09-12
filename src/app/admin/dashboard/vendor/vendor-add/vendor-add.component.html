@@ -9,7 +9,7 @@
         <input type="file" (change)="fileChangeEvent($event)">
         <button *ngIf="readyToUpload" class="btn" (click)="uploadProfile()">Apply</button>
       </div>
-      <div *ngIf="uploadingProgress==0">
+      <div *ngIf="!uploadedProfile">
         <image-cropper
           [imageChangedEvent]="imageChangedEvent"
           [maintainAspectRatio]="false"
@@ -74,21 +74,9 @@
               [ngClass]="{ 'is-invalid': submitted && f.parkingFacility.errors }" placeholder="enter your parking facility"/>
         </div>
         <div class="form-group">
-          <label for="nameOfWorks">Portfolio</label>
-          <div class="row">
-            <div class="col-md-8">
-              <input type="text" formControlName="namePortfolio" class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f.namePortfolio.errors }" placeholder="enter name for portfolio"/>
-            </div>
-            <div class="col-md-4">
-              <div class="input-group">
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" (change)="uploadPortfolio($event)" multiple>
-                  <label class="custom-file-label">Choose file</label>
-                </div>
-              </div>
-            </div>
-          </div>
+          <label class="namePortfolio">Portfolio</label>
+          (<a class="btn" (click)="addPortfolio()"><i class="fa fa-plus"></i></a>)
+          <div #pfContainer></div>
         </div>
         <div class="form-group">
           <label for="status">Status</label>

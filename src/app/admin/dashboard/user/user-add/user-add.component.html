@@ -9,7 +9,7 @@
       <input type="file" (change)="fileChangeEvent($event)">
       <button *ngIf="readyToUpload" class="btn" (click)="uploadProfile()">Apply</button>
     </div>
-    <div *ngIf="uploadingProgress==0">
+    <div *ngIf="!uploadedProfile">
       <image-cropper
         [imageChangedEvent]="imageChangedEvent"
         [maintainAspectRatio]="true"
