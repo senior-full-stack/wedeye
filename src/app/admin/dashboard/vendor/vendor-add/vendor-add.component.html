@@ -4,7 +4,7 @@
     <h1 mat-dialog-title>Add Vendor</h1>
     <mat-dialog-content class="mat-typography">
       <div class="user-profile">
-        <i *ngIf="!croppedImage" class="fa fa-ravelry"></i>
+        <i *ngIf="!croppedImage" class="fa fa-vimeo"></i>
         <img *ngIf="croppedImage" [src]="croppedImage" />
         <input type="file" (change)="fileChangeEvent($event)">
         <button *ngIf="readyToUpload" class="btn" (click)="uploadProfile()">Apply</button>
@@ -12,10 +12,9 @@
       <div *ngIf="uploadingProgress==0">
         <image-cropper
           [imageChangedEvent]="imageChangedEvent"
-          [maintainAspectRatio]="true"
-          [aspectRatio]="1"
-          [resizeToWidth]="128"
-          format="png"
+          [maintainAspectRatio]="false"
+          [aspectRatio]="4/3"
+          format="jpeg"
           (imageCropped)="imageCropped($event)"
           (imageLoaded)="imageLoaded()"
           (cropperReady)="cropperReady()"
@@ -73,6 +72,23 @@
           <label for="text">Parking Facility</label>
           <input type="text" formControlName="parkingFacility" class="form-control"
               [ngClass]="{ 'is-invalid': submitted && f.parkingFacility.errors }" placeholder="enter your parking facility"/>
+        </div>
+        <div class="form-group">
+          <label for="nameOfWorks">Portfolio</label>
+          <div class="row">
+            <div class="col-md-8">
+              <input type="text" formControlName="namePortfolio" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.namePortfolio.errors }" placeholder="enter name for portfolio"/>
+            </div>
+            <div class="col-md-4">
+              <div class="input-group">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" (change)="uploadPortfolio($event)" multiple>
+                  <label class="custom-file-label">Choose file</label>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <label for="status">Status</label>

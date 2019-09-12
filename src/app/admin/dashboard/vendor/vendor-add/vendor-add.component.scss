@@ -1,7 +1,17 @@
 @import "../../dashboard.component.scss";
 
 .user-profile {
+    width: fit-content !important;
+
     img {
+        width: auto !important;
+        height: 160px !important;
         border-radius: unset !important;
+    }
+
+    button {
+        left: unset !important;
+        right: -80px !important;
+        top: 123px !important;
     }
 }

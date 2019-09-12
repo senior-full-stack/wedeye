@@ -14,7 +14,7 @@ const
         reviews: { type: Array },
         policies: { type: Array },
         services: { type: Array },
-        pastWorks: { type: Array },
+        portfolio: { type: Array },
         status: { type: String },
         createdDate: { type: String }
     })

@@ -42,6 +42,23 @@ export class VendorService {
     return this.http.request(req);
   }
 
+  uploadPortfolio(files: any[]) {
+    const formData = new FormData();
+
+    console.log(files);
+
+    for (var i = 0; i < files.length; i++) {
+      formData.append('files[]', files[i], files[i].name);
+    }
+
+    const req = new HttpRequest('POST', `${environment.adminApiUrl}/api/upload`, formData, {
+      reportProgress: true
+    });
+
+    // send the http-request and subscribe for progress-updates
+    return this.http.request(req);
+  }
+
   vendorCategories() {
     return this.http.get(`${environment.adminApiUrl}/api/vendors/vendor-category`);
   }

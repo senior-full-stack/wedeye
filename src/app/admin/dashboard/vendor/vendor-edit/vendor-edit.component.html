@@ -4,7 +4,7 @@
     <h1 mat-dialog-title>Edit Vendor</h1>
     <mat-dialog-content class="mat-typography">
       <div class="user-profile">
-        <i *ngIf="!croppedImage && !f.profileUrl.value" class="fa fa-ravelry"></i>
+        <i *ngIf="!croppedImage && !f.profileUrl.value" class="fa fa-vimeo"></i>
         <img *ngIf="croppedImage" [src]="croppedImage" />
         <img *ngIf="f.profileUrl.value && !croppedImage" [src]="baseUrl + '/' + confirmUrl(f.profileUrl.value)" />
         <input type="file" (change)="fileChangeEvent($event)">
@@ -13,10 +13,9 @@
       <div *ngIf="uploadingProgress==0">
         <image-cropper
           [imageChangedEvent]="imageChangedEvent"
-          [maintainAspectRatio]="true"
-          [aspectRatio]="1"
-          [resizeToWidth]="128"
-          format="png"
+          [maintainAspectRatio]="false"
+          [aspectRatio]="4/3"
+          format="jpeg"
           (imageCropped)="imageCropped($event)"
           (imageLoaded)="imageLoaded()"
           (cropperReady)="cropperReady()"

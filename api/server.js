@@ -56,11 +56,26 @@ app.use('/api/users', usersRoutes);
 app.use('/api/vendors', vendorsRoutes);
 // upload a file
 app.post('/api/upload', multipartMiddleware, (req, res) => {
-  const file = req.files.file;
-  return res.json({
-    success: true,
-    path: `${file.path.replace(/uploads\//,'') + file.type.replace(/[a-z]*\//g, '.')}`
-  });
+  if (req.files.file) {
+    const file = req.files.file;
+    return res.json({
+      success: true,
+      path: `${file.path.replace(/uploads\//,'')}`
+    });
+  } else if (req.files.files) {
+    const files = req.files.files;
+    let paths = [];
+
+    files.forEach(file => {
+      paths.push(file.path.replace(/uploads\//,''));
+    });
+
+    return res.json({
+      success: true,
+      path: paths
+    });
+  }
+  
 });
 
 app.listen(PORT, (err) => {

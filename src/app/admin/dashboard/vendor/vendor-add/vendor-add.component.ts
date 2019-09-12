@@ -29,6 +29,11 @@ export class VendorAddComponent implements OnInit {
   serviceCategories = [];
   policyCategories = [];
 
+  portfolio = {
+    name: '',
+    urls: []
+  };
+
   constructor(
     private formBuilder: FormBuilder,
     private vendorService: VendorService,
@@ -49,6 +54,7 @@ export class VendorAddComponent implements OnInit {
       storeType: [''],
       propertyType: [''],
       parkingFacility: [''],
+      namePortfolio: [''],
       status: new FormControl('1')
     });
 
@@ -70,7 +76,25 @@ export class VendorAddComponent implements OnInit {
 
     this.loading = true;
 
-    this.vendorService.create(vendorForm.value).subscribe((res: any) => {
+    const formCtrl = vendorForm.value;
+    this.portfolio.name = formCtrl.namePortfolio;
+
+    const vendor = {
+      title: formCtrl.title,
+      profileUrl: formCtrl.profileUrl,
+      category: formCtrl.category,
+      capacity: formCtrl.capacity,
+      location: formCtrl.location,
+      workingSince: formCtrl.workingSince,
+      introduction: formCtrl.introduction,
+      storeType: formCtrl.storeType,
+      propertyType: formCtrl.propertyType,
+      parkingFacility: formCtrl.parkingFacility,
+      portfolio: this.portfolio,
+      status: formCtrl.status
+    };
+
+    this.vendorService.create(vendor).subscribe((res: any) => {
       this.dialogRef.close(res.success);
     });
   }
@@ -111,7 +135,43 @@ export class VendorAddComponent implements OnInit {
     }
   }
 
-  fileChangeEvent(event: any): void {
+  // upload portfolio for past works
+  uploadPortfolio(element: any) {
+    const portfolioFiles = element.target.files;
+
+    // create a new progress-subject for every file
+    const progress = new Subject<number>();
+
+    this.vendorService.uploadPortfolio(portfolioFiles).subscribe(event => {
+      if (event.type === HttpEventType.Response) {
+        let res: any;
+        res = event.body;
+        if (res.success) {
+          this.portfolio.urls = res.path;
+        }
+      }
+
+      if (event.type === HttpEventType.UploadProgress) {
+
+        // calculate the progress percentage
+        const percentDone = Math.round(100 * event.loaded / event.total);
+
+        // pass the percentage into the progress-stream
+        progress.next(percentDone);
+      } else if (event instanceof HttpResponse) {
+
+        // Close the progress-stream if we get an answer form the API
+        // The upload is complete
+        progress.complete();
+      }
+    });
+
+    progress.subscribe(pro => {
+      this.uploadingProgress = pro;
+    });
+  }
+
+  fileChangeEvent(event: any) {
     this.imageChangedEvent = event;
 
     this.readyToUpload = true;

@@ -43,6 +43,10 @@
         <th>Store Type</th>
         <th>Property Type</th>
         <th>Parking Facility</th>
+        <th>Portfolio</th>
+        <th>Reviews</th>
+        <th>Services</th>
+        <th>Policies</th>
         <th>Created Date</th>
         <th>Status</th>
         <th>Action</th>
@@ -64,6 +68,10 @@
         <td><div class="text-ellipsis">{{vendor.storeType}}</div></td>
         <td><div class="text-ellipsis">{{vendor.propertyType}}</div></td>
         <td><div class="text-ellipsis">{{vendor.parkingFacility}}</div></td>
+        <td><div>{{vendor.portfolio.length}}</div></td>
+        <td><div>{{vendor.reviews.length}}</div></td>
+        <td><div>{{vendor.services.length}}</div></td>
+        <td><div>{{vendor.policies.length}}</div></td>
         <td class="text-date">{{confirmDate(vendor.createdDate)}}</td>
         <td>
           <select [(ngModel)]="vendor.status" (change)="changeStatus(vendor)">
