@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators, NgForm, FormControl } from '@angula
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserService } from '@app/services';
 import { Subject } from 'rxjs';
+import * as moment from 'moment';
+
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 
@@ -26,6 +28,7 @@ export class UserEditComponent implements OnInit {
   imageChangedEvent: any;
   croppedImage: any;
   croppedBlob: any;
+  user: any;
 
   uploadingProgress = 0;
 
@@ -36,28 +39,46 @@ export class UserEditComponent implements OnInit {
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<UserEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-
+      this.editForm = this.formBuilder.group({
+        _id: [''],
+        profileUrl: [''],
+        name: ['', Validators.required],
+        email: ['', Validators.required],
+        password: ['', Validators.required],
+        confirmPassword: ['', Validators.required],
+        type: new FormControl('vendor'),
+        relation: [''],
+        weddingDate: new FormControl(''),
+        address: [''],
+        phone: [''],
+        status: new FormControl('1')
+      });
   }
 
   ngOnInit() {
-    this.editForm = this.formBuilder.group({
-      _id: [this.data.id],
-      profileUrl: [this.data.profileUrl ? this.data.profileUrl : ''],
-      name: [this.data.name, Validators.required],
-      email: [this.data.email, Validators.required],
-      password: [this.data.password, Validators.required],
-      confirmPassword: [this.data.password, Validators.required],
-      type: new FormControl(this.data.type),
-      relation: [this.data.relation ? this.data.relation : ''],
-      weddingDate: new FormControl(this.data.weddingDate ? this.data.weddingDate.replace(' ', 'T') : ''),
-      address: [this.data.address ? this.data.address : ''],
-      phone: [this.data.phone ? this.data.phone : ''],
-      status: new FormControl(this.data.status ? this.data.status : '')
+    this.userService.findOneById(this.data.id).subscribe(res => {
+      this.user = res;
+
+      this.editForm.setValue(
+        {
+          _id: this.user._id,
+          profileUrl: this.user.profileUrl ? this.user.profileUrl : '',
+          name: this.user.name,
+          email: this.user.email,
+          password: this.user.password,
+          confirmPassword: this.user.password,
+          type: this.user.type,
+          relation: this.user.relation ? this.user.relation : '',
+          weddingDate: this.user.weddingDate ? moment(this.user.weddingDate).format('YYYY-MM-DD') : '',
+          address: this.user.address ? this.user.address : '',
+          phone: this.user.phone ? this.user.phone : '',
+          status: this.user.status ? this.user.status : ''
+        });
     });
   }
 
   // convenience getter for easy access to form fields
-  get f(): FormGroup['controls'] { return this.editForm.controls; }
+  get f(): FormGroup['controls'] { return this.editForm.controls;}
 
   updateUser(userForm: NgForm) {
     this.submitted = true;

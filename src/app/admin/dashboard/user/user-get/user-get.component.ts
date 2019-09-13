@@ -99,16 +99,6 @@ export class UserGetComponent implements OnInit {
     const dialogRef = this.addUserDlg.open(UserEditComponent, {
       data: {
         id: this.users[index]._id,
-        profileUrl: this.users[index].profileUrl,
-        name: this.users[index].name,
-        email: this.users[index].email,
-        password: this.users[index].password,
-        type: this.users[index].type,
-        relation: this.users[index].relation,
-        phone: this.users[index].phone,
-        address: this.users[index].address,
-        weddingDate: this.users[index].weddingDate ? moment(this.users[index].weddingDate).format('YYYY-MM-DD') : '',
-        status: this.users[index].status
       }
     });
 
