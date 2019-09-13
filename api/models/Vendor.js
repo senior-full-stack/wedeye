@@ -12,7 +12,6 @@ const
         propertyType: { type: String },
         parkingFacility: { type: String },
         reviews: { type: Array },
-        policies: { type: Array },
         services: { type: Array },
         portfolio: { type: Array },
         status: { type: String },

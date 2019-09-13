@@ -8,8 +8,7 @@ vendorsRouter.post('/', vendorsCtrl.create)
 vendorsRouter.post('/search/:page', vendorsCtrl.search)
 
 vendorsRouter.get('/vendor-category', vendorsCtrl.vendorCategories)
-vendorsRouter.get('/service-category', vendorsCtrl.serviceAndPriceCategories)
-vendorsRouter.get('/policy-category', vendorsCtrl.policyCategories)
+vendorsRouter.get('/service-category', vendorsCtrl.serviceCategories)
 
 vendorsRouter.route('/:id')
 	.get(vendorsCtrl.show)

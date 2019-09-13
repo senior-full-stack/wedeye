@@ -26,55 +26,60 @@
         <div class="form-group">
           <label for="name">Title</label>
           <input type="text" formControlName="title" class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f.title.errors }" placeholder="enter your title"/>
+              [ngClass]="{ 'is-invalid': submitted && f.title.errors }" placeholder="enter vendor's title"/>
           <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
             <div *ngIf="f.title.errors.required">Title is required</div>
           </div>
         </div>
         <div class="form-group">
           <label for="category">Category</label>
-          <select formControlName="category" class="form-control">
+          <select formControlName="category" class="form-control" (change)="changeCategory()">
             <option *ngFor="let vendorCategory of vendorCategories ; let i = index" [value]="vendorCategory.shortTitle">{{vendorCategory.shortTitle}}</option>
           </select>
         </div>
         <div class="form-group">
           <label for="text">Location</label>
           <input type="text" formControlName="location" class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f.location.errors }" placeholder="enter your location"/>
+              [ngClass]="{ 'is-invalid': submitted && f.location.errors }" placeholder="enter vendor's location"/>
         </div>
         <div *ngIf="f.category.value=='venues'" class="form-group">
           <label for="text">Capacity</label>
           <input type="text" formControlName="capacity" class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f.capacity.errors }" placeholder="enter your capacity"/>
-        </div>
-        <div class="form-group">
-          <label for="text">Introduction</label>
-          <textarea type="text" formControlName="introduction" class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f.introduction.errors }" placeholder="enter your introduction"></textarea>
+              [ngClass]="{ 'is-invalid': submitted && f.capacity.errors }" placeholder="enter vendor's capacity"/>
         </div>
         <div *ngIf="f.category.value=='photographers' || f.category.value=='makeup artists' ||
             f.category.value=='mehndi artists' || f.category.value=='bridal designers' || f.category.value=='invitations'" class="form-group">
           <label for="text">Working Since</label>
           <input type="text" formControlName="workingSince" class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f.workingSince.errors }" placeholder="enter your working since"/>
+              [ngClass]="{ 'is-invalid': submitted && f.workingSince.errors }" placeholder="enter vendor's working since"/>
+        </div>
+        <div class="form-group">
+          <label for="text">Introduction</label>
+          <textarea type="text" formControlName="introduction" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.introduction.errors }" placeholder="enter vendor's introduction"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Service&Price&Policy ({{serviceCnt}})</label>
+          <a class="btn" (click)="addServiceAndPolicy()"><i class="fa fa-plus-circle"></i></a>
+          <div #spContainer></div>
         </div>
         <div *ngIf="f.category.value=='bridal designers'" class="form-group">
           <label for="text">Store Type</label>
           <input type="text" formControlName="storeType" class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f.storeType.errors }" placeholder="enter your store type"/>
+              [ngClass]="{ 'is-invalid': submitted && f.storeType.errors }" placeholder="enter vendor's store type"/>
         </div>
         <div *ngIf="f.category.value=='venues'" class="form-group">
           <label for="text">Property Type</label>
           <input type="text" formControlName="propertyType" class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f.propertyType.errors }" placeholder="enter your property type"/>
+              [ngClass]="{ 'is-invalid': submitted && f.propertyType.errors }" placeholder="enter vendor's property type"/>
         </div>
         <div *ngIf="f.category.value=='venues'" class="form-group">
           <label for="text">Parking Facility</label>
           <input type="text" formControlName="parkingFacility" class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f.parkingFacility.errors }" placeholder="enter your parking facility"/>
+              [ngClass]="{ 'is-invalid': submitted && f.parkingFacility.errors }" placeholder="enter vendor's parking facility"/>
         </div>
         <div class="form-group">
-          <label class="namePortfolio">Portfolio</label>
+          <label>Portfolio ({{portfolioCnt}})</label>
           <a class="btn" (click)="addPortfolio()"><i class="fa fa-plus-circle"></i></a>
           <div #pfContainer></div>
         </div>

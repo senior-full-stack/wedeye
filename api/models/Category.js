@@ -11,7 +11,7 @@ vendorCategories = [
 	{shortTitle: 'planners', title: 'wedding planners'},
 ];
 
-servicesAndPriceCategories = [
+serviceCategories = [
     {title: 'candid photography', vendorCategories: ['photographers', 'videographers']},
     {title: 'traditional photography', vendorCategories: ['photographers', 'videographers']},
     {title: 'cinematic videography', vendorCategories: ['photographers', 'videographers']},
@@ -36,25 +36,20 @@ servicesAndPriceCategories = [
     {title: 'services provided', vendorCategories:['planner']},
     {title: 'in hourse services', vendorCategories:['planner']},
     {title: 'planning type', vendorCategories:['planner']},
-	{title: 'digital e-cards'},
+	//{title: 'digital e-cards'},
     {title: 'bridal lehengas range', vendorCategories:['bridal designers']},
     {title: 'light lehengas range', vendorCategories:['bridal designers']},
     {title: 'gowns range', vendorCategories:['bridal designers']},
     {title: 'sarees range', vendorCategories:['bridal designers']},
     {title: 'indo-westerns range', vendorCategories:['bridal designers']},
-    {title: 'anarkalis/suits range', vendorCategories:['bridal designers']}
-];
-
-policyCategories = [
+    {title: 'anarkalis/suits range', vendorCategories:['bridal designers']},
     {title: 'food policy', vendorCategories: ['venues']},
     {title: 'decor policy', vendorCategories: ['venues']},
     {title: 'dj policy', vendorCategories: ['venues']},
     {title: 'alcohol policy', vendorCategories: ['venues']},
     {title: 'travel policy', vendorCategories: ['photographers', 'makeup artists', 'choreographers', 'videographers']},
-    {title: 'travel policy', vendorCategories: ['photographers', 'makeup artists', 'choreographers', 'videographers']},
     {title: 'payment policy', vendorCategories: ['photographers', 'makeup artists', 'venues', 
         'choreographers', 'invitation', 'mehndi artists', 'decorators', 'bridal designers', 'videographers']},
-    {title: 'travel policy', vendorCategories: ['photographers', 'makeup artists', 'choreographers', 'videographers']},
     {title: 'cancellation policy', vendorCategories: ['photographers', 'makeup artists', 'venues', 
         'choreographers', 'invitation', 'decorators', 'bridal designers']}
 ];
@@ -64,11 +59,7 @@ module.exports = {
         return vendorCategories;
     },
 
-    serviceAndPriceCategories() {
-        return servicesAndPriceCategories;
+    serviceCategories() {
+        return serviceCategories;
     },
-
-    policyCategories() {
-        return policyCategories;
-    }
 }

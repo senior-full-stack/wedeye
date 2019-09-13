@@ -22,9 +22,11 @@ export class VendorGetComponent implements OnInit {
   pager: any;
   vendors: any = [];
 
-  currentPage = 1;
   status = 0;
+  currentPage = 1;
+
   searchText: string;
+
   baseUrl = environment.adminApiUrl;
 
   constructor(
@@ -50,6 +52,7 @@ export class VendorGetComponent implements OnInit {
     this.vendorService.vendors(this.searchText, this.currentPage, this.status).subscribe((res: any) => {
       this.pager = res.pager;
       this.vendors = res.pageOfItems;
+
       this.cdr.markForCheck();
     });
   }
@@ -98,18 +101,7 @@ export class VendorGetComponent implements OnInit {
   openEditVendorDlg(index: number) {
     const dialogRef = this.addVendorDlg.open(VendorEditComponent, {
       data: {
-        id: this.vendors[index]._id,
-        profileUrl: this.vendors[index].profileUrl ? this.vendors[index].profileUrl : '',
-        title: this.vendors[index].title,
-        category: this.vendors[index].category,
-        capacity: this.vendors[index].capacity ? this.vendors[index].capacity : '',
-        location: this.vendors[index].location ? this.vendors[index].location : '',
-        workingSince: this.vendors[index].workingSince ? this.vendors[index].workingSince : '',
-        introduction: this.vendors[index].introduction ? this.vendors[index].introduction : '',
-        storeType: this.vendors[index].storeType ? this.vendors[index].storeType : '',
-        propertyType: this.vendors[index].propertyType ? this.vendors[index].propertyType : '',
-        parkingFacility: this.vendors[index].parkingFacility ? this.vendors[index].parkingFacility : '',
-        status: this.vendors[index].status
+        id: this.vendors[index]._id
       }
     });
 

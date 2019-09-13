@@ -15,6 +15,10 @@ export class UserService {
     return this.http.post(`${environment.adminApiUrl}/api/users/search/${page}`, {searchText, status});
   }
 
+  findOneById(id: string) {
+    return this.http.get(`${environment.adminApiUrl}/api/users/${id}`);
+  }
+
   create(user: any) {
     return this.http.post(`${environment.adminApiUrl}/api/users`, user)
       .pipe(map(res => {

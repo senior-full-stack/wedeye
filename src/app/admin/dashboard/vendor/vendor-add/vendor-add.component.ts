@@ -15,9 +15,13 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 export class VendorAddComponent implements OnInit {
 
   @ViewChild('pfContainer', {static: false}) pfContainer: ElementRef;
+  @ViewChild('spContainer', {static: false}) spContainer: ElementRef;
 
   addForm: FormGroup;
 
+  serviceIndex = 0;
+  serviceCnt = 0;
+  portfolioCnt = 0;
   portfolioIndex = 0;
   uploadingProgress = 0;
 
@@ -34,17 +38,27 @@ export class VendorAddComponent implements OnInit {
   serviceCategories = [];
   policyCategories = [];
   portfolio = [];
-  inputElements = [];
-  fileElements = [];
-  delElements = [];
+  services = [];
 
-  portfolioHtml = '';
+  firstElements = [];
+  secondElements = [];
+  thirdElements = [];
+  delElements = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private vendorService: VendorService,
     public dialogRef: MatDialogRef<VendorAddComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+      // get categories for vendor from a server
+      this.vendorService.vendorCategories().subscribe((res: any) => {
+        this.vendorCategories = res.vendorCategories;
+      });
+
+      // get categories for service, price and policy from a server
+      this.vendorService.serviceCategories().subscribe((res: any) => {
+        this.serviceCategories = res.serviceCategories;
+      });
   }
 
   ngOnInit() {
@@ -60,10 +74,6 @@ export class VendorAddComponent implements OnInit {
       propertyType: [''],
       parkingFacility: [''],
       status: new FormControl('1')
-    });
-
-    this.vendorService.vendorCategories().subscribe((res: any) => {
-      this.vendorCategories = res.vendorCategories;
     });
   }
 
@@ -94,21 +104,40 @@ export class VendorAddComponent implements OnInit {
       storeType: formCtrl.storeType,
       propertyType: formCtrl.propertyType,
       parkingFacility: formCtrl.parkingFacility,
-      portfolio: this.portfolio,
+      portfolio: this.checkEmptyInArray(this.portfolio),
+      services: this.checkEmptyInArray(this.services),
       status: formCtrl.status
     };
-
-    console.log(vendor);
 
     this.vendorService.create(vendor).subscribe((res: any) => {
       this.dialogRef.close(res.success);
     });
   }
 
+  // check empty element in array
+  checkEmptyInArray(array: any[]) {
+    const items = [];
+    for (const item of array) {
+      if (item.title !== '') {
+        items.push(item);
+      }
+    }
+
+    return items;
+  }
+
   // get name, file, delete elements for portfolio
-  getElements(container: any) {
-    this.inputElements = container.getElementsByClassName('form-control');
-    this.fileElements = container.getElementsByClassName('custom-file-input');
+  getElementsForPortfolio(container: any) {
+    this.firstElements = container.getElementsByClassName('form-control');
+    this.secondElements = container.getElementsByClassName('custom-file-input');
+    this.delElements = container.getElementsByTagName('a');
+  }
+
+  // get a category, title, description
+  getElementsForService(container: any) {
+    this.firstElements = container.getElementsByClassName('category');
+    this.secondElements = container.getElementsByClassName('title');
+    this.thirdElements = container.getElementsByClassName('description');
     this.delElements = container.getElementsByTagName('a');
   }
 
@@ -117,11 +146,12 @@ export class VendorAddComponent implements OnInit {
     this.portfolio.push(
       {
         id: this.portfolioIndex,
-        name: '',
+        title: '',
         urls: []
       }
     );
 
+    // make a html for a portfolio
     const html = `<div class="row row-${this.portfolioIndex}" style="margin-top: 10px"><div class="col-md-8">` +
         `<input type="text" class="form-control name&${this.portfolioIndex}"` +
         `placeholder="enter name for portfolio"/>` +
@@ -129,32 +159,36 @@ export class VendorAddComponent implements OnInit {
         `<input type="file" class="custom-file-input file&${this.portfolioIndex}"` +
         `multiple> <label class="custom-file-label">Choose file</label>` +
         `</div></div></div><div class="col-md-1"><a class="btn btn&${this.portfolioIndex}">` +
-        `<i class="fa fa-minus-circle"></i></a></div></div>`;
+        `<i class="fa fa-minus-circle"></i></a></div>` +
+        `<div style="width:100%;height:1px;margin:10px 15px;background-color:lightgray !important"></div></div>`;
 
     const container = this.pfContainer.nativeElement;
     container.insertAdjacentHTML('beforeend', html);
 
     // get name, file, delete elements for portfolio
-    this.getElements(container);
+    this.getElementsForPortfolio(container);
 
-    for (const element of this.inputElements) {
+    // loop elements for the name of portfolio
+    for (const element of this.firstElements) {
       element.addEventListener('change', (e) => {
         const index = parseInt(element.className.split('&')[1], 10);
         for (const ele of this.portfolio) {
           if (ele.id === index) {
-            ele.name = element.value;
+            ele.title = element.value;
           }
         }
       });
     }
 
-    for (const element of this.fileElements) {
+    // loop elements for the file of portfolio
+    for (const element of this.secondElements) {
       element.addEventListener('change', (e) => {
         const index = parseInt(element.className.split('&')[1], 10);
         this.uploadPortfolio(e, index);
       });
     }
 
+    // loop elements for deleting
     for (const element of this.delElements) {
       element.addEventListener('click', (e) => {
         const index = parseInt(element.className.split('&')[1], 10);
@@ -166,17 +200,141 @@ export class VendorAddComponent implements OnInit {
         }
 
         // get name, file, delete elements for portfolio
-        this.getElements(container);
+        this.getElementsForPortfolio(container);
 
         for (const ele of this.portfolio) {
           if (ele.id === index) {
             this.portfolio.splice(this.portfolio.indexOf(ele), 1);
           }
         }
+
+        this.portfolioCnt = this.portfolio.length;
       });
     }
 
+    this.portfolioCnt++;
     this.portfolioIndex++;
+  }
+
+  // add a service, price, policy
+  addServiceAndPolicy() {
+    this.services.push(
+      {
+        id: this.serviceIndex,
+        category: '',
+        title: '',
+        description: ''
+      }
+    );
+
+    const services = this.serviceCategories.filter(item => {
+      for (const category of item.vendorCategories) {
+        if (category === this.f.category.value) {
+          return item;
+        }
+      }
+    });
+
+    let options = '';
+    for (const service of services) {
+      options = options + `<option value="${service.title}">${service.title}</option>`;
+    }
+
+    // make a html for a service
+    const html = `<div class="row row-${this.serviceIndex}" style="margin-top: 10px">` +
+        `<div class="col-md-11"><select class="form-control category category&${this.serviceIndex}">` +
+        `${options}</select></div><div class="col-md-1">` +
+        `<a class="btn btn&${this.serviceIndex}">` +
+        `<i class="fa fa-minus-circle"></i></a></div>` +
+        `<div class="col-md-11" style="margin-top:10px;margin-left:20px"><input type="text"` +
+        `class="form-control title title&${this.serviceIndex}"` +
+        `placeholder="enter service & pricing & policy's title"/></div>` +
+        `<div class="col-md-11" style="margin-top:10px;margin-left:20px"><textarea type="text"` +
+        `class="form-control description description&${this.serviceIndex}"` +
+        `placeholder="enter service & pricing & policy's description"></textarea>` +
+        `</div><div style="width:100%;height:1px;margin:10px 15px;background-color:lightgray !important">` +
+        `</div></div>`;
+
+    const container = this.spContainer.nativeElement;
+    container.insertAdjacentHTML('beforeend', html);
+
+    // get a category, title, description
+    this.getElementsForService(container);
+
+    // loop elements for category
+    for (const element of this.firstElements) {
+      element.addEventListener('change', (e) => {
+        const index = parseInt(element.className.split('&')[1], 10);
+        for (const ele of this.services) {
+          if (ele.id === index) {
+            ele.category = element.value;
+          }
+        }
+      });
+    }
+
+    // loop elements for title
+    for (const element of this.secondElements) {
+      element.addEventListener('change', (e) => {
+        const index = parseInt(element.className.split('&')[1], 10);
+        for (const ele of this.services) {
+          if (ele.id === index) {
+            ele.title = element.value;
+          }
+        }
+      });
+    }
+
+    // loop elements for description
+    for (const element of this.thirdElements) {
+      element.addEventListener('change', (e) => {
+        const index = parseInt(element.className.split('&')[1], 10);
+        for (const ele of this.services) {
+          if (ele.id === index) {
+            ele.description = element.value;
+          }
+        }
+      });
+    }
+
+    // loop elements for deleting
+    for (const element of this.delElements) {
+      element.addEventListener('click', (e) => {
+        const index = parseInt(element.className.split('&')[1], 10);
+
+        const dEles = container.getElementsByClassName(`row-${index}`);
+
+        if (dEles.length > 0) {
+          container.getElementsByClassName(`row-${index}`)[0].remove();
+        }
+
+        // get name, file, delete elements for portfolio
+        this.getElementsForService(container);
+
+        for (const ele of this.services) {
+          if (ele.id === index) {
+            this.services.splice(this.services.indexOf(ele), 1);
+          }
+        }
+
+        this.serviceCnt = this.services.length;
+      });
+    }
+
+    this.serviceCnt++;
+    this.serviceIndex++;
+  }
+
+  // remove all childrens of service section when the vendor's category is changed
+  changeCategory() {
+    this.serviceIndex = 0;
+    this.services = [];
+
+    let children = this.spContainer.nativeElement.lastElementChild;
+    while (children) {
+      children.remove();
+      children = this.spContainer.nativeElement.lastElementChild;
+    }
   }
 
   // upload the profile for a vendor
@@ -286,5 +444,4 @@ export class VendorAddComponent implements OnInit {
   loadImageFailed() {
       // show message
   }
-
 }

@@ -143,13 +143,8 @@ module.exports = {
 		return res.json({success: true, message: "Vendor Categories", vendorCategories})
 	},
 
-	policyCategories: (req, res) => {
-		policyCategories = Category.policyCategories();
-		return res.json({success: true, message: "Policy Categories", policyCategories})
-	},
-
-	serviceAndPriceCategories: (req, res) => {
-		serviceAndPriceCategories = Category.serviceAndPriceCategories();
-		return res.json({success: true, message: "Service Categories", serviceAndPriceCategories})
+	serviceCategories: (req, res) => {
+		serviceCategories = Category.serviceCategories();
+		return res.json({success: true, message: "Service Categories", serviceCategories})
 	}
 }

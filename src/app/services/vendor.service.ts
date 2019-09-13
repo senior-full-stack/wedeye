@@ -15,6 +15,10 @@ export class VendorService {
     return this.http.post(`${environment.adminApiUrl}/api/vendors/search/${page}`, {searchText, status});
   }
 
+  findOneById(id: string) {
+    return this.http.get(`${environment.adminApiUrl}/api/vendors/${id}`);
+  }
+
   create(vendor: any) {
     return this.http.post(`${environment.adminApiUrl}/api/vendors`, vendor)
       .pipe(map(res => {
@@ -63,9 +67,5 @@ export class VendorService {
 
   serviceCategories() {
     return this.http.get(`${environment.adminApiUrl}/api/vendors/service-category`);
-  }
-
-  policyCategories() {
-    return this.http.get(`${environment.adminApiUrl}/api/vendors/policy-category`);
   }
 }

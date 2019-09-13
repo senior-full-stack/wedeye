@@ -10,7 +10,7 @@
         <input type="file" (change)="fileChangeEvent($event)">
         <button *ngIf="readyToUpload" class="btn" (click)="uploadProfile()">Apply</button>
       </div>
-      <div *ngIf="uploadingProgress==0">
+      <div *ngIf="!uploadedProfile">
         <image-cropper
           [imageChangedEvent]="imageChangedEvent"
           [maintainAspectRatio]="false"
@@ -34,7 +34,7 @@
         </div>
         <div class="form-group">
           <label for="category">Category</label>
-          <select formControlName="category" class="form-control">
+          <select formControlName="category" class="form-control" (change)="changeCategory()">
             <option *ngFor="let vendorCategory of vendorCategories ; let i = index" [value]="vendorCategory.shortTitle">{{vendorCategory.shortTitle}}</option>
           </select>
         </div>
@@ -48,16 +48,21 @@
           <input type="text" formControlName="capacity" class="form-control"
               [ngClass]="{ 'is-invalid': submitted && f.capacity.errors }" placeholder="enter your capacity"/>
         </div>
-        <div class="form-group">
-          <label for="text">Introduction</label>
-          <textarea type="text" formControlName="introduction" class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f.introduction.errors }" placeholder="enter your introduction"></textarea>
-        </div>
         <div *ngIf="f.category.value=='photographers' || f.category.value=='makeup artists' ||
             f.category.value=='mehndi artists' || f.category.value=='bridal designers' || f.category.value=='invitations'" class="form-group">
           <label for="text">Working Since</label>
           <input type="text" formControlName="workingSince" class="form-control"
               [ngClass]="{ 'is-invalid': submitted && f.workingSince.errors }" placeholder="enter your working since"/>
+        </div>
+        <div class="form-group">
+          <label for="text">Introduction</label>
+          <textarea type="text" formControlName="introduction" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.introduction.errors }" placeholder="enter your introduction"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Service&Price&Policy ({{serviceCnt}})</label>
+          <a class="btn" (click)="addServiceAndPolicy(null)"><i class="fa fa-plus-circle"></i></a>
+          <div #spContainer></div>
         </div>
         <div *ngIf="f.category.value=='bridal designers'" class="form-group">
           <label for="text">Store Type</label>
@@ -73,6 +78,11 @@
           <label for="text">Parking Facility</label>
           <input type="text" formControlName="parkingFacility" class="form-control"
               [ngClass]="{ 'is-invalid': submitted && f.parkingFacility.errors }" placeholder="enter your parking facility"/>
+        </div>
+        <div class="form-group">
+          <label>Portfolio ({{portfolioCnt}})</label>
+          <a class="btn" (click)="addPortfolio(null)"><i class="fa fa-plus-circle"></i></a>
+          <div #pfContainer></div>
         </div>
         <div class="form-group">
           <label for="status">Status</label>
