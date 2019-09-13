@@ -327,6 +327,7 @@ export class VendorAddComponent implements OnInit {
 
   // remove all childrens of service section when the vendor's category is changed
   changeCategory() {
+    this.serviceCnt = 0;
     this.serviceIndex = 0;
     this.services = [];
 
