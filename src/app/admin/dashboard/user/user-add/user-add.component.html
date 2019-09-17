@@ -29,7 +29,7 @@
         <input type="text" formControlName="name" class="form-control"
             [ngClass]="{ 'is-invalid': submitted && f.name.errors }" placeholder="enter your name"/>
         <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-          <div *ngIf="f.name.errors.required">Name is required</div>
+          <div *ngIf="f.name.errors.required">Please enter a name</div>
         </div>
       </div>
       <div class="form-group">
@@ -37,7 +37,9 @@
         <input type="email" formControlName="email" class="form-control"
             [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="enter your email"/>
         <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-          <div *ngIf="f.email.errors.required">Email is required</div>
+            <div *ngIf="f.email.invalid && f.email.errors.required">Please enter an email</div>
+            <div *ngIf="f.email.invalid && f.email.errors.email && (f.email.dirty || f.email.touched)">Please enter a valid email</div>
+            <div *ngIf="f.email.invalid && f.email.errors.emailTaken">This email has been taken, please use another one.</div>
         </div>
       </div>
       <div class="form-group">
@@ -45,7 +47,7 @@
         <input type="password" formControlName="password" class="form-control"
             [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="enter your password" />
         <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-          <div *ngIf="f.password.errors.required">Password is required</div>
+          <div *ngIf="f.password.errors.required">Please enter a password</div>
         </div>
       </div>
       <div class="form-group">

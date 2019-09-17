@@ -19,6 +19,10 @@ export class UserService {
     return this.http.get(`${environment.adminApiUrl}/api/users/${id}`);
   }
 
+  checkEmailNotTaken(email: string) {
+    return this.http.get(`${environment.adminApiUrl}/api/users?email=${email}`);
+  }
+
   create(user: any) {
     return this.http.post(`${environment.adminApiUrl}/api/users`, user)
       .pipe(map(res => {

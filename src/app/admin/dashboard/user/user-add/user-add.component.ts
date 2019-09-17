@@ -7,6 +7,8 @@ import { Subject } from 'rxjs';
 import { UserService } from '@app/services';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 
+import { ValidateEmailNotTaken } from '../../../../directives/async-email-not-taken.validator';
+
 @Component({
   selector: 'app-user-add',
   templateUrl: './user-add.component.html',
@@ -39,7 +41,7 @@ export class UserAddComponent implements OnInit {
     this.addForm = this.formBuilder.group({
       profileUrl: [''],
       name: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['', Validators.required, Validators.email],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required],
       type: new FormControl('vendor'),
@@ -49,6 +51,8 @@ export class UserAddComponent implements OnInit {
       phone: [''],
       status: new FormControl('1')
     });
+
+    this.f.email.setAsyncValidators(ValidateEmailNotTaken.createValidator(this.userService));
   }
 
   // convenience getter for easy access to form fields

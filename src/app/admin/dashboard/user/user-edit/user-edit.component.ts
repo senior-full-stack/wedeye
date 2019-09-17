@@ -10,6 +10,8 @@ import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 import { environment } from '@environments/environment';
 
+import { ValidateEmailNotTaken } from '../../../../directives/async-email-not-taken.validator';
+
 @Component({
   selector: 'app-user-edit',
   templateUrl: './user-edit.component.html',
@@ -53,6 +55,8 @@ export class UserEditComponent implements OnInit {
         phone: [''],
         status: new FormControl('1')
       });
+
+      this.f.email.setAsyncValidators(ValidateEmailNotTaken.createValidator(this.userService));
   }
 
   ngOnInit() {

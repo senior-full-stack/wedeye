@@ -21,7 +21,6 @@ import { UserAddComponent } from './user/user-add/user-add.component';
 import { MatchValueDirective } from '../../directives/match-value.directive';
 import { SanitizeHtmlPipe } from '@app/pipes/sanitizeHtml';
 
-
 @NgModule({
   declarations: [
     DashboardComponent,
