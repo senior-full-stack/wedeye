@@ -7,17 +7,20 @@
       <div class="card-body">
           <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
               <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" formControlName="userEmail" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="Email"/>
-                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                    <div *ngIf="f.email.errors.required">Email is required</div>
+                <label for="userEmail">Email</label>
+                <input type="email" formControlName="userEmail" class="form-control" 
+                  [ngClass]="{ 'is-invalid': submitted && f.userEmail.errors }" placeholder="enter your email"/>
+                <div *ngIf="submitted && f.userEmail?.errors" class="invalid-feedback">
+                  <div *ngIf="f.userEmail.invalid && f.userEmail.errors.required">Please enter an email</div>
+                  <div *ngIf="f.userEmail.invalid && f.userEmail.errors.email">Please enter a valid email</div>
                 </div>
               </div>
               <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" formControlName="userPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="Password" />
-                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                        <div *ngIf="f.password.errors.required">Password is required</div>
+                    <label for="userPassword">Password</label>
+                    <input type="password" formControlName="userPassword" class="form-control" 
+                      [ngClass]="{ 'is-invalid': submitted && f.userPassword.errors }" placeholder="enter your password" />
+                    <div *ngIf="submitted && f.userPassword.errors" class="invalid-feedback">
+                      <div *ngIf="f.userPassword.errors.required">Please enter a password</div>
                     </div>
               </div>
               <div class="form-submit align-right">

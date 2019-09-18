@@ -45,7 +45,7 @@ export class UserEditComponent implements OnInit {
         _id: [''],
         profileUrl: [''],
         name: ['', Validators.required],
-        email: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
         password: ['', Validators.required],
         confirmPassword: ['', Validators.required],
         type: new FormControl('vendor'),
@@ -55,8 +55,6 @@ export class UserEditComponent implements OnInit {
         phone: [''],
         status: new FormControl('1')
       });
-
-      this.f.email.setAsyncValidators(ValidateEmailNotTaken.createValidator(this.userService));
   }
 
   ngOnInit() {

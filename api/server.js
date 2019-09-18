@@ -25,7 +25,7 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true }, (err) => {
 User.find({}, (err, users) => {
   if (users.length == 0) {
     const admin = {
-      "email": "admin",
+      "email": "admin@admin.com",
       "name": "admin",
       "password": "admin",
       "type": "admin"

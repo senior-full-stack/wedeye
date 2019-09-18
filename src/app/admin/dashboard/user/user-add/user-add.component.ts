@@ -41,7 +41,7 @@ export class UserAddComponent implements OnInit {
     this.addForm = this.formBuilder.group({
       profileUrl: [''],
       name: ['', Validators.required],
-      email: ['', Validators.required, Validators.email],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required],
       type: new FormControl('vendor'),

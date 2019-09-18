@@ -35,10 +35,10 @@
       <div class="form-group">
         <label for="email">Email</label>
         <input type="email" formControlName="email" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="enter your email"/>
+            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="enter your email" email/>
         <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
             <div *ngIf="f.email.invalid && f.email.errors.required">Please enter an email</div>
-            <div *ngIf="f.email.invalid && f.email.errors.email && (f.email.dirty || f.email.touched)">Please enter a valid email</div>
+            <div *ngIf="f.email.invalid && f.email.errors.email">Please enter a valid email</div>
             <div *ngIf="f.email.invalid && f.email.errors.emailTaken">This email has been taken, please use another one.</div>
         </div>
       </div>
