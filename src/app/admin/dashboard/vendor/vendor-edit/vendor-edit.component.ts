@@ -161,6 +161,7 @@ export class VendorEditComponent implements OnInit {
   getElementsForPortfolio(container: any) {
     this.firstElements = container.getElementsByClassName('form-control');
     this.secondElements = container.getElementsByClassName('custom-file-input');
+    this.thirdElements = container.getElementsByClassName('custom-file-label');
     this.delElements = container.getElementsByTagName('a');
   }
 
@@ -184,6 +185,13 @@ export class VendorEditComponent implements OnInit {
       );
     }
 
+    let ptName = 'Choose file';
+    if (portfolio) {
+      if (portfolio.urls.length > 0) {
+        ptName = portfolio.urls[0].split('\\')[1];
+      }
+    }
+
     // make a html for a portfolio
     const html = `<div class="row row-${portfolio ? portfolio.id : this.portfolioIndex}"` +
         `style="margin-top: 10px"><div class="col-md-8">` +
@@ -191,7 +199,9 @@ export class VendorEditComponent implements OnInit {
         `value="${portfolio ? portfolio.title : ''}" placeholder="enter name for portfolio"/>` +
         `</div><div class="col-md-3">` + `<div class="input-group"><div class="custom-file">` +
         `<input type="file" class="custom-file-input file&${portfolio ? portfolio.id : this.portfolioIndex}"` +
-        `multiple> <label class="custom-file-label">Choose file</label></div></div>` +
+        `multiple> <label class="custom-file-label" style="overflow:hidden;height: 90%;` +
+        `word-break: break-all;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;padding-right: 70px;">` +
+        `${ptName}</label></div></div>` +
         `</div><div class="col-md-1"><a class="btn btn&${portfolio ? portfolio.id : this.portfolioIndex}">` +
         `<i class="fa fa-minus-circle"></i></a></div>` +
         `<div style="width:100%;height:1px;margin:10px 15px;background-color:lightgray !important"></div></div>`;
@@ -407,6 +417,10 @@ export class VendorEditComponent implements OnInit {
         let res: any;
         res = event.body;
         if (res.success) {
+          if (portfolioFiles.length > 0) {
+            this.thirdElements[index].textContent = portfolioFiles[0].name;
+          }
+
           for (const ele of this.vendor.portfolio) {
             if (ele.id === index) {
               ele.urls = res.path;

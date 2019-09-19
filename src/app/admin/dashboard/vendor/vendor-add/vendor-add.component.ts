@@ -130,6 +130,7 @@ export class VendorAddComponent implements OnInit {
   getElementsForPortfolio(container: any) {
     this.firstElements = container.getElementsByClassName('form-control');
     this.secondElements = container.getElementsByClassName('custom-file-input');
+    this.thirdElements = container.getElementsByClassName('custom-file-label');
     this.delElements = container.getElementsByTagName('a');
   }
 
@@ -157,8 +158,10 @@ export class VendorAddComponent implements OnInit {
         `placeholder="enter name for portfolio"/>` +
         `</div><div class="col-md-3"><div class="input-group"><div class="custom-file">` +
         `<input type="file" class="custom-file-input file&${this.portfolioIndex}"` +
-        `multiple> <label class="custom-file-label">Choose file</label>` +
-        `</div></div></div><div class="col-md-1"><a class="btn btn&${this.portfolioIndex}">` +
+        `multiple> <label class="custom-file-label" style="overflow:hidden;height: 90%;` +
+        `word-break: break-all;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;padding-right: 70px;">` +
+        `Choose file</label></div></div>` +
+        `</div><div class="col-md-1"><a class="btn btn&${this.portfolioIndex}">` +
         `<i class="fa fa-minus-circle"></i></a></div>` +
         `<div style="width:100%;height:1px;margin:10px 15px;background-color:lightgray !important"></div></div>`;
 
@@ -390,6 +393,10 @@ export class VendorAddComponent implements OnInit {
         let res: any;
         res = event.body;
         if (res.success) {
+          if (portfolioFiles.length > 0) {
+            this.thirdElements[index].textContent = portfolioFiles[0].name;
+          }
+
           for (const ele of this.portfolio) {
             if (ele.id === index) {
               ele.urls = res.path;
