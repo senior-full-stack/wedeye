@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, AfterViewInit, AfterContentInit, AfterViewChecked, AfterContentChecked } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, NgForm, FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
@@ -14,7 +14,7 @@ import { ValidateEmailNotTaken } from '../../../../directives/async-email-not-ta
   templateUrl: './user-add.component.html',
   styleUrls: ['./user-add.component.scss']
 })
-export class UserAddComponent implements OnInit {
+export class UserAddComponent implements OnInit, AfterContentChecked {
 
   addForm: FormGroup;
 
@@ -55,10 +55,14 @@ export class UserAddComponent implements OnInit {
     this.f.email.setAsyncValidators(ValidateEmailNotTaken.createValidator(this.userService));
   }
 
+  ngAfterContentChecked() {
+    this.addForm.get('email').setValue('');
+    this.addForm.get('password').setValue('');
+  }
   // convenience getter for easy access to form fields
   get f(): FormGroup['controls'] { return this.addForm.controls; }
 
-  addUser(userForm: NgForm) {
+  addUser(userForm) {
     this.submitted = true;
 
     // stop here if form is invalid

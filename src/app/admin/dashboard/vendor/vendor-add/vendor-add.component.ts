@@ -81,7 +81,7 @@ export class VendorAddComponent implements OnInit {
   get f(): FormGroup['controls'] { return this.addForm.controls; }
 
   // add a vendor to the database
-  addVendor(vendorForm: NgForm) {
+  addVendor(vendorForm) {
     this.submitted = true;
 
     // stop here if form is invalid

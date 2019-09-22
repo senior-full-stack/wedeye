@@ -123,7 +123,7 @@ export class VendorEditComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f(): FormGroup['controls'] { return this.editForm.controls; }
 
-  editVendor(vendorForm: NgForm) {
+  editVendor(vendorForm) {
     this.submitted = true;
 
     // stop here if form is invalid

@@ -77,12 +77,14 @@ export class UserEditComponent implements OnInit {
           status: this.user.status ? this.user.status : ''
         });
     });
+
+    this.f.email.setAsyncValidators(ValidateEmailNotTaken.createValidator(this.userService));
   }
 
   // convenience getter for easy access to form fields
   get f(): FormGroup['controls'] { return this.editForm.controls;}
 
-  updateUser(userForm: NgForm) {
+  updateUser(userForm) {
     this.submitted = true;
 
     // stop here if form is invalid

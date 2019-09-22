@@ -46,9 +46,13 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authenticationService.login(this.f.userEmail.value, this.f.userPassword.value).subscribe(
-      data => {
-        this.router.navigate(['/admin/dashboard']);
+    this.authenticationService.login(this.f.userEmail.value, this.f.userPassword.value).subscribe((res: any) => {
+        if (res.success) {
+          this.router.navigate(['/admin/dashboard']);
+        } else {
+          this.error = res.message;
+          this.loading = false;
+        }
       },
       error => {
         this.error = error.message;

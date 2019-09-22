@@ -157,7 +157,7 @@ module.exports = {
 			// if there's no user or the password is invalid
 			if(!user || !user.validPassword(req.body.password) || user.type !== 'admin') {
 				// deny access
-				return res.json({success: false, message: "Invalid credentials."})
+				return res.json({success: false, message: "Incorrect username or password provided."})
 			}
 
 			const token = signToken(user)
