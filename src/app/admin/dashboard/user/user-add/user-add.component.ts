@@ -14,7 +14,7 @@ import { ValidateEmailNotTaken } from '../../../../directives/async-email-not-ta
   templateUrl: './user-add.component.html',
   styleUrls: ['./user-add.component.scss']
 })
-export class UserAddComponent implements OnInit, AfterContentChecked {
+export class UserAddComponent implements OnInit {
 
   addForm: FormGroup;
 
@@ -55,10 +55,6 @@ export class UserAddComponent implements OnInit, AfterContentChecked {
     this.f.email.setAsyncValidators(ValidateEmailNotTaken.createValidator(this.userService));
   }
 
-  ngAfterContentChecked() {
-    this.addForm.get('email').setValue('');
-    this.addForm.get('password').setValue('');
-  }
   // convenience getter for easy access to form fields
   get f(): FormGroup['controls'] { return this.addForm.controls; }
 
