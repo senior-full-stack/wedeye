@@ -15,7 +15,7 @@ const
   MONGODB_URI = process.env.MONGODB_URI,
   fs = require('fs');
 
-// create a directory for upload
+// create a directory to upload
 var uploadDir = './uploads';
 if (!fs.existsSync(uploadDir)){
     fs.mkdirSync(uploadDir);

@@ -77,8 +77,6 @@ export class UserEditComponent implements OnInit {
           status: this.user.status ? this.user.status : ''
         });
     });
-
-    this.f.email.setAsyncValidators(ValidateEmailNotTaken.createValidator(this.userService));
   }
 
   // convenience getter for easy access to form fields
