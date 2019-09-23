@@ -12,9 +12,15 @@ const
   vendorsRoutes = require('./routes/vendors.js'),
   multipart  =  require('connect-multiparty'),
   AuthHttpInterceptor = require('./serverAuth'),
-  MONGODB_URI = process.env.MONGODB_URI;
+  MONGODB_URI = process.env.MONGODB_URI,
+  fs = require('fs');
 
-var multipartMiddleware  =  multipart({ uploadDir:  './uploads' });
+// create a directory for upload
+var uploadDir = './uploads';
+if (!fs.existsSync(uploadDir)){
+    fs.mkdirSync(uploadDir);
+}
+var multipartMiddleware  =  multipart({ uploadDir:  uploadDir });
 
 // connect MongoDB
 mongoose.set('useCreateIndex', true)
