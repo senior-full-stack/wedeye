@@ -161,7 +161,6 @@ export class VendorEditComponent implements OnInit {
   getElementsForPortfolio(container: any) {
     this.firstElements = container.getElementsByClassName('form-control');
     this.secondElements = container.getElementsByClassName('custom-file-input');
-    this.thirdElements = container.getElementsByClassName('custom-file-label');
     this.delElements = container.getElementsByTagName('a');
   }
 
@@ -199,7 +198,8 @@ export class VendorEditComponent implements OnInit {
         `value="${portfolio ? portfolio.title : ''}" placeholder="enter name for portfolio"/>` +
         `</div><div class="col-md-3">` + `<div class="input-group"><div class="custom-file">` +
         `<input type="file" class="custom-file-input file&${portfolio ? portfolio.id : this.portfolioIndex}"` +
-        `multiple> <label class="custom-file-label" style="overflow:hidden;height: 90%;` +
+        `multiple> <label class="custom-file-label label&${portfolio ? portfolio.id : this.portfolioIndex}"` +
+        `style="overflow:hidden;height: 90%;` +
         `word-break: break-all;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;padding-right: 70px;">` +
         `${ptName}</label></div></div>` +
         `</div><div class="col-md-1"><a class="btn btn&${portfolio ? portfolio.id : this.portfolioIndex}">` +
@@ -418,7 +418,9 @@ export class VendorEditComponent implements OnInit {
         res = event.body;
         if (res.success) {
           if (portfolioFiles.length > 0) {
-            this.thirdElements[index].textContent = portfolioFiles[0].name;
+            const container = this.pfContainer.nativeElement;
+            const dEles = container.getElementsByClassName(`label&${index}`);
+            dEles[0].textContent = portfolioFiles[0].name;
           }
 
           for (const ele of this.vendor.portfolio) {
