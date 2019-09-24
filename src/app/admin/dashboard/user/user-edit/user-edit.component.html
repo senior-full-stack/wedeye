@@ -59,7 +59,7 @@
           <div *ngIf="f.confirmPassword.errors.matchValueError">Confirm Password & Password must be same.</div>
         </div>
       </div>
-      <div *ngIf="data.type!=='admin'" class="form-group">
+      <div *ngIf="user?.type!=='admin'" class="form-group">
         <label for="type">Type</label>
         <!-- Material inline 1 -->
         <div>
@@ -95,7 +95,7 @@
         <textarea formControlName="address" class="form-control"
             [ngClass]="{ 'is-invalid': submitted && f.address.errors }" placeholder="enter your address"></textarea>
       </div>
-      <div *ngIf="data.type!=='admin'" class="form-group">
+      <div *ngIf="user?.type!=='admin'" class="form-group">
         <label for="status">Status</label>
         <select formControlName="status" class="form-control">
           <option value="1">Active</option>
