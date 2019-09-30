@@ -11,6 +11,18 @@ module.exports = {
 		})
 	},
 
+	// get all users
+	allUsers: (req, res) => {
+		User.find({}, (err, user) => {
+			return res.json(user)
+		})
+	},
+
+	// multi create / update users
+	editUsers: (req, res) => {
+		
+	},
+
 	checkEmailNotTaken: (req, res) => {
 		User.find({"$or": [
 			{"email": req.query.email},
