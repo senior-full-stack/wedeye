@@ -1,21 +1,23 @@
-const
-	express = require('express'),
-	usersRouter = new express.Router(),
-	usersCtrl = require('../controllers/users.js');
+const express = require("express"),
+  usersRouter = new express.Router(),
+  usersCtrl = require("../controllers/users.js");
 
-usersRouter.post('/', usersCtrl.create)
+usersRouter.post("/", usersCtrl.create);
 
-usersRouter.post('/auth', usersCtrl.authenticate)
+usersRouter.post("/auth", usersCtrl.authenticate);
 
-usersRouter.post('/search/:page', usersCtrl.search)
+usersRouter.post("/search/:page", usersCtrl.search);
 
-usersRouter.get('', usersCtrl.checkEmailNotTaken)
+usersRouter.get("", usersCtrl.checkEmailNotTaken);
 
-usersRouter.get('/all', usersCtrl.allUsers)
+usersRouter.get("/all", usersCtrl.allUsers);
 
-usersRouter.route('/:id')
-	.get(usersCtrl.show)
-	.patch(usersCtrl.update)
-	.delete(usersCtrl.destroy)
+usersRouter.post("/all", usersCtrl.editUsers);
 
-module.exports = usersRouter
+usersRouter
+  .route("/:id")
+  .get(usersCtrl.show)
+  .patch(usersCtrl.update)
+  .delete(usersCtrl.destroy);
+
+module.exports = usersRouter;

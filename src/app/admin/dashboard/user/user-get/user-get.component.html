@@ -10,22 +10,28 @@
             aria-haspopup="true" aria-expanded="false">Filters</button>
         <div class="dropdown-menu">
           <a class="dropdown-item" [ngClass]="status==0?'active':'normal'" (click)="search(-1, 0)">All</a>
-          <a class="dropdown-item" [ngClass]="status==1?'active':'normal'" (click)="search(-1, 1)">Active</a>
-          <a class="dropdown-item" [ngClass]="status==2?'active':'normal'" (click)="search(-1, 2)">Inactive</a>
-          <a class="dropdown-item" [ngClass]="status==3?'active':'normal'" (click)="search(-1, 3)">Suspended</a>
-          <a class="dropdown-item" [ngClass]="status==4?'active':'normal'" (click)="search(-1, 4)">On Hold</a>
-          <a class="dropdown-item" [ngClass]="status==5?'active':'normal'" (click)="search(-1, 5)">Payment Done</a>
-          <a class="dropdown-item" [ngClass]="status==6?'active':'normal'" (click)="search(-1, 6)">Featured Account</a>
+          <a class="dropdown-item" [ngClass]="status==1?'active':'normal'" (click)="search(-1, 1)">Visible</a>
+          <a class="dropdown-item" [ngClass]="status==2?'active':'normal'" (click)="search(-1, 2)">Suspended</a>
+          <a class="dropdown-item" [ngClass]="status==3?'active':'normal'" (click)="search(-1, 3)">Hold</a>
+          <a class="dropdown-item" [ngClass]="status==4?'active':'normal'" (click)="search(-1, 4)">Paid</a>
+          <a class="dropdown-item" [ngClass]="status==5?'active':'normal'" (click)="search(-1, 5)">Featured</a>
+          <a class="dropdown-item" [ngClass]="status==6?'active':'normal'" (click)="search(-1, 6)">Active</a>
+          <a class="dropdown-item" [ngClass]="status==7?'active':'normal'" (click)="search(-1, 7)">Inactive</a>
+          <a class="dropdown-item" [ngClass]="status==8?'active':'normal'" (click)="search(-1, 8)">Not Visible</a>
           <div role="separator" class="dropdown-divider"></div>
-          <a class="dropdown-item" [ngClass]="status==7?'active':'normal'" (click)="search(-1, 7)">Users created in last 30 days</a>
+          <a class="dropdown-item" [ngClass]="status==9?'active':'normal'" (click)="search(-1, 9)">Users created in last 30 days</a>
         </div>
       </div>
     </div>
   </div>
   <h1>View / Edit the Users</h1>
+  
   <div class="add-user align-right">
     <button class="btn" (click)="openAddUserDlg()"><i class="fa fa-user-plus"></i> Add User</button>
+    <button class="btn" (click)="exportExcel()"> <i class="fa fa-upload"></i> Export Users</button>
+    <button class="btn"><input type="file" (change)="changeExcel($event)" /> <i class="fa fa-download"></i> Import Users</button>
   </div>
+  
   <div class="table-responsive">
     <table class="table table-striped table-hover table-borderless">
       <thead>

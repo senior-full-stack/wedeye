@@ -6,29 +6,44 @@
     <span class="fa fa-bars"></span>
   </button>
   <!-- Collapsible content -->
-  <div class="collapse navbar-collapse" [ngClass]="isExpanded?'show':'hidden'">
+  <div
+    class="collapse navbar-collapse"
+    [ngClass]="isExpanded ? 'show' : 'hidden'"
+  >
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" (click)="linkUrl('user')"
-          [ngClass]="getCurrentUrl()=='user'?'nav-pressed':'nav-normal'">
+        <a
+          class="nav-link"
+          (click)="linkUrl('user')"
+          [ngClass]="getCurrentUrl() == 'user' ? 'nav-pressed' : 'nav-normal'"
+        >
           <i class="fa fa-users" aria-hidden="true"></i> Users
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" (click)="linkUrl('vendor')"
-          [ngClass]="getCurrentUrl()=='vendor'?'nav-pressed':'nav-normal'">
+        <a
+          class="nav-link"
+          (click)="linkUrl('vendor')"
+          [ngClass]="getCurrentUrl() == 'vendor' ? 'nav-pressed' : 'nav-normal'"
+        >
           <i class="fa fa-vimeo" aria-hidden="true"></i> Vendor
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" (click)="linkUrl('blog')"
-          [ngClass]="getCurrentUrl()=='blog'?'nav-pressed':'nav-normal'">
+        <a
+          class="nav-link"
+          (click)="linkUrl('blog')"
+          [ngClass]="getCurrentUrl() == 'blog' ? 'nav-pressed' : 'nav-normal'"
+        >
           <i class="fa fa-picture-o" aria-hidden="true"></i> Blog
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" (click)="linkUrl('report')"
-          [ngClass]="getCurrentUrl()=='report'?'nav-pressed':'nav-normal'">
+        <a
+          class="nav-link"
+          (click)="linkUrl('report')"
+          [ngClass]="getCurrentUrl() == 'report' ? 'nav-pressed' : 'nav-normal'"
+        >
           <i class="fa fa-bar-chart" aria-hidden="true"></i> Report
         </a>
       </li>
@@ -41,6 +56,6 @@
   </div>
 </nav>
 
-<div class="dashboard-container" (click)="isExpanded=false">
+<div class="dashboard-container" (click)="closeNavbar()">
   <router-outlet></router-outlet>
 </div>
