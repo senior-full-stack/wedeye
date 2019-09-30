@@ -11,6 +11,8 @@ usersRouter.post('/search/:page', usersCtrl.search)
 
 usersRouter.get('', usersCtrl.checkEmailNotTaken)
 
+usersRouter.get('/all', usersCtrl.allUsers)
+
 usersRouter.route('/:id')
 	.get(usersCtrl.show)
 	.patch(usersCtrl.update)
