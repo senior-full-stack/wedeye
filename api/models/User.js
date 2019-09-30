@@ -32,7 +32,7 @@ const mongoose = require("mongoose"),
     partnerAddressLine1: { type: String },
     partnerAddressLine2: { type: String },
     status: { type: String },
-    isActive: { type: Number },
+    isActive: { type: String },
     createdDate: { type: Date },
     createdBy: { type: String },
     modifiedDate: { type: Date },
@@ -60,7 +60,7 @@ userSchema.pre("save", function(next) {
 
   if (!this.createdDate) {
     this.createdDate = moment().format("YYYY-MM-DD");
-  } else  {
+  } else {
     this.modifiedDate = moment().format("YYYY-MM-DD");
   }
 
