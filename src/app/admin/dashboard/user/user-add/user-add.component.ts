@@ -33,6 +33,7 @@ export class UserAddComponent implements OnInit {
 
   loading = false;
   submitted = false;
+  tabs = "personal";
   readyToUpload = false;
   uploadedProfile = false;
   uploadedWedding = false;
@@ -44,7 +45,7 @@ export class UserAddComponent implements OnInit {
   imageChangedEvent: any;
   imageChangedEvent1: any;
   imageChangedEvent2: any;
-  
+
   croppedImage: any;
   croppedImage1: any;
   croppedImage2: any;
@@ -120,6 +121,10 @@ export class UserAddComponent implements OnInit {
     }
 
     this.loading = true;
+
+    if (userForm.value.userType !== 'other') {
+      userForm.value.relationship = '';
+    }
 
     this.userService.create(userForm.value).subscribe((res: any) => {
       this.dialogRef.close(res.success);
@@ -268,6 +273,10 @@ export class UserAddComponent implements OnInit {
   imageCropped2(event: ImageCroppedEvent) {
     this.croppedImage2 = event.base64;
     this.croppedBlob = event.file;
+  }
+
+  changeTabs(event: any) {
+    this.tabs = event;
   }
 
   imageLoaded() {

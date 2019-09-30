@@ -30,6 +30,7 @@ export class UserEditComponent implements OnInit {
   loading = false;
   submitted = false;
   readyToUpload = false;
+  tabs = "personal";
   uploadedProfile = false;
   uploadedWedding = false;
   uploadedPartner = false;
@@ -190,6 +191,10 @@ export class UserEditComponent implements OnInit {
 
     this.loading = true;
 
+    if (userForm.value.userType !== 'other') {
+      userForm.value.relationship = '';
+    }
+    
     this.userService.update(userForm.value).subscribe((res: any) => {
       this.dialogRef.close(res.success);
     });
@@ -342,6 +347,10 @@ export class UserEditComponent implements OnInit {
   imageCropped2(event: ImageCroppedEvent) {
     this.croppedImage2 = event.base64;
     this.croppedBlob = event.file;
+  }
+
+  changeTabs(event: any) {
+    this.tabs = event;
   }
 
   imageLoaded() {
