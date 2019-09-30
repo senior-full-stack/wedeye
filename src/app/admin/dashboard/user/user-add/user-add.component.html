@@ -3,27 +3,32 @@
   *ngIf="uploadingProgress" mode="determinate" [value]="uploadingProgress"></mat-progress-bar>
   <h1 mat-dialog-title>Add User</h1>
   <mat-dialog-content class="mat-typography">
-    <div class="user-profile">
-      <i *ngIf="!croppedImage" class="fa fa-user-circle"></i>
-      <img *ngIf="croppedImage" [src]="croppedImage" />
-      <input type="file" (change)="fileChangeEvent($event)">
-      <button *ngIf="readyToUpload" class="btn" (click)="uploadProfile()">Apply</button>
-    </div>
-    <div *ngIf="!uploadedProfile">
-      <image-cropper
-        [imageChangedEvent]="imageChangedEvent"
-        [maintainAspectRatio]="true"
-        [aspectRatio]="1"
-        [resizeToWidth]="128"
-        format="jpeg"
-        (imageCropped)="imageCropped($event)"
-        (imageLoaded)="imageLoaded()"
-        (cropperReady)="cropperReady()"
-        (loadImageFailed)="loadImageFailed()">
-      </image-cropper>
-    </div>
+    
     <form #userForm="ngForm" [formGroup]="addForm" [matchValue]="['password', 'confirmPassword']">
-      <input type="hidden" formControlName="profileUrl">
+      <!-- Personal fields -->      
+      <hr/>
+      <h2 mat-dialog-title>Personal</h2>
+      <div class="user-profile">
+        <i *ngIf="!croppedImage" class="fa fa-user-circle"></i>
+        <img *ngIf="croppedImage" [src]="croppedImage" />
+        <input type="file" (change)="fileChangeEvent($event)">
+        <button *ngIf="readyToUpload" class="btn" (click)="uploadProfile()">Apply</button>
+      </div>
+      <div *ngIf="!uploadedProfile">
+        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1"
+          [resizeToWidth]="128" format="jpeg" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+          (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()">
+        </image-cropper>
+      </div>
+      <input type="hidden" formControlName="personalPhoto">
+      <div class="form-group">
+        <label for="status">Login Type</label>
+        <select formControlName="type" class="form-control">
+          <option value="google">google</option>
+          <option value="facebook">facebook</option>
+          <option value="shaadie">shaadie</option>
+        </select>
+      </div>
       <div class="form-group">
         <label for="name">Name</label>
         <input type="text" formControlName="name" class="form-control"
@@ -60,51 +65,224 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="type">Type</label>
+        <label for="phone">Phone</label>
+        <input type="text" formControlName="phone" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" placeholder="enter your phone" />
+      </div>
+      <div class="form-group">
+        <label for="country">Country</label>
+        <input type="text" formControlName="country" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.country.errors }" placeholder="enter your country" />
+      </div>
+      <div class="form-group">
+        <label for="state">State</label>
+        <input type="text" formControlName="state" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.state.errors }" placeholder="enter your state" />
+      </div>
+      <div class="form-group">
+        <label for="city">City</label>
+        <input type="text" formControlName="city" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.city.errors }" placeholder="enter your city" />
+      </div>
+      <div class="form-group">
+        <label for="addressLine1">AddressLine1</label>
+        <input type="text" formControlName="addressLine1" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.addressLine1.errors }" placeholder="enter your AddressLine1" />
+      </div>
+      <div class="form-group">
+        <label for="addressLine2">AddressLine2</label>
+        <input type="text" formControlName="addressLine2" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.addressLine2.errors }" placeholder="enter your addressLine2" />
+      </div>
+      <div class="form-group">
+        <label for="pincode">PinCode</label>
+        <input type="text" formControlName="pincode" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.pincode.errors }" placeholder="enter your PinCode" />
+      </div>
+      <div class="form-group">
+        <label for="age">Age</label>
+        <input type="text" formControlName="age" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.age.errors }" placeholder="enter your Age" />
+      </div>
+      <!-- User fields -->
+      <br>
+      <hr />
+      <h2 mat-dialog-title>User</h2>
+      <div class="user-profile">
+        <i *ngIf="!croppedImage1" class="fa fa-user-circle"></i>
+        <img *ngIf="croppedImage1" [src]="croppedImage1" />
+        <input type="file" (change)="fileChangeEvent1($event)">
+        <button *ngIf="readyToUpload" class="btn" (click)="uploadUser()">Apply</button>
+      </div>
+      <div *ngIf="!uploadedWedding">
+        <image-cropper [imageChangedEvent]="imageChangedEvent1" [maintainAspectRatio]="true" [aspectRatio]="1"
+          [resizeToWidth]="128" format="jpeg" (imageCropped)="imageCropped1($event)" (imageLoaded)="imageLoaded()"
+          (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()">
+        </image-cropper>
+      </div>
+      <div class="form-group">
+        <label for="userType">User Type</label>
         <!-- Material inline 1 -->
         <div>
           <div class="form-check form-check-inline">
-            <input type="radio" class="form-check-input" value="vendor" formControlName="type">
-            <label class="form-check-label" for="materialInline1">Vendor</label>
+            <input type="radio" class="form-check-input" value="groom" formControlName="userType">
+            <label class="form-check-label" for="materialInline1">Groom</label>
           </div>
-
           <!-- Material inline 2 -->
           <div class="form-check form-check-inline">
-            <input type="radio" class="form-check-input" value="customer" formControlName="type">
-            <label class="form-check-label" for="materialInline2">Customer</label>
+            <input type="radio" class="form-check-input" value="bride" formControlName="userType">
+            <label class="form-check-label" for="materialInline2">Bride</label>
+          </div>
+          <!-- Material inline 3 -->
+          <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input" value="other" formControlName="userType">
+            <label class="form-check-label" for="materialInline3">Other</label>
           </div>
         </div>
       </div>
-      <div *ngIf="userForm.value.type=='customer'" class="form-group">
-        <label for="relation">Relation</label>
-        <input type="text" formControlName="relation" class="form-control"
+      <div *ngIf="userForm.value.userType=='other'" class="form-group">
+        <label for="relation">RelationShip</label>
+        <input type="text" formControlName="relationship" class="form-control"
             [ngClass]="{ 'is-invalid': submitted && f.relation.errors }" placeholder="enter bride or groom or other"/>
       </div>
-      <div *ngIf="userForm.value.type=='customer'" class="form-group">
+      <input type="hidden" formControlName="weddingPhoto">
+      <div class="form-group">
         <label>Wedding Date</label>
         <input type="date" formControlName="weddingDate" min="1000-01-01"
                 max="3000-12-31" class="form-control">
       </div>
       <div class="form-group">
-        <label for="phone">Phone</label>
-        <input type="text" formControlName="phone" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" placeholder="enter your phone" />
+        <label for="color">Color</label>
+        <input type="text" formControlName="color" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.color.errors }"
+          placeholder="enter your color" />
       </div>
       <div class="form-group">
-        <label for="address">Address</label>
-        <textarea formControlName="address" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.address.errors }" placeholder="enter your address"></textarea>
+        <label for="locationLatitude">Location Latitude</label>
+        <input type="text" formControlName="locationLatitude" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.locationLatitude.errors }"
+          placeholder="enter your location latitude" />
       </div>
+      <div class="form-group">
+        <label for="locationLongitude">Location Longitude</label>
+        <input type="text" formControlName="locationLongitude" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.locationLongitude.errors }" placeholder="enter your location longitude" />
+      </div>
+      <div class="form-group">
+        <label for="locationAddress">Location Address</label>
+        <input type="text" formControlName="locationAddress" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.locationAddress.errors }" placeholder="enter your location address" />
+      </div>
+      <!-- Partner fields -->
+      <br>
+      <hr />
+      <h2 mat-dialog-title>Partner</h2>
+      <div class="user-profile">
+        <i *ngIf="!croppedImage2" class="fa fa-user-circle"></i>
+        <img *ngIf="croppedImage2" [src]="croppedImage2" />
+        <input type="file" (change)="fileChangeEvent2($event)">
+        <button *ngIf="readyToUpload" class="btn" (click)="uploadPartner()">Apply</button>
+      </div>
+      <div *ngIf="!uploadedPartner">
+        <image-cropper [imageChangedEvent]="imageChangedEvent2" [maintainAspectRatio]="true" [aspectRatio]="1"
+          [resizeToWidth]="128" format="jpeg" (imageCropped)="imageCropped2($event)" (imageLoaded)="imageLoaded()"
+          (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()">
+        </image-cropper>
+      </div>
+      <input type="hidden" formControlName="weddingPhoto">
+      <div class="form-group">
+        <label for="partnerType">Partner Type</label>
+        <input formControlName="partnerType" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.partnerType.errors }" placeholder="enter your partner type">
+      </div>
+      <div class="form-group">
+        <label for="partnerAge">Partner Age</label>
+        <input formControlName="partnerAge" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.partnerAge.errors }" placeholder="enter your partner age">
+      </div>
+      <div class="form-group">
+        <label for="partnerCountry">Partner Country</label>
+        <input formControlName="partnerCountry" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.partnerCountry.errors }" placeholder="enter your partner country">
+      </div>
+      <div class="form-group">
+        <label for="partnerState">Partner State</label>
+        <input formControlName="partnerState" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.partnerState.errors }" placeholder="enter your partner state">
+      </div>
+      <div class="form-group">
+        <label for="partnerCity">Partner City</label>
+        <input formControlName="partnerCity" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.partnerCity.errors }" placeholder="enter your partner city">
+      </div>
+      <div class="form-group">
+        <label for="partnerPincode">Partner PinCode</label>
+        <input formControlName="partnerPincode" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.partnerPincode.errors }" placeholder="enter your partner pincode">
+      </div>
+      <div class="form-group">
+        <label for="partnerAddressLine1">Partner AddressLine1</label>
+        <input formControlName="partnerAddressLine1" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.partnerAddressLine1.errors }" placeholder="enter your partner addressline1">
+      </div>
+      <div class="form-group">
+        <label for="partnerAddressLine2">Partner AddressLine2</label>
+        <input formControlName="partnerAddressLine2" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.partnerAddressLine2.errors }" placeholder="enter your partner addressline2">
+      </div>
+      <!-- General fields -->
       <div class="form-group">
         <label for="status">Status</label>
         <select formControlName="status" class="form-control">
-          <option value="1">Active</option>
-          <option value="2">Inactive</option>
-          <option value="3">Suspended</option>
-          <option value="4">On Hold</option>
-          <option value="5">Payment Done</option>
-          <option value="6">Featured Account</option>
+          <option value="1">Visible</option>
+          <option value="2">Suspended</option>
+          <option value="3">Hold</option>
+          <option value="4">Paid</option>
+          <option value="5">Featured</option>
+          <option value="6">Active</option>
+          <option value="7">Inactive</option>
+          <option value="8">Not Visible</option>
         </select>
+      </div>
+      <div class="form-group form-check">        
+        <input type="checkbox" class="form-check-input" formControlName="isActive" 
+        [ngClass]="{ 'is-invalid': submitted && f.isActive.errors }">
+        <label class="form-check-label" for="isActive">Is Active</label>
+      </div>
+      <!-- <div class="form-group">
+        <label>Created Date</label>
+        <input type="date" formControlName="createdDate" min="1000-01-01" max="3000-12-31" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="createdBy">CreatedBy</label>
+        <input formControlName="createdBy" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.createdBy.errors }" placeholder="Created By">
+      </div>
+      <div class="form-group">
+        <label>Modified Date</label>
+        <input type="date" formControlName="modifiedDate" min="1000-01-01" max="3000-12-31" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="modifiedBy">ModifiedBy</label>
+        <input formControlName="modifiedBy" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.modifiedBy.errors }"
+          placeholder="Modified By">
+      </div> -->
+      <div class="form-group">
+        <label for="noOfRequestSent">NoOfRequestSent</label>
+        <input formControlName="noOfRequestSent" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.noOfRequestSent.errors }" placeholder="enter your no of request sent">
+      </div>
+      <div class="form-group">
+        <label for="isPaidUser">Is Paid User</label>
+        <input formControlName="isPaidUser" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.isPaidUser.errors }" placeholder="enter your paid user">
+      </div>
+      <div class="form-group">
+        <label for="amountPaid">Amount Paid</label>
+        <input formControlName="amountPaid" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.amountPaid.errors }" placeholder="enter your AmountPaid">
+      </div>
+      <div class="form-group">
+        <label>Paid Date</label>
+        <input type="date" formControlName="paidDate" min="1000-01-01" max="3000-12-31" class="form-control">
       </div>
     </form>
   </mat-dialog-content>

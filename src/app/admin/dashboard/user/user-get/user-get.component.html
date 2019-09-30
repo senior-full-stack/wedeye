@@ -31,17 +31,49 @@
       <thead>
       <tr>
         <th>No</th>
-        <th>Profile</th>
+        <th>Photo</th>
+        <th>Login Type</th>
         <th>Name</th>
+        <th>Age</th>
         <th>Email</th>
         <th>Password</th>
-        <th>Type</th>
-        <th>Relation</th>
         <th>Phone</th>
-        <th>Address</th>
-        <th>Wedding-Date</th>
-        <th>Created-Date</th>
+        <th>Address1</th>
+        <th>Address2</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Country</th>
+        <th>Pincode</th>
+        
+        <th>User Type</th>
+        <th>Relationship</th>
+        <th>WeddingPhoto</th>
+        <th>WeddingDate</th>
+        <th>Color</th>
+        <th>LocationLatitude</th>
+        <th>LocationLongitude</th>
+        <th>LocationAddress</th>
+
+        <th>PartnerPhoto</th>
+        <th>PartnerType</th>
+        <th>PartnerAge</th>
+        <th>PartnerAddress1</th>
+        <th>PartnerAddress2</th>
+        <th>PartnerCity</th>
+        <th>PartnerState</th>
+        <th>PartnerCountry</th>
+        <th>PartnerPincode</th>
+        
         <th>Status</th>
+        <th>IsActive</th>
+        <th>CreatedDate</th>
+        <th>CreatedBy</th>
+        <th>ModifiedDate</th>
+        <th>ModifiedBy</th>
+        <th>NoOfRequestSent</th>
+        <th>IsPaidUser</th>
+        <th>AmountPaid</th>
+        <th>PaidDate</th>
         <th>Action</th>
       </tr>
       </thead>
@@ -49,31 +81,83 @@
       <tr *ngFor="let user of users ; let i = index">
         <td>{{i + (currentPage-1)*8 + 1}}</td>
         <td>
-          <img *ngIf="user.profileUrl" class="user-image" [src]="baseUrl + '/' + confirmUrl(user.profileUrl)">
-          <i *ngIf="!user.profileUrl" class="fa fa-user-circle user-image-default"></i>
+          <img *ngIf="user.personalPhoto" class="user-image" [src]="baseUrl + '/' + confirmUrl(user.personalPhoto)">
+          <i *ngIf="!user.personalPhoto" class="fa fa-user-circle user-image-default"></i>
         </td>
+        <td>{{user.type}}</td>
         <td>{{user.name}}</td>
+        <td>{{user.age}}</td>
         <td>{{user.email}}</td>
         <td><div class="text-ellipsis">{{user.password}}</div></td>
-        <td>{{user.type}}</td>
-        <td>{{user.relation}}</td>
         <td>{{user.phone}}</td>
-        <td><div class="text-ellipsis">{{user.address}}</div></td>
+        <td>
+          <div class="text-ellipsis">{{user.addressLine1}}</div>
+        </td>
+        <td>
+          <div class="text-ellipsis">{{user.addressLine2}}</div>
+        </td>
+        <td>{{user.city}}</td>
+        <td>{{user.state}}</td>
+        <td>{{user.country}}</td>
+        <td>{{user.pincode}}</td>
+        
+        <td>{{user.userType}}</td>
+        <td>{{user.relationship}}</td>
+        <td>
+          <img *ngIf="user.weddingPhoto" class="user-image" [src]="baseUrl + '/' + confirmUrl(user.weddingPhoto)">
+          <i *ngIf="!user.weddingPhoto" class="fa fa-user-circle user-image-default"></i>
+        </td>
         <td class="text-date">{{confirmDate(user.weddingDate)}}</td>
-        <td class="text-date">{{confirmDate(user.createdDate)}}</td>
+        <td>{{user.color}}</td>
+        <td>{{user.locationLatitude}}</td>
+        <td>{{user.locationLongitude}}</td>
+        <td><div class="text-ellipsis">{{user.locationAddress}}</div></td>
+
+        <td>
+          <img *ngIf="user.partnerPhoto" class="user-image" [src]="baseUrl + '/' + confirmUrl(user.partnerPhoto)">
+          <i *ngIf="!user.partnerPhoto" class="fa fa-user-circle user-image-default"></i>
+        </td>
+        <td>{{user.partnerType}}</td>
+        <td>{{user.partnerAge}}</td>
+        <td>
+          <div class="text-ellipsis">{{user.partnerAddressLine1}}</div>
+        </td>
+        <td>
+          <div class="text-ellipsis">{{user.partnerAddressLine2}}</div>
+        </td>
+        <td>{{user.partnerCity}}</td>
+        <td>{{user.partnerState}}</td>
+        <td>{{user.partnerCountry}}</td>
+        <td>{{user.partnerPincode}}</td>
+        
         <td>
           <select *ngIf="user.type!=='admin'" [(ngModel)]="user.status" (change)="changeStatus(user)">
-            <option value="1">Active</option>
-            <option value="2">Inactive</option>
-            <option value="3">Suspended</option>
-            <option value="4">On Hold</option>
-            <option value="5">Payment Done</option>
-            <option value="6">Featured Account</option>
+            <option value="1">Visible</option>
+            <option value="2">Suspended</option>
+            <option value="3">Hold</option>
+            <option value="4">Paid</option>
+            <option value="5">Featured</option>
+            <option value="6">Active</option>
+            <option value="7">Inactive</option>
+            <option value="8">Not Visible</option>
           </select>
         </td>
+        <td>
+          <div class="form-group form-check">
+          <input type="checkbox" *ngIf="user.isActive===1" class="form-check-input" checked>
+          <input type="checkbox" *ngIf="user.isActive===0" class="form-check-input">
+          </div>
+        </td>
+        <td class="text-date">{{confirmDate(user.createdDate)}}</td>
+        <td>{{user.createdBy}}</td>
+        <td class="text-date">{{confirmDate(user.modifiedDate)}}</td>
+        <td>{{user.modifiedBy}}</td>
+        <td>{{user.noOfRequestSent}}</td>
+        <td>{{user.isPaidUser}}</td>
+        <td>{{user.amountPaid}}</td>
+        <td class="text-date">{{confirmDate(user.paidDate)}}</td>        
         <td class="td-action">
           <a class="table-action" (click)="openEditUserDlg(i)"><i class="fa fa-edit"></i></a>
-          <!--<a class="table-action" (click)="openConfirmDlg(i)"><i class="fa fa-trash-o"></i></a>-->
         </td>
       </tr>
       </tbody>
