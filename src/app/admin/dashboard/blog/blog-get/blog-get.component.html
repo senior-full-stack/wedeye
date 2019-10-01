@@ -1,1 +1,74 @@
-<p>blog-get works!</p>
+<div class="dashboard-content">
+  <div class="search-user">
+    <div class="row">
+      <div class="col">
+        <h2>Sell through India's Largest</h2>
+        <h2>Reseller Platform</h2>
+        <p>Our 1 Crore+ Resellers can boost your business through</p>
+        <p>7,00,00,000+ customers</p>
+        <br />
+        <a [href]="fileUrl" download="app.apk" (click)="download()">
+          <span
+            *ngIf="downLoading"
+            class="spinner-border spinner-border-sm mr-1"
+          ></span>
+          <i *ngIf="!downLoading" class="fa fa-download"></i> Download App
+        </a>
+        <!-- <button (click)="download">
+          <span *ngIf="downLoading" class="spinner-border spinner-border-sm mr-1"></span>
+          <i *ngIf="!downLoading" class="fa fa-download"></i> Download App
+        </button> -->
+      </div>
+      <div class="col"></div>
+    </div>
+    <div class="clear"></div>
+  </div>
+
+  <div class="footer">
+    <div class="row">
+      <div class="col">
+        <h1>WedEye</h1>
+        <p>Our 1 Crore+ Resellers can boost your business through</p>
+        <p>7,00,00,000+ customers</p>
+      </div>
+      <div class="col">
+        <h2>Contact Us</h2>
+        <p>support@wedeye.com</p>
+      </div>
+    </div>
+    <hr />
+    <br />
+    <div class="row">
+      <div class="col">
+        <ul>
+          <li>
+            <a href="http://www.facebook.com/"
+              ><i class="fa fa-facebook"></i
+            ></a>
+          </li>
+          <li>
+            <a href="http://www.instagram.com/"
+              ><i class="fa fa-instagram"></i
+            ></a>
+          </li>
+          <li>
+            <a href="http://www.youtube.com/"
+              ><i class="fa fa-youtube-play"></i
+            ></a>
+          </li>
+          <li>
+            <a href="http://www.linkedin.com/"
+              ><i class="fa fa-linkedin"></i
+            ></a>
+          </li>
+          <li>
+            <a href="http://twitter.com/"><i class="fa fa-twitter"></i></a>
+          </li>
+        </ul>
+      </div>
+      <div class="col">
+        <p>© 2015-19 WedEye Inc. All Rights Reserved.</p>
+      </div>
+    </div>
+  </div>
+</div>
