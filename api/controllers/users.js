@@ -23,9 +23,9 @@ module.exports = {
     var users = JSON.parse(req.body.data);
     if (users.data && users.data.length > 0) {
       let userUpdate = users.data.map(user => ({
-        updateOne: {
+        replaceOne: {
           filter: {_id: user._id},
-          update: {$set: user},
+          replacement: user,
           upsert: true
         }
       }));
