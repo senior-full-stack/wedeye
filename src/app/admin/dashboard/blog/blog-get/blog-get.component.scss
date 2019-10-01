@@ -186,6 +186,28 @@ button {
           padding: 10px;
           font-size: 10px !important;
         }
+        a {
+          font-size: 10px !important;
+        }
+        ul {
+          li {
+            margin: 2px !important;
+            list-style: none;
+            display: inline;
+            text-decoration: none;
+
+            a {
+              font-size: 10px !important;
+              padding: 3px 5px !important;
+              color: #ccc !important;
+            }
+            a:hover {
+              color: #19b5bc !important;
+              background: #ccc;
+              border-radius: 30px;
+            }
+          }
+        }
       }
     }
   }

@@ -13,13 +13,15 @@ import { DomSanitizer } from "@angular/platform-browser";
   styleUrls: ["./blog-get.component.scss"]
 })
 export class BlogGetComponent implements OnInit {
-
   downLoading = false;
   fileUrl;
-  
-  constructor(private sanitizer: DomSanitizer) {}
 
-  ngOnInit() {
+  constructor(private sanitizer: DomSanitizer,private cdr: ChangeDetectorRef) {}
+
+  ngOnInit() {}
+
+  download() {
+    this.downLoading = true;
     const data = "some text";
 
     const blob = new Blob([data], { type: "application/octet-stream" });
@@ -27,7 +29,7 @@ export class BlogGetComponent implements OnInit {
     this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
       window.URL.createObjectURL(blob)
     );
+    this.downLoading = false;
+    this.cdr.markForCheck();
   }
-
-  download() {}
 }
