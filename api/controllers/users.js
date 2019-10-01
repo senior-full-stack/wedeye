@@ -21,23 +21,15 @@ module.exports = {
   // multi create / update users
   editUsers: (req, res) => {
     var users = JSON.parse(req.body.data);
-    const length = users.data.length;
-    const index = 0;
-    while (index < length) {
-      const item = users.data[index];
-      User.findById(item._id, (err, user) => {
-        console.log(item._id);
-        if (user) {
-          Object.assign(user, item);
-          user.save((err, user) => {});
-        } else {
-          User.create(item, (err, user) => {
-            console.log(err);
-          });
-        }
+    if (users.data && users.data.length > 0) {
+      User.remove({});
 
-        index++;
-      });
+      try {
+        User.insertMany(users.data, {ordered: false});
+        res.json({success: true});
+      } catch (e) {
+        console.log(e);
+      }
     }
   },
 

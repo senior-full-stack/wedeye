@@ -143,7 +143,6 @@ export class UserGetComponent implements OnInit {
 
   // import users from the Excel file
   changeExcel(event: any) {
-    console.log("changeExcel");
     const file = event.target.files[0];
 
     let workBook = null;
