@@ -14,6 +14,7 @@ import { UserAddComponent } from "../user-add/user-add.component";
 import { UserEditComponent } from "../user-edit/user-edit.component";
 import { ConfirmDlgComponent } from "@app/helpers/confirm-dlg/confirm-dlg.component";
 import { UserService, ExcelService } from "@app/services";
+import { HttpEventType, HttpResponse } from "@angular/common/http";
 
 import { environment } from "@environments/environment";
 
@@ -27,6 +28,8 @@ export class UserGetComponent implements OnInit {
   pager: any;
   users: any = [];
 
+  upLoading = false;
+  downLoading = false;
   currentPage = 1;
   status = 0;
   searchText: string;
@@ -138,13 +141,20 @@ export class UserGetComponent implements OnInit {
 
   // export users to the Excel file
   exportExcel() {
+    this.upLoading = true;
     this.userService.getAllUsers().subscribe((res: any) => {
-      this.excelService.exportAsExcelFile(res, "user");
+
+      const result = this.excelService.exportAsExcelFile(res, "user");
+      if (result) {
+        this.upLoading = false;
+        this.cdr.markForCheck();
+      }
     });
   }
 
   // import users from the Excel file
   changeExcel(event: any) {
+    this.downLoading = true;
     const file = event.target.files[0];
 
     let workBook = null;
@@ -161,10 +171,11 @@ export class UserGetComponent implements OnInit {
       const dataString = JSON.stringify(jsonData);
 
       this.userService.setAllUsers(dataString).subscribe((res: any) => {
+        this.downLoading = false;
         this.search(-1, -1);
 
         this.excelFile = null;
-        
+
         this.cdr.markForCheck();
       });
     };
