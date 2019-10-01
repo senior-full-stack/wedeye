@@ -22,14 +22,19 @@ module.exports = {
   editUsers: (req, res) => {
     var users = JSON.parse(req.body.data);
     if (users.data && users.data.length > 0) {
-      User.remove({});
-
-      try {
-        User.insertMany(users.data, {ordered: false});
-        res.json({success: true});
-      } catch (e) {
+      let userUpdate = users.data.map(user => ({
+        updateOne: {
+          filter: {_id: user._id},
+          update: {$set: user},
+          upsert: true
+        }
+      }));
+      
+      User.bulkWrite(userUpdate).catch(e => {
         console.log(e);
-      }
+      });
+
+      res.json({success: true});
     }
   },
 
