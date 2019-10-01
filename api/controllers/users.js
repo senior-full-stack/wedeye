@@ -45,7 +45,6 @@ module.exports = {
 
   checkEmailNotTaken: (req, res) => {
     User.find({ $or: [{ email: req.query.email }] }, (err, result) => {
-      console.log(result.length);
       if (result.length > 0) {
         return res.json({
           emailNotTaken: false

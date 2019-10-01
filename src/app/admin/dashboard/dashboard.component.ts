@@ -28,7 +28,6 @@ export class DashboardComponent {
     router.events.subscribe(val => {
       if (location.path() !== "") {
         this.currentUrl = location.path();
-        console.log(this.currentUrl);
       }
     });
   }

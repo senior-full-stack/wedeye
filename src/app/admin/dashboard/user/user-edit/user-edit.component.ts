@@ -191,10 +191,10 @@ export class UserEditComponent implements OnInit {
 
     this.loading = true;
 
-    if (userForm.value.userType !== 'other') {
-      userForm.value.relationship = '';
+    if (userForm.value.userType !== "other") {
+      userForm.value.relationship = "";
     }
-    
+
     this.userService.update(userForm.value).subscribe((res: any) => {
       this.dialogRef.close(res.success);
     });
@@ -322,14 +322,12 @@ export class UserEditComponent implements OnInit {
 
   fileChangeEvent1(event: any): void {
     this.imageChangedEvent1 = event;
-    console.log("wedding input change");
     this.readyToUpload = true;
     this.uploadedWedding = false;
   }
 
   fileChangeEvent2(event: any): void {
     this.imageChangedEvent2 = event;
-    console.log("partner input change");
     this.readyToUpload = true;
     this.uploadedPartner = false;
   }

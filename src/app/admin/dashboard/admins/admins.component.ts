@@ -44,7 +44,6 @@ export class AdminsComponent implements OnInit {
   ngOnInit() {
     this.userService.findAdminData(this.name).subscribe(res => {
       this.user = res;
-      console.log(res);
       this.loginForm.setValue({
         _id: this.user._id,
         name: this.user.name,
