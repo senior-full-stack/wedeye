@@ -182,6 +182,13 @@ module.exports = {
     });
   },
 
+  // find admin data
+  admininfo: (req, res) => {
+    User.findOne({ type: "admin" }, (err, user) => {
+      return res.json(user);
+    });
+  },
+
   // the login route
   authenticate: (req, res) => {
     // check if the user exists

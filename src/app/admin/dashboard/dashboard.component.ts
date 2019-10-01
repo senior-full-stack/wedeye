@@ -28,6 +28,7 @@ export class DashboardComponent {
     router.events.subscribe(val => {
       if (location.path() !== "") {
         this.currentUrl = location.path();
+        console.log(this.currentUrl);
       }
     });
   }
@@ -39,7 +40,9 @@ export class DashboardComponent {
   }
 
   getCurrentUrl() {
-    if (this.currentUrl.includes("/user")) {
+    if (this.currentUrl.includes("/admins")) {
+      return "admins";
+    } else if (this.currentUrl.includes("/user")) {
       return "user";
     } else if (this.currentUrl.includes("/vendor")) {
       return "vendor";
@@ -47,8 +50,6 @@ export class DashboardComponent {
       return "blog";
     } else if (this.currentUrl.includes("/report")) {
       return "report";
-    } else if (this.currentUrl.includes("/admin")) {
-      return "admin";
     }
   }
 

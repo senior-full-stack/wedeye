@@ -1,0 +1,103 @@
+<nav class="navbar navbar-expand login-navbar">
+  <span class="app-title">WedEye</span>
+</nav>
+<div class="col-md-4 offset-md-4 mt-5">
+  <h4 class="login-title align-center">Admin Account</h4>
+  <div class="card">
+    <div class="card-body">
+      <form
+        [formGroup]="loginForm"
+        (ngSubmit)="updateAdmin(userForm)"
+        #userForm="ngForm"
+        [matchValue]="['password', 'confirmPassword']"
+      >
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            formControlName="name"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+            placeholder="enter your name"
+          />
+          <div *ngIf="submitted && f.name?.errors" class="invalid-feedback">
+            <div *ngIf="f.name.invalid && f.name.errors.required">
+              Please enter an name
+            </div>
+            <div *ngIf="f.name.invalid && f.name.errors.email">
+              Please enter a valid name
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            formControlName="email"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+            placeholder="enter your email"
+          />
+          <div *ngIf="submitted && f.email?.errors" class="invalid-feedback">
+            <div *ngIf="f.email.invalid && f.email.errors.required">
+              Please enter an email
+            </div>
+            <div *ngIf="f.email.invalid && f.email.errors.email">
+              Please enter a valid email
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            formControlName="password"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+            placeholder="enter your password"
+          />
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">
+              Please enter a password
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input
+            type="password"
+            formControlName="confirmPassword"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }"
+            placeholder="enter your confirm password"
+          />
+          <div
+            *ngIf="submitted && f.confirmPassword.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.confirmPassword.errors.required">
+              Please enter a confirm password
+            </div>
+          </div>
+        </div>
+        <div class="form-submit align-right">
+          <button class="btn" (click)="back()">
+            <i class="fa fa-undo" aria-hidden="true"></i>
+            Back
+          </button>
+          <button [disabled]="loading" class="btn">
+            <span
+              *ngIf="loading"
+              class="spinner-border spinner-border-sm mr-1"
+            ></span>
+            <i *ngIf="!loading" class="fa fa-sign-out" aria-hidden="true"></i>
+            Save
+          </button>
+        </div>
+        <div *ngIf="error" class="alert alert-danger mt-3 mb-0">
+          {{ error }}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

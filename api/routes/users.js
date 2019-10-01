@@ -12,6 +12,8 @@ usersRouter.get("", usersCtrl.checkEmailNotTaken);
 
 usersRouter.get("/all", usersCtrl.allUsers);
 
+usersRouter.get("/admininfo", usersCtrl.admininfo);
+
 usersRouter.post("/all", usersCtrl.editUsers);
 
 usersRouter

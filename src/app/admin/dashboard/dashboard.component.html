@@ -14,6 +14,15 @@
       <li class="nav-item">
         <a
           class="nav-link"
+          (click)="linkUrl('admins')"
+          [ngClass]="getCurrentUrl() == 'admins' ? 'nav-pressed' : 'nav-normal'"
+        >
+          <i class="fa fa-user" aria-hidden="true"></i> Admin
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
           (click)="linkUrl('user')"
           [ngClass]="getCurrentUrl() == 'user' ? 'nav-pressed' : 'nav-normal'"
         >

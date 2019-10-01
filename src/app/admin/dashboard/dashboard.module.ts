@@ -8,6 +8,7 @@ import { ImageCropperModule } from "ngx-image-cropper";
 
 import { DashboardComponent } from "./dashboard.component";
 import { DashboardRoutingModule } from "./dashboard-routing.module";
+import { AdminsComponent } from "./admins/admins.component";
 import { UserGetComponent } from "./user/user-get/user-get.component";
 import { UserEditComponent } from "./user/user-edit/user-edit.component";
 import { BlogAddComponent } from "./blog/blog-add/blog-add.component";
@@ -36,7 +37,8 @@ import { ExcelService } from "@app/services/excel.service";
     VendorAddComponent,
     ReportGetComponent,
     MatchValueDirective,
-    SanitizeHtmlPipe
+    SanitizeHtmlPipe,
+    AdminsComponent
   ],
   imports: [
     CommonModule,

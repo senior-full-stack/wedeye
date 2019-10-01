@@ -31,6 +31,10 @@ export class UserService {
     return this.http.get(`${environment.adminApiUrl}/api/users/${id}`);
   }
 
+  findAdminData(name: string) {
+    return this.http.get(`${environment.adminApiUrl}/api/users/admininfo`);
+  }
+
   checkEmailNotTaken(email: string) {
     return this.http.get(`${environment.adminApiUrl}/api/users?email=${email}`);
   }
