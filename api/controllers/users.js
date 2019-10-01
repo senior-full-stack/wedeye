@@ -22,11 +22,16 @@ module.exports = {
   editUsers: (req, res) => {
     var users = JSON.parse(req.body.data);
     if (users.data && users.data.length > 0) {
+      var newUsers = users.data.filter(user => user._id == '' || user._id == null)
+      // insert new users
+      User.insertMany(newUsers, {ordered: false});
+
+      // update exist users
       let userUpdate = users.data.map(user => ({
         replaceOne: {
           filter: {_id: user._id},
           replacement: user,
-          upsert: true
+          upsert: false
         }
       }));
       

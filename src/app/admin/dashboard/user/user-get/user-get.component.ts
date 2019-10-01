@@ -32,6 +32,8 @@ export class UserGetComponent implements OnInit {
   searchText: string;
   baseUrl = environment.adminApiUrl;
 
+  excelFile: any;
+
   constructor(
     private toast: ToastrService,
     private addUserDlg: MatDialog,
@@ -160,6 +162,9 @@ export class UserGetComponent implements OnInit {
 
       this.userService.setAllUsers(dataString).subscribe((res: any) => {
         this.search(-1, -1);
+
+        this.excelFile = null;
+        
         this.cdr.markForCheck();
       });
     };

@@ -29,7 +29,7 @@
   <div class="add-user align-right">
     <button class="btn" (click)="openAddUserDlg()"><i class="fa fa-user-plus"></i> Add User</button>
     <button class="btn" (click)="exportExcel()"> <i class="fa fa-upload"></i> Export Users</button>
-    <button class="btn"><input type="file" (change)="changeExcel($event)" /> <i class="fa fa-download"></i> Import Users</button>
+    <button class="btn"><input type="file" [(ngModel)]="excelFile" (change)="changeExcel($event)" /> <i class="fa fa-download"></i> Import Users</button>
   </div>
   
   <div class="table-responsive">
