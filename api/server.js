@@ -50,6 +50,8 @@ app.set("etag", false);
 app.use(cors(corsOptions));
 // set a public directory for downloading files
 app.use("/uploads", express.static(`${__dirname}/uploads`));
+app.use("/download", express.static(`${__dirname}/downloads`));
+
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -80,7 +82,6 @@ app.post("/api/upload", multipartMiddleware, (req, res) => {
     });
   }
 });
-
 app.listen(PORT, err => {
   console.log(err || `Server running on port ${PORT}.`);
 });

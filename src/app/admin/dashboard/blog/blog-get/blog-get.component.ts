@@ -4,8 +4,12 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef
 } from "@angular/core";
+import { saveAs } from "file-saver";
 import { HttpEventType, HttpResponse } from "@angular/common/http";
 import { DomSanitizer } from "@angular/platform-browser";
+import { HttpClient, HttpRequest } from "@angular/common/http";
+import { environment } from "@environments/environment";
+import { BlogService } from "@app/services";
 
 @Component({
   selector: "app-blog-get",
@@ -15,21 +19,26 @@ import { DomSanitizer } from "@angular/platform-browser";
 export class BlogGetComponent implements OnInit {
   downLoading = false;
   fileUrl;
+  baseUrl = environment.adminApiUrl;
 
-  constructor(private sanitizer: DomSanitizer,private cdr: ChangeDetectorRef) {}
+  constructor(
+    private sanitizer: DomSanitizer,
+    private cdr: ChangeDetectorRef,
+    private blogService: BlogService,
+    private http: HttpClient
+  ) {}
 
   ngOnInit() {}
 
   download() {
-    this.downLoading = true;
-    const data = "some text";
-
-    const blob = new Blob([data], { type: "application/octet-stream" });
-
-    this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-      window.URL.createObjectURL(blob)
+    let filename = "app.txt";
+    this.blogService.download(filename).subscribe(
+      data => {
+        saveAs(data, filename);
+      },
+      err => {
+        console.error(err);
+      }
     );
-    this.downLoading = false;
-    this.cdr.markForCheck();
   }
 }

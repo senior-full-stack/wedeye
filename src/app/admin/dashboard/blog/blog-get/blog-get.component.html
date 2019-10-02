@@ -7,15 +7,18 @@
         <p>Our 1 Crore+ Resellers can boost your business through</p>
         <p>7,00,00,000+ customers</p>
         <br />
-        <a [href]="fileUrl" download="app.apk" (click)="download()">
+        <a [href]="https: //play.google.com/store/apps" download="app.apk">
           <span
             *ngIf="downLoading"
             class="spinner-border spinner-border-sm mr-1"
           ></span>
           <i *ngIf="!downLoading" class="fa fa-download"></i> Download App
         </a>
-        <!-- <button (click)="download">
-          <span *ngIf="downLoading" class="spinner-border spinner-border-sm mr-1"></span>
+        <!-- <button (click)="download()">
+          <span
+            *ngIf="downLoading"
+            class="spinner-border spinner-border-sm mr-1"
+          ></span>
           <i *ngIf="!downLoading" class="fa fa-download"></i> Download App
         </button> -->
       </div>
@@ -23,10 +26,10 @@
     </div>
     <div class="clear"></div>
   </div>
-  
+
   <div class="footer">
-    <br>
-    <br>
+    <br />
+    <br />
     <div class="row">
       <div class="col">
         <h1>WedEye</h1>
@@ -38,7 +41,7 @@
         <p>support@wedeye.com</p>
       </div>
     </div>
-    <br/>
+    <br />
     <hr />
     <br />
     <div class="row">
