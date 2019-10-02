@@ -34,7 +34,7 @@ export class DashboardComponent {
 
   linkUrl(url: string) {
     this.isExpanded = false;
-
+    window.scroll(0, 0);
     this.router.navigate([`/admin/dashboard/${url}`]);
   }
 

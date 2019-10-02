@@ -12,11 +12,11 @@ import { environment } from "@environments/environment";
 import { BlogService } from "@app/services";
 
 @Component({
-  selector: "app-blog-get",
-  templateUrl: "./blog-get.component.html",
-  styleUrls: ["./blog-get.component.scss"]
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.scss"]
 })
-export class BlogGetComponent implements OnInit {
+export class HomeComponent implements OnInit {
   downLoading = false;
   fileUrl = "";
   baseUrl = environment.adminApiUrl;

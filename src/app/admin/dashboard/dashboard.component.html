@@ -1,6 +1,6 @@
 <!-- nav -->
 <nav class="navbar navbar-expand-md dashboard-navbar">
-  <span class="app-title">WedEye</span>
+  <span class="app-title" (click)="linkUrl('home')">WedEye</span>
   <!-- Collapse button -->
   <button class="navbar-toggler" type="button" (click)="openNavbar()">
     <span class="fa fa-bars"></span>
@@ -40,8 +40,8 @@
       </li>
       <li class="nav-item">
         <a
+          [href]="currentUrl + '#footer'"
           class="nav-link"
-          (click)="linkUrl('blog')"
           [ngClass]="getCurrentUrl() == 'blog' ? 'nav-pressed' : 'nav-normal'"
         >
           <i class="fa fa-phone" aria-hidden="true"></i> Contact
@@ -67,4 +67,51 @@
 
 <div class="dashboard-container" (click)="closeNavbar()">
   <router-outlet></router-outlet>
+</div>
+<!-- footer -->
+<div class="footer" id="footer">
+  <br />
+  <br />
+  <div class="row">
+    <div class="col-md-6 col-sm-12">
+      <h1>WedEye</h1>
+      <p>Our 1 Crore+ Resellers can boost your business through</p>
+      <p>7,00,00,000+ customers</p>
+    </div>
+    <div class="col-md-6 col-sm-12">
+      <h2>Contact Us</h2>
+      <p>support@wedeye.com</p>
+    </div>
+  </div>
+  <br />
+  <hr />
+  <br />
+  <div class="row">
+    <div class="col-md-6 col-sm-12">
+      <ul>
+        <li>
+          <a href="http://www.facebook.com/"><i class="fa fa-facebook"></i></a>
+        </li>
+        <li>
+          <a href="http://www.instagram.com/"
+            ><i class="fa fa-instagram"></i
+          ></a>
+        </li>
+        <li>
+          <a href="http://www.youtube.com/"
+            ><i class="fa fa-youtube-play"></i
+          ></a>
+        </li>
+        <li>
+          <a href="http://www.linkedin.com/"><i class="fa fa-linkedin"></i></a>
+        </li>
+        <li>
+          <a href="http://twitter.com/"><i class="fa fa-twitter"></i></a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-6 col-sm-12">
+      <p>© 2015-19 WedEye Inc. All Rights Reserved.</p>
+    </div>
+  </div>
 </div>

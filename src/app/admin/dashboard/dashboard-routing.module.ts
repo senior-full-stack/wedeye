@@ -12,13 +12,15 @@ import { BlogGetComponent } from "./blog/blog-get/blog-get.component";
 import { ReportGetComponent } from "./report/report-get/report-get.component";
 import { BlogAddComponent } from "./blog/blog-add/blog-add.component";
 import { BlogEditComponent } from "./blog/blog-edit/blog-edit.component";
+import { HomeComponent } from "./home/home.component";
 
 const routes: Routes = [
-  { path: "", redirectTo: "/admin/dashboard/user", pathMatch: "full" },
+  { path: "", redirectTo: "/admin/dashboard/home", pathMatch: "full" },
   {
     path: "",
     component: DashboardComponent,
     children: [
+      { path: "home", component: HomeComponent },
       { path: "admins", component: AdminsComponent },
       { path: "user", component: UserGetComponent },
       { path: "user/edit", component: UserEditComponent },

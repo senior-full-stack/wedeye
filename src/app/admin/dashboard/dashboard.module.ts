@@ -22,6 +22,7 @@ import { UserAddComponent } from "./user/user-add/user-add.component";
 import { MatchValueDirective } from "../../directives/match-value.directive";
 import { SanitizeHtmlPipe } from "@app/pipes/sanitizeHtml";
 import { ExcelService } from "@app/services/excel.service";
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ExcelService } from "@app/services/excel.service";
     ReportGetComponent,
     MatchValueDirective,
     SanitizeHtmlPipe,
-    AdminsComponent
+    AdminsComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,
