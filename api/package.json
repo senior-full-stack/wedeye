@@ -21,7 +21,7 @@
     "jsonwebtoken": "^8.1.0",
     "jw-paginate": "^1.0.4",
     "moment": "^2.24.0",
-    "mongoose": "5.3.8",
+    "mongoose": "5.7.5",
     "morgan": "^1.9.1"
   }
 }
